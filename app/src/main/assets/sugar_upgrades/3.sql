@@ -1,0 +1,1 @@
+alter table VIDEO add COVER_FOR_SHARING TEXT;

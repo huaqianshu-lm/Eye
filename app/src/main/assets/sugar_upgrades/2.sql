@@ -1,0 +1,1 @@
+alter table VIDEO add FUNCTION_TYPE TEXT;

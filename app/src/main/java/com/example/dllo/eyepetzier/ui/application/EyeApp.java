@@ -5,6 +5,7 @@ import android.content.Context;
 
 /**
  * Created by dllo on 16/8/12.
+ * 整个应用的application 在这里可以获取全局的context
  */
 public class EyeApp extends Application{
     protected static Context context;
