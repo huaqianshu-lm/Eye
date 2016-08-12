@@ -1,0 +1,1 @@
+alter table VIDEO add AUTHOR_JSON TEXT;

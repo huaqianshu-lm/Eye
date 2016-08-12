@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Eyepetzier</string>
+    <string-array name="tab_titles">
+        <item>精选</item>
+        <item>发现</item>
+        <item>作者</item>
+        <item>我的</item>
+    </string-array>
 </resources>
