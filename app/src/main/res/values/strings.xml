@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Eyepetzier</string>
     <string name="view_foot_fgmt_feed_tv_text">查看更多精选</string>
+
+    <string name="app_font_family">monospace</string>
+
     <string-array name="tab_titles">
         <item>精选</item>
         <item>发现</item>
