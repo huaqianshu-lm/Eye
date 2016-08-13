@@ -225,12 +225,41 @@ public class FeedFragmentBean {
         }
 
         public static class ItemListBean {
+
+
+            /**
+             * type : video
+             * data : {"dataType":"VideoBeanForClient","id":7982,"title":"家中特等席：周末像猫一样","description":"日本门窗制造商 YKK 的喵星人短片又來啦。不同于「爱宠大机密」的动物大救援，现实生活中的小猫们更喜爱在窗子通过的光下睡懒觉哦~ 让我们像猫一样过周末吧！ From umatob003","provider":{"name":"YouTube","alias":"youtube","icon":"http://img.wdjimg.com/image/video/fa20228bc5b921e837156923a58713f6_256_256.png"},"category":"广告","author":null,"cover":{"feed":"http://7xt9ac.com2.z0.glb.qiniucdn.com/7982.jpg","detail":"http://7xt9ac.com2.z0.glb.qiniucdn.com/7982.jpg","blurred":"http://7xt9ac.com2.z0.glb.qiniucdn.com/b7982.jpg","sharing":null},"playUrl":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=default","duration":30,"webUrl":{"raw":"http://www.wandoujia.com/eyepetizer/detail.html?vid=7982","forWeibo":"http://wandou.im/2hxg77"},"releaseTime":1471060960000,"playInfo":[{"height":360,"width":640,"name":"流畅","type":"low","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=low"},{"height":480,"width":854,"name":"标清","type":"normal","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=normal"},{"height":720,"width":1280,"name":"高清","type":"high","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=high"}],"consumption":{"collectionCount":217,"shareCount":529,"replyCount":14},"campaign":null,"waterMarks":null,"adTrack":null,"tags":[{"id":16,"name":"广告","actionUrl":"eyepetizer://tag/16/?title=%E5%B9%BF%E5%91%8A","adTrack":null},{"id":538,"name":"喵星人","actionUrl":"eyepetizer://tag/538/?title=%E5%96%B5%E6%98%9F%E4%BA%BA","adTrack":null},{"id":32,"name":"萌宠","actionUrl":"eyepetizer://tag/32/?title=%E8%90%8C%E5%AE%A0","adTrack":null},{"id":596,"name":"家居","actionUrl":"eyepetizer://tag/596/?title=%E5%AE%B6%E5%B1%85","adTrack":null}],"type":"NORMAL","idx":0,"shareAdTrack":null,"favoriteAdTrack":null,"webAdTrack":null,"date":1471060800000,"promotion":null,"label":null}
+             */
+
             private String type;
             /**
-             * dataType : TextHeader
-             * text : - Weekend Special -
-             * font : lobster
+             * dataType : VideoBeanForClient
+             * id : 7982
+             * title : 家中特等席：周末像猫一样
+             * description : 日本门窗制造商 YKK 的喵星人短片又來啦。不同于「爱宠大机密」的动物大救援，现实生活中的小猫们更喜爱在窗子通过的光下睡懒觉哦~ 让我们像猫一样过周末吧！ From umatob003
+             * provider : {"name":"YouTube","alias":"youtube","icon":"http://img.wdjimg.com/image/video/fa20228bc5b921e837156923a58713f6_256_256.png"}
+             * category : 广告
+             * author : null
+             * cover : {"feed":"http://7xt9ac.com2.z0.glb.qiniucdn.com/7982.jpg","detail":"http://7xt9ac.com2.z0.glb.qiniucdn.com/7982.jpg","blurred":"http://7xt9ac.com2.z0.glb.qiniucdn.com/b7982.jpg","sharing":null}
+             * playUrl : http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=default
+             * duration : 30
+             * webUrl : {"raw":"http://www.wandoujia.com/eyepetizer/detail.html?vid=7982","forWeibo":"http://wandou.im/2hxg77"}
+             * releaseTime : 1471060960000
+             * playInfo : [{"height":360,"width":640,"name":"流畅","type":"low","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=low"},{"height":480,"width":854,"name":"标清","type":"normal","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=normal"},{"height":720,"width":1280,"name":"高清","type":"high","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=high"}]
+             * consumption : {"collectionCount":217,"shareCount":529,"replyCount":14}
+             * campaign : null
+             * waterMarks : null
              * adTrack : null
+             * tags : [{"id":16,"name":"广告","actionUrl":"eyepetizer://tag/16/?title=%E5%B9%BF%E5%91%8A","adTrack":null},{"id":538,"name":"喵星人","actionUrl":"eyepetizer://tag/538/?title=%E5%96%B5%E6%98%9F%E4%BA%BA","adTrack":null},{"id":32,"name":"萌宠","actionUrl":"eyepetizer://tag/32/?title=%E8%90%8C%E5%AE%A0","adTrack":null},{"id":596,"name":"家居","actionUrl":"eyepetizer://tag/596/?title=%E5%AE%B6%E5%B1%85","adTrack":null}]
+             * type : NORMAL
+             * idx : 0
+             * shareAdTrack : null
+             * favoriteAdTrack : null
+             * webAdTrack : null
+             * date : 1471060800000
+             * promotion : null
+             * label : null
              */
 
             private DataBean data;
@@ -252,10 +281,78 @@ public class FeedFragmentBean {
             }
 
             public static class DataBean {
-                private String dataType;
-                private String text;
-                private String font;
-                private Object adTrack;
+
+                private int id;
+                private String title;
+                private String description;
+                /**
+                 * name : YouTube
+                 * alias : youtube
+                 * icon : http://img.wdjimg.com/image/video/fa20228bc5b921e837156923a58713f6_256_256.png
+                 */
+
+                private ProviderBean provider;
+                private String category;
+                private Object author;
+                /**
+                 * feed : http://7xt9ac.com2.z0.glb.qiniucdn.com/7982.jpg
+                 * detail : http://7xt9ac.com2.z0.glb.qiniucdn.com/7982.jpg
+                 * blurred : http://7xt9ac.com2.z0.glb.qiniucdn.com/b7982.jpg
+                 * sharing : null
+                 */
+
+                private CoverBean cover;
+                private String playUrl;
+                private int duration;
+                /**
+                 * raw : http://www.wandoujia.com/eyepetizer/detail.html?vid=7982
+                 * forWeibo : http://wandou.im/2hxg77
+                 */
+
+                private WebUrlBean webUrl;
+                private long releaseTime;
+                /**
+                 * collectionCount : 217
+                 * shareCount : 529
+                 * replyCount : 14
+                 */
+
+                private ConsumptionBean consumption;
+                private Object campaign;
+                private Object waterMarks;
+                private String type;
+                private int idx;
+                private Object shareAdTrack;
+                private Object favoriteAdTrack;
+                private Object webAdTrack;
+                private long date;
+                private Object promotion;
+                private Object label;
+                /**
+                 * height : 360
+                 * width : 640
+                 * name : 流畅
+                 * type : low
+                 * url : http://baobab.wandoujia.com/api/v1/playUrl?vid=7982&editionType=low
+                 */
+
+                private List<PlayInfoBean> playInfo;
+                /**
+                 * id : 16
+                 * name : 广告
+                 * actionUrl : eyepetizer://tag/16/?title=%E5%B9%BF%E5%91%8A
+                 * adTrack : null
+                 */
+
+                private List<TagsBean> tags;
+                /**
+                 * dataType : TextHeader
+                 * text : - Weekend Special -
+                 * font : lobster
+                 * adTrack : null
+                 */
+
+                private DataBean data;
 
                 public String getDataType() {
                     return dataType;
@@ -265,20 +362,116 @@ public class FeedFragmentBean {
                     this.dataType = dataType;
                 }
 
-                public String getText() {
-                    return text;
+                public int getId() {
+                    return id;
                 }
 
-                public void setText(String text) {
-                    this.text = text;
+                public void setId(int id) {
+                    this.id = id;
                 }
 
-                public String getFont() {
-                    return font;
+                public String getTitle() {
+                    return title;
                 }
 
-                public void setFont(String font) {
-                    this.font = font;
+                public void setTitle(String title) {
+                    this.title = title;
+                }
+
+                public String getDescription() {
+                    return description;
+                }
+
+                public void setDescription(String description) {
+                    this.description = description;
+                }
+
+                public ProviderBean getProvider() {
+                    return provider;
+                }
+
+                public void setProvider(ProviderBean provider) {
+                    this.provider = provider;
+                }
+
+                public String getCategory() {
+                    return category;
+                }
+
+                public void setCategory(String category) {
+                    this.category = category;
+                }
+
+                public Object getAuthor() {
+                    return author;
+                }
+
+                public void setAuthor(Object author) {
+                    this.author = author;
+                }
+
+                public CoverBean getCover() {
+                    return cover;
+                }
+
+                public void setCover(CoverBean cover) {
+                    this.cover = cover;
+                }
+
+                public String getPlayUrl() {
+                    return playUrl;
+                }
+
+                public void setPlayUrl(String playUrl) {
+                    this.playUrl = playUrl;
+                }
+
+                public int getDuration() {
+                    return duration;
+                }
+
+                public void setDuration(int duration) {
+                    this.duration = duration;
+                }
+
+                public WebUrlBean getWebUrl() {
+                    return webUrl;
+                }
+
+                public void setWebUrl(WebUrlBean webUrl) {
+                    this.webUrl = webUrl;
+                }
+
+                public long getReleaseTime() {
+                    return releaseTime;
+                }
+
+                public void setReleaseTime(long releaseTime) {
+                    this.releaseTime = releaseTime;
+                }
+
+                public ConsumptionBean getConsumption() {
+                    return consumption;
+                }
+
+                public void setConsumption(ConsumptionBean consumption) {
+                    this.consumption = consumption;
+                }
+
+                public Object getCampaign() {
+                    return campaign;
+                }
+
+                public void setCampaign(Object campaign) {
+                    this.campaign = campaign;
+                }
+
+                public Object getWaterMarks() {
+                    return waterMarks;
+                }
+
+                public void setWaterMarks(Object waterMarks) {
+                    this.waterMarks = waterMarks;
                 }
 
                 public Object getAdTrack() {
@@ -288,6 +481,328 @@ public class FeedFragmentBean {
                 public void setAdTrack(Object adTrack) {
                     this.adTrack = adTrack;
                 }
+
+                public String getType() {
+                    return type;
+                }
+
+                public void setType(String type) {
+                    this.type = type;
+                }
+
+                public int getIdx() {
+                    return idx;
+                }
+
+                public void setIdx(int idx) {
+                    this.idx = idx;
+                }
+
+                public Object getShareAdTrack() {
+                    return shareAdTrack;
+                }
+
+                public void setShareAdTrack(Object shareAdTrack) {
+                    this.shareAdTrack = shareAdTrack;
+                }
+
+                public Object getFavoriteAdTrack() {
+                    return favoriteAdTrack;
+                }
+
+                public void setFavoriteAdTrack(Object favoriteAdTrack) {
+                    this.favoriteAdTrack = favoriteAdTrack;
+                }
+
+                public Object getWebAdTrack() {
+                    return webAdTrack;
+                }
+
+                public void setWebAdTrack(Object webAdTrack) {
+                    this.webAdTrack = webAdTrack;
+                }
+
+                public long getDate() {
+                    return date;
+                }
+
+                public void setDate(long date) {
+                    this.date = date;
+                }
+
+                public Object getPromotion() {
+                    return promotion;
+                }
+
+                public void setPromotion(Object promotion) {
+                    this.promotion = promotion;
+                }
+
+                public Object getLabel() {
+                    return label;
+                }
+
+                public void setLabel(Object label) {
+                    this.label = label;
+                }
+
+                public List<PlayInfoBean> getPlayInfo() {
+                    return playInfo;
+                }
+
+                public void setPlayInfo(List<PlayInfoBean> playInfo) {
+                    this.playInfo = playInfo;
+                }
+
+                public List<TagsBean> getTags() {
+                    return tags;
+                }
+
+                public void setTags(List<TagsBean> tags) {
+                    this.tags = tags;
+                }
+
+                public DataBean getData() {
+                    return data;
+                }
+
+                public void setData(DataBean data) {
+                    this.data = data;
+                }
+
+                public static class ProviderBean {
+                    private String name;
+                    private String alias;
+                    private String icon;
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getAlias() {
+                        return alias;
+                    }
+
+                    public void setAlias(String alias) {
+                        this.alias = alias;
+                    }
+
+                    public String getIcon() {
+                        return icon;
+                    }
+
+                    public void setIcon(String icon) {
+                        this.icon = icon;
+                    }
+                }
+
+                public static class CoverBean {
+                    private String feed;
+                    private String detail;
+                    private String blurred;
+                    private Object sharing;
+
+                    public String getFeed() {
+                        return feed;
+                    }
+
+                    public void setFeed(String feed) {
+                        this.feed = feed;
+                    }
+
+                    public String getDetail() {
+                        return detail;
+                    }
+
+                    public void setDetail(String detail) {
+                        this.detail = detail;
+                    }
+
+                    public String getBlurred() {
+                        return blurred;
+                    }
+
+                    public void setBlurred(String blurred) {
+                        this.blurred = blurred;
+                    }
+
+                    public Object getSharing() {
+                        return sharing;
+                    }
+
+                    public void setSharing(Object sharing) {
+                        this.sharing = sharing;
+                    }
+                }
+
+                public static class WebUrlBean {
+                    private String raw;
+                    private String forWeibo;
+
+                    public String getRaw() {
+                        return raw;
+                    }
+
+                    public void setRaw(String raw) {
+                        this.raw = raw;
+                    }
+
+                    public String getForWeibo() {
+                        return forWeibo;
+                    }
+
+                    public void setForWeibo(String forWeibo) {
+                        this.forWeibo = forWeibo;
+                    }
+                }
+
+                public static class ConsumptionBean {
+                    private int collectionCount;
+                    private int shareCount;
+                    private int replyCount;
+
+                    public int getCollectionCount() {
+                        return collectionCount;
+                    }
+
+                    public void setCollectionCount(int collectionCount) {
+                        this.collectionCount = collectionCount;
+                    }
+
+                    public int getShareCount() {
+                        return shareCount;
+                    }
+
+                    public void setShareCount(int shareCount) {
+                        this.shareCount = shareCount;
+                    }
+
+                    public int getReplyCount() {
+                        return replyCount;
+                    }
+
+                    public void setReplyCount(int replyCount) {
+                        this.replyCount = replyCount;
+                    }
+                }
+
+                public static class PlayInfoBean {
+                    private int height;
+                    private int width;
+                    private String name;
+                    private String type;
+                    private String url;
+
+                    public int getHeight() {
+                        return height;
+                    }
+
+                    public void setHeight(int height) {
+                        this.height = height;
+                    }
+
+                    public int getWidth() {
+                        return width;
+                    }
+
+                    public void setWidth(int width) {
+                        this.width = width;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+
+                    public String getUrl() {
+                        return url;
+                    }
+
+                    public void setUrl(String url) {
+                        this.url = url;
+                    }
+                }
+
+                public static class TagsBean {
+                    private int id;
+                    private String name;
+                    private String actionUrl;
+                    private Object adTrack;
+
+                    public int getId() {
+                        return id;
+                    }
+
+                    public void setId(int id) {
+                        this.id = id;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getActionUrl() {
+                        return actionUrl;
+                    }
+
+                    public void setActionUrl(String actionUrl) {
+                        this.actionUrl = actionUrl;
+                    }
+
+                    public Object getAdTrack() {
+                        return adTrack;
+                    }
+
+                    public void setAdTrack(Object adTrack) {
+                        this.adTrack = adTrack;
+                    }
+                }
+
+
+                    private String dataType;
+                    private String text;
+                    private String font;
+                    private Object adTrack;
+
+
+
+                    public String getText() {
+                        return text;
+                    }
+
+                    public void setText(String text) {
+                        this.text = text;
+                    }
+
+                    public String getFont() {
+                        return font;
+                    }
+
+                    public void setFont(String font) {
+                        this.font = font;
+                    }
+
+
+
             }
         }
     }

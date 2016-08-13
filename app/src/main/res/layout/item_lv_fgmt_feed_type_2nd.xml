@@ -4,9 +4,28 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+    
+    <TextView
+        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StyleFgmtFeedLvTextview"
+        android:layout_centerInParent="true"
+        />
 
-
-
+    <TextView
+        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/StyleFgmtFeedLvTextview"
+        android:textSize="@dimen/textsize_app"
+        android:layout_below="@id/item_lv_fgmt_feed_type_2nd_tv_title"
+        />
+    
+    <ImageView
+        android:id="@+id/item_lv_fgmt_feed_type_2nd_imgv_feed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
