@@ -1,5 +1,7 @@
 package com.example.dllo.eyepetzier.ui.fragment;
 
+import android.widget.ListView;
+
 import com.example.dllo.eyepetzier.R;
 
 /**
@@ -7,14 +9,17 @@ import com.example.dllo.eyepetzier.R;
  * 精选页面的fragment
  */
 public class FeedFragment extends AbaBaseFragment {
+
+    private ListView listView;
+
     @Override
     protected int setLayout() {
-        return R.layout.fragment_collection;
+        return R.layout.fragment_feed;
     }
 
     @Override
     protected void initView() {
-
+        listView = bindView(R.id.fgmt_feed_listview);
     }
 
     @Override
