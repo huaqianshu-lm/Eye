@@ -9,7 +9,7 @@ import com.example.dllo.eyepetzier.R;
 public class FeedFragment extends AbaBaseFragment {
     @Override
     protected int setLayout() {
-        return R.layout.fragment_collection;
+        return R.layout.fragment_feed;
     }
 
     @Override

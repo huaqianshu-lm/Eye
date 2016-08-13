@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="EyepetzierTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:textSize">@dimen/textsize_app</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>
