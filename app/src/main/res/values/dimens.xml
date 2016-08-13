@@ -3,7 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="padding_view_head_foot">20dp</dimen>
+    <dimen name="padding_default">10dp</dimen>
+
 
     <dimen name="textsize_app">15sp</dimen>
+    <dimen name="textsize_app_small">10sp</dimen>
+    <dimen name="textsize_app_large">20sp</dimen>
 
 </resources>

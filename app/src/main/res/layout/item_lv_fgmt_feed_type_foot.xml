@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 精选页面 section 1 : listview foot view-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/view_foot_fgmt_feed_tv"
+        android:id="@+id/item_lv_fgmt_feed_type_foot_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/view_foot_fgmt_feed_tv_text"
-        android:textSize="10dp"
+        android:textSize="@dimen/textsize_app_small"
         android:layout_centerInParent="true"
-        android:padding="@dimen/padding_view_head_foot"
-        android:textScaleX="1.0"
-        />
+        android:padding="@dimen/padding_view_head_foot" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        />
+        android:src="@mipmap/ic_action_next_grey"
+        android:layout_toRightOf="@id/item_lv_fgmt_feed_type_foot_tv"
+        android:layout_alignTop="@id/item_lv_fgmt_feed_type_foot_tv"
+        android:layout_alignBottom="@id/item_lv_fgmt_feed_type_foot_tv" />
 </RelativeLayout>

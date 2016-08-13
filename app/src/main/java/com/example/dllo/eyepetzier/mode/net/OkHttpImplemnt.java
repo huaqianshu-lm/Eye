@@ -90,7 +90,7 @@ public class OkHttpImplemnt implements INetwork {
                     String resultStr = response.body().string();
                     // 解析
 //                    final T resultEntity = mGson.fromJson(resultStr, clazz);
-                    final T resultEntity = JSON.parseObject(resultStr, clazz);;
+                    final T resultEntity = JSON.parseObject(resultStr, clazz);
                     // 给到主线程
                     mHandler.post(new Runnable() {
                         @Override
