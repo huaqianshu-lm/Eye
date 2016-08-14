@@ -10,4 +10,8 @@
         <item>作者</item>
         <item>我的</item>
     </string-array>
+    <string name="tab_feed">精选</string>
+    <string name="tab_discovery">发现</string>
+    <string name="tab_author">作者</string>
+    <string name="tab_mine">我的</string>
 </resources>

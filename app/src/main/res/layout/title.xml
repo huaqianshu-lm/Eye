@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    android:background="@color/bg">
 
     <com.example.dllo.eyepetzier.view.TitleTextView
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="title" />
+        android:text="Eyepetizer"
+        android:textSize="@dimen/title_text_size" />
 
     <ImageView
         android:id="@+id/title_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_margin="@dimen/title_iv_margin" />
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line" />
 </RelativeLayout>
