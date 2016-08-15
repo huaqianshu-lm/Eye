@@ -7,6 +7,8 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.util.Linkify;
 import android.util.SparseArray;
@@ -15,11 +17,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.Checkable;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.dllo.eyepetzier.R;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -109,6 +113,12 @@ public class RvViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+    public RvViewHolder setAdapter(int viewId,RecyclerView.Adapter adapter){
+        RecyclerView recyclerView = getView(viewId);
+        recyclerView.setLayoutManager(new GridLayoutManager(context,1,LinearLayoutManager.HORIZONTAL,false));
+        recyclerView.setAdapter(adapter);
+        return this;
+    }
     /**
      * 通过图片id设置图片
      *
@@ -122,9 +132,17 @@ public class RvViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+
+
     public RvViewHolder setImgUrl(int viewId, String url){
         ImageView imageView = getView(viewId);
-        Picasso.with(context).load(url).resize(150,150).into(imageView);
+        Picasso.with(context).load(url).error(R.mipmap.default_icon).into(imageView);
+        return this;
+    }
+
+    public RvViewHolder setImgUrl(int viewId, String url,int width,int height){
+        ImageView imageView = getView(viewId);
+        Picasso.with(context).load(url).error(R.mipmap.default_icon).resize(width,height).into(imageView);
         return this;
     }
 

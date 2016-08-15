@@ -14,7 +14,7 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="CustomTabLayout" >
+    <style name="CustomTabLayout">
         <item name="android:textSize">10sp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -26,5 +26,13 @@
     <style name="StyleFgmtFeedLvTextview">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_app_large</item>
+    </style>
+
+    <style name="AuthorFragmentTextView">
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+    <style name="AuthorFragmentChildTextView">
+        <item name="android:textColor">@color/author_fragment_child_rv_text_color</item>
     </style>
 </resources>

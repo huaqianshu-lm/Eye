@@ -15,8 +15,15 @@
     <dimen name="textsize_app_small">10sp</dimen>
     <dimen name="textsize_app_large">20sp</dimen>
 
-    <dimen name="textsize_app_small">10sp</dimen>
-    <dimen name="textsize_app_large">20sp</dimen>
+    <dimen name="author_fragment_item_margin">10dp</dimen>
+    <dimen name="author_fragment_item_textview_padding_left">10dp</dimen>
+    <dimen name="author_fragment_item_textview_padding_right">15dp</dimen>
+    <dimen name="author_fragment_item_textview_padding_top">10dp</dimen>
+    <dimen name="author_fragment_item_title_text_size">15dp</dimen>
+    <dimen name="author_fragment_item_subtitle_text_size">12sp</dimen>
+    <dimen name="author_fragment_item_description_text_size">14sp</dimen>
+    <dimen name="author_fragment_item_category_text_size">12sp</dimen>
+
 
 
 </resources>

@@ -18,6 +18,12 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
     protected ItemViewDelegateManager itemViewDelegateManager;
     protected OnItemClickListener onItemClickListener;
 
+    public AbsRvAdapter(Context context, List<T> datas) {
+        this.context = context;
+        this.datas = datas;
+        itemViewDelegateManager = new ItemViewDelegateManager();
+    }
+
     public AbsRvAdapter(Context context) {
         this.context = context;
         itemViewDelegateManager = new ItemViewDelegateManager();
