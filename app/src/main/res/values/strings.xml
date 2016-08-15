@@ -14,4 +14,5 @@
     <string name="tab_discovery">发现</string>
     <string name="tab_author">作者</string>
     <string name="tab_mine">我的</string>
+    <string name="feed_fgmt_imgv_content_description">feed fgmt image</string>
 </resources>

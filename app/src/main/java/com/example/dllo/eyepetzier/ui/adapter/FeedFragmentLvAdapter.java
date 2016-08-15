@@ -1,6 +1,7 @@
 package com.example.dllo.eyepetzier.ui.adapter;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,13 +89,41 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
                 break;
             case VIDEO:
                 holder2nd.tvTitle.setText(datas.get(position).getData().getTitle());
-                holder2nd.tvCategory.setText(datas.get(position).getData().getCategory());
+                String time = formatTime(position);
+                holder2nd.tvCategory.setText("#" + datas.get(position).getData().getCategory() + " / " + time);
+                if (datas.get(position).getData().getAuthor() != null) {
+                    holder2nd.tvAuthorName.setVisibility(View.VISIBLE);
+                    holder2nd.tvAuthorName.setText(datas.get(position).getData().getAuthor().getName());
+                }
                 Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
                 break;
         }
 //        convertView = getWrongView(position, convertView, parent);
         return convertView;
 
+    }
+
+    /**
+     * 用于将duration时间转换成分秒time
+     * @param position
+     * @return time字符串
+     */
+    @NonNull
+    private String formatTime(int position) {
+        int times = datas.get(position).getData().getDuration();
+        String minute = "";
+        String second = "";
+        int minutes = times / 60;
+        int seconds = times % 60;
+        if (minutes >= 10) {
+            minute = "" + minutes;
+        } else
+            minute = "0" + minutes;
+        if (seconds >= 10) {
+            second = "" + seconds;
+        } else
+            second = "0" + seconds;
+        return minute + "' " + second +"\"";
     }
 
     private View getWrongView(int position, View convertView, ViewGroup parent) {
@@ -122,6 +151,7 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
 
                 holder2nd.tvTitle.setText(datas.get(position).getData().getTitle());
                 holder2nd.tvCategory.setText(datas.get(position).getData().getCategory());
+
                 Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
                 break;
         }
@@ -148,12 +178,14 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
 
         private final TextView tvTitle;
         private final TextView tvCategory;
+        private final TextView tvAuthorName;
         private final ImageView imgvFeed;
 
         public HolderType2nd(View itemView) {
 
             tvTitle = (TextView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_title);
             tvCategory = (TextView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_category);
+            tvAuthorName = (TextView)itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name);
             imgvFeed = (ImageView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed);
 
         }

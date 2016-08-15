@@ -253,6 +253,102 @@ public class FeedFragmentBean {
 
             public static class DataBean {
 
+                /**
+                 * id : 134
+                 * icon : http://img.wdjimg.com/image/video/fef7cdcd26a44f0a30902838320d6b52_0_0.jpeg
+                 * name : GoPro
+                 * description : 用第一人称视角记录刺激的运动和温暖的生活。
+                 * link :
+                 * latestReleaseTime : 1471190400000
+                 * videoNum : 49
+                 * adTrack : null
+                 */
+
+                private AuthorBean author;
+
+                public AuthorBean getAuthor() {
+                    return author;
+                }
+
+                public void setAuthor(AuthorBean author) {
+                    this.author = author;
+                }
+
+                public static class AuthorBean {
+                    private int id;
+                    private String icon;
+                    private String name;
+                    private String description;
+                    private String link;
+                    private long latestReleaseTime;
+                    private int videoNum;
+                    private Object adTrack;
+
+                    public int getId() {
+                        return id;
+                    }
+
+                    public void setId(int id) {
+                        this.id = id;
+                    }
+
+                    public String getIcon() {
+                        return icon;
+                    }
+
+                    public void setIcon(String icon) {
+                        this.icon = icon;
+                    }
+
+                    public String getName() {
+                        return name;
+                    }
+
+                    public void setName(String name) {
+                        this.name = name;
+                    }
+
+                    public String getDescription() {
+                        return description;
+                    }
+
+                    public void setDescription(String description) {
+                        this.description = description;
+                    }
+
+                    public String getLink() {
+                        return link;
+                    }
+
+                    public void setLink(String link) {
+                        this.link = link;
+                    }
+
+                    public long getLatestReleaseTime() {
+                        return latestReleaseTime;
+                    }
+
+                    public void setLatestReleaseTime(long latestReleaseTime) {
+                        this.latestReleaseTime = latestReleaseTime;
+                    }
+
+                    public int getVideoNum() {
+                        return videoNum;
+                    }
+
+                    public void setVideoNum(int videoNum) {
+                        this.videoNum = videoNum;
+                    }
+
+                    public Object getAdTrack() {
+                        return adTrack;
+                    }
+
+                    public void setAdTrack(Object adTrack) {
+                        this.adTrack = adTrack;
+                    }
+                }
+
                 private String dataType;
                 private String text;
                 private String font;
@@ -295,7 +391,6 @@ public class FeedFragmentBean {
 
                 private ProviderBean provider;
                 private String category;
-                private Object author;
                 /**
                  * feed : http://img.wdjimg.com/image/video/65e1a8c0edd706bc66e2753726719613_0_0.jpeg
                  * detail : http://img.wdjimg.com/image/video/65e1a8c0edd706bc66e2753726719613_0_0.jpeg
@@ -420,13 +515,6 @@ public class FeedFragmentBean {
                     this.category = category;
                 }
 
-                public Object getAuthor() {
-                    return author;
-                }
-
-                public void setAuthor(Object author) {
-                    this.author = author;
-                }
 
                 public CoverBean getCover() {
                     return cover;
