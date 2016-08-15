@@ -1,4 +1,4 @@
-package com.example.dllo.eyepetzier.ui.adapter;
+package com.example.dllo.eyepetzier.ui.adapter.lv;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
