@@ -67,7 +67,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
      * @param to
      * @param values
      */
-    protected void gtTo (Context from,Class<? extends AbsBaseActivity> to,Bundle values){
+    protected void goTo(Context from, Class<? extends AbsBaseActivity> to, Bundle values){
         Intent intent = new Intent(from,to);
         intent.putExtras(values);
         startActivity(intent);
