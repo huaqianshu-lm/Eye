@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/main_tab_mine_tv"
+        style="@style/CustomTabLayout"
+        android:drawableTop="@drawable/selector_mine"
+        android:text="@string/tab_mine" />
+</LinearLayout>

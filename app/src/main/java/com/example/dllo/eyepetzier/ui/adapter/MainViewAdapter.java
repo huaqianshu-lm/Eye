@@ -19,9 +19,8 @@ public class MainViewAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
     private String[] titles;
 
-    public MainViewAdapter(FragmentManager fm, Context context) {
+    public MainViewAdapter(FragmentManager fm) {
         super(fm);
-        titles = context.getResources().getStringArray(R.array.tab_titles);
     }
 
     public void setFragments(List<Fragment> fragments) {
@@ -39,8 +38,5 @@ public class MainViewAdapter extends FragmentPagerAdapter {
         return fragments.size();
     }
 
-    @Override
-    public CharSequence getPageTitle(int position) {
-        return titles[position];
-    }
+
 }

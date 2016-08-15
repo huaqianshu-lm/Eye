@@ -10,4 +10,7 @@
 
 
 
+    <color name="bg">#ffffff</color>
+    <color name="line">#aaaaaa</color>
+
 </resources>
