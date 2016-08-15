@@ -1,9 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:text="discovery"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <com.youth.banner.Banner
+                android:id="@+id/discovery_banner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+            <LinearLayout
+               style="@style/FragmentDiscovery_ll_set">
+                <ImageView
+                    style="@style/FragmentDiscovery_left_icon_margin"
+                    android:id="@+id/iv_top10"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/a"
+                    android:scaleType="centerCrop"/>
+                <ImageView
+                    style="@style/FragmentDiscovery_right_icon_margin"
+                    android:id="@+id/iv_topic"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:src="@mipmap/a"
+                    android:scaleType="centerCrop"/>
+            </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@mipmap/a"
+                android:scaleType="centerCrop"/>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/FragmentDiscovery_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
