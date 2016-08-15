@@ -15,8 +15,4 @@
     <dimen name="textsize_app_small">10sp</dimen>
     <dimen name="textsize_app_large">20sp</dimen>
 
-    <dimen name="textsize_app_small">10sp</dimen>
-    <dimen name="textsize_app_large">20sp</dimen>
-
-
 </resources>
