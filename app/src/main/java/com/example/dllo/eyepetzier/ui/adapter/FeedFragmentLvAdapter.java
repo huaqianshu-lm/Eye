@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/8/13.
+ * 
  */
 public class FeedFragmentLvAdapter extends BaseAdapter {
 
@@ -157,7 +158,6 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
 
         }
     }
-
 
     /**
      * 获取行布局类型
