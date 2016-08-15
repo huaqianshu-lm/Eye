@@ -1,12 +1,15 @@
 package com.example.dllo.eyepetzier.ui.fragment;
 
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.FeedFragmentBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
-import com.example.dllo.eyepetzier.ui.adapter.FeedFragmentAdapter;
+import com.example.dllo.eyepetzier.mode.net.NetUrl;
+import com.example.dllo.eyepetzier.ui.adapter.FeedFragmentLvAdapter;
 
 /**
  * Created by dllo on 16/8/12.
@@ -15,6 +18,8 @@ import com.example.dllo.eyepetzier.ui.adapter.FeedFragmentAdapter;
 public class FeedFragment extends AbaBaseFragment {
 
     private ListView listView;
+    private TextView textViewLvFooter;
+    private View footView;
 
     @Override
     protected int setLayout() {
@@ -24,6 +29,8 @@ public class FeedFragment extends AbaBaseFragment {
     @Override
     protected void initView() {
         listView = bindView(R.id.fgmt_feed_listview);
+        footView = getActivity().getLayoutInflater().inflate(R.layout.item_lv_fgmt_feed_type_foot, null);
+        textViewLvFooter = (TextView) footView.findViewById(R.id.item_lv_fgmt_feed_type_foot_tv);
     }
 
     @Override
@@ -35,13 +42,15 @@ public class FeedFragment extends AbaBaseFragment {
 
     private void initListview() {
 
-        String url = "http://baobab.wandoujia.com/api/v3/tabs/selected?udid=86f35dc937824e09bf8d0c7dc0cfea543ed2a2a3&vc=126&vn=2.4.1&deviceModel=Google%20Nexus%205%20-%205.1.0%20-%20API%2022%20-%201080x1920&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=22";
-        NetRequestSingleton.getInstance().startRequest(url, FeedFragmentBean.class, new IOnHttpCallback<FeedFragmentBean>() {
+        NetRequestSingleton.getInstance().startRequest(NetUrl.FEED_FRAGMENT_URL, FeedFragmentBean.class, new IOnHttpCallback<FeedFragmentBean>() {
             @Override
             public void onSuccess(FeedFragmentBean response) {
-                FeedFragmentAdapter adapter = new FeedFragmentAdapter(getContext());
-                adapter.setDatas(response.getSectionList());
+                FeedFragmentLvAdapter adapter = new FeedFragmentLvAdapter(getContext());
+                adapter.setDatas(response.getSectionList().get(0).getItemList());
                 listView.setAdapter(adapter);
+                textViewLvFooter.setText(response.getSectionList().get(0).getFooter().getData().getText());
+                listView.addFooterView(footView);
+
             }
 
             @Override

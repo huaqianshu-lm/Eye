@@ -1,31 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 精选页面 section 1 : listview 行布局的type 2nd-->
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<?xml version="1.0" encoding="utf-8"?><!-- 精选页面 section 1 : listview 行布局的type 2nd-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    
-    <TextView
-        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/StyleFgmtFeedLvTextview"
-        android:layout_centerInParent="true"
-        />
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_category"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/StyleFgmtFeedLvTextview"
-        android:textSize="@dimen/textsize_app"
-        android:layout_below="@id/item_lv_fgmt_feed_type_2nd_tv_title"
-        />
-    
     <ImageView
         android:id="@+id/item_lv_fgmt_feed_type_2nd_imgv_feed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/feed_fgmt_imgv_content_description"
+        android:scaleType="fitXY" />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_title"
+        style="@style/StyleFgmtFeedLvTextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_category"
+        style="@style/StyleFgmtFeedLvTextview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="30sp"
+        android:gravity="center"
+        android:textSize="@dimen/textsize_app" />
+
+    <TextView
+        android:id="@+id/item_lv_fgmt_feed_type_2nd_tv_author_name"
+        style="@style/StyleFgmtFeedLvTextview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="60sp"
+        android:background="#55ffffff"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="@dimen/textsize_app"
+        android:visibility="invisible" />
+</FrameLayout>
