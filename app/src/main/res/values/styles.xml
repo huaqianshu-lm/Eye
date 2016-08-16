@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--发现界面RecycleView的边距-->
+        <item name="android:listDivider">@drawable/divider_bg</item>
     </style>
 
     <style name="EyepetzierTheme" parent="Theme.AppCompat.Light.NoActionBar">

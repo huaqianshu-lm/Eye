@@ -24,7 +24,6 @@
                     android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@mipmap/a"
                     android:scaleType="centerCrop"/>
                 <ImageView
                     style="@style/FragmentDiscovery_right_icon_margin"
@@ -32,18 +31,18 @@
                     android:layout_width="0dp"
                     android:layout_height="150dp"
                     android:layout_weight="1"
-                    android:src="@mipmap/a"
                     android:scaleType="centerCrop"/>
             </LinearLayout>
             <ImageView
+                android:id="@+id/iv_360"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:src="@mipmap/a"
                 android:scaleType="centerCrop"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/FragmentDiscovery_rv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"></android.support.v7.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

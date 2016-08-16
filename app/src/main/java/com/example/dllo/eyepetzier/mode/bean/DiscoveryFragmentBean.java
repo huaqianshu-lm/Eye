@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/8/15.
+ * 下方12个图片实体类
  */
 public class DiscoveryFragmentBean {
 
