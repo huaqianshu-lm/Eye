@@ -27,4 +27,11 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_app_large</item>
     </style>
+
+    <!--feed fgmt 分割线-->
+    <style name="DivideLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divide_line_height</item>
+        <item name="android:background">@color/grey_lite</item>
+    </style>
 </resources>

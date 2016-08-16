@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.FeedFragmentBean;
+import com.example.dllo.eyepetzier.utils.TextStyleSetter;
 import com.example.dllo.eyepetzier.view.TitleTextView;
 import com.squareup.picasso.Picasso;
 
@@ -24,6 +25,11 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
 
     private Context context;
     private List<FeedFragmentBean.SectionListBean.ItemListBean> datas;
+    /**
+     * 不同行type
+     */
+    private static final int TYPE_1 = 0;
+    private static final int TYPE_2 = 1;
 
     public FeedFragmentLvAdapter(Context context) {
         this.context = context;
@@ -85,11 +91,14 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
         }
 
         switch (viewType){
+
             case TYPE_1:
                 holder1st.titleTextView.setText(datas.get(position).getData().getText());
                 break;
             case TYPE_2:
                 holder2nd.tvTitle.setText(datas.get(position).getData().getTitle());
+                // tvTitle 字体加粗
+                new TextStyleSetter().setBoldText(holder2nd.tvTitle.getPaint());
                 String time = formatTime(position);
                 holder2nd.tvCategory.setText("#" + datas.get(position).getData().getCategory() + " / " + time);
                 if (datas.get(position).getData().getAuthor() != null) {
@@ -99,7 +108,6 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
                 Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
                 break;
         }
-//        convertView = getWrongView(position, convertView, parent);
         return convertView;
 
     }
@@ -125,39 +133,6 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
         } else
             second = "0" + seconds;
         return minute + "' " + second +"\"";
-    }
-
-    private View getWrongView(int position, View convertView, ViewGroup parent) {
-        HolderType1st holder1st;
-        HolderType2nd holder2nd;
-
-        switch (getItemType(position)) {
-            case TEXT_HEADER:
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_fgmt_feed_type_1st, parent, false);
-                    holder1st = new HolderType1st(convertView);
-                    convertView.setTag(holder1st);
-                } else
-                    holder1st = (HolderType1st) convertView.getTag();
-//                Log.e("zzz",datas.get(0).getItemList().get(position).getData().getText() );
-                holder1st.titleTextView.setText(datas.get(position).getData().getText());
-                break;
-
-            case VIDEO:
-                if (convertView == null) {
-                    convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_fgmt_feed_type_2nd, parent, false);
-                    holder2nd = new HolderType2nd(convertView);
-                    convertView.setTag(holder2nd);
-                } else
-                    holder2nd = (HolderType2nd) convertView.getTag();
-
-                holder2nd.tvTitle.setText(datas.get(position).getData().getTitle());
-                holder2nd.tvCategory.setText(datas.get(position).getData().getCategory());
-
-                Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
-                break;
-        }
-        return convertView;
     }
 
     /**
@@ -193,9 +168,6 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
         }
     }
 
-    private static final int TYPE_1 = 0;
-    private static final int TYPE_2 = 1;
-
     /**
      * 少复写了2个系统方法
      * @return
@@ -223,16 +195,16 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
      *
      * @return
      */
-    private ItemType getItemType(int position) {
-        String type = datas.get(position).getType();
-        switch (type) {
-            case "textHeader":
-                return ItemType.TEXT_HEADER;
-            case "video":
-                return ItemType.VIDEO;
-        }
-        return null;
-    }
+//    private ItemType getItemType(int position) {
+//        String type = datas.get(position).getType();
+//        switch (type) {
+//            case "textHeader":
+//                return ItemType.TEXT_HEADER;
+//            case "video":
+//                return ItemType.VIDEO;
+//        }
+//        return null;
+//    }
 
     /**
      * 行布局类型的枚举
