@@ -57,37 +57,38 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        int viewType = getItemViewType(position);
         HolderType1st holder1st = null;
         HolderType2nd holder2nd = null;
         if (convertView == null) {
-            switch (getItemType(position)){
-                case TEXT_HEADER:
+            switch (viewType){
+                case TYPE_1:
                     convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_fgmt_feed_type_1st, parent, false);
                     holder1st = new HolderType1st(convertView);
                     convertView.setTag(holder1st);
                     break;
-                case VIDEO:
+                case TYPE_2:
                     convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_fgmt_feed_type_2nd, parent, false);
                     holder2nd = new HolderType2nd(convertView);
                     convertView.setTag(holder2nd);
                     break;
             }
         } else {
-            switch (getItemType(position)){
-                case TEXT_HEADER:
+            switch (viewType){
+                case TYPE_1:
                     holder1st = (HolderType1st) convertView.getTag();
                     break;
-                case VIDEO:
+                case TYPE_2:
                     holder2nd = (HolderType2nd) convertView.getTag();
                     break;
             }
         }
 
-        switch (getItemType(position)){
-            case TEXT_HEADER:
+        switch (viewType){
+            case TYPE_1:
                 holder1st.titleTextView.setText(datas.get(position).getData().getText());
                 break;
-            case VIDEO:
+            case TYPE_2:
                 holder2nd.tvTitle.setText(datas.get(position).getData().getTitle());
                 String time = formatTime(position);
                 holder2nd.tvCategory.setText("#" + datas.get(position).getData().getCategory() + " / " + time);
@@ -129,6 +130,7 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
     private View getWrongView(int position, View convertView, ViewGroup parent) {
         HolderType1st holder1st;
         HolderType2nd holder2nd;
+
         switch (getItemType(position)) {
             case TEXT_HEADER:
                 if (convertView == null) {
@@ -189,6 +191,31 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
             imgvFeed = (ImageView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed);
 
         }
+    }
+
+    private static final int TYPE_1 = 0;
+    private static final int TYPE_2 = 1;
+
+    /**
+     * 少复写了2个系统方法
+     * @return
+     */
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        String type = datas.get(position).getType();
+        switch (type) {
+            case "textHeader":
+                return TYPE_1;
+            case "video":
+                return TYPE_2;
+        }
+
+        return super.getItemViewType(position);
     }
 
     /**

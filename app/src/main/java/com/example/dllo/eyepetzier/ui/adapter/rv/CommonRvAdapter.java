@@ -16,7 +16,7 @@ public abstract class CommonRvAdapter<T> extends AbsRvAdapter<T> {
     protected LayoutInflater inflater;
 
     public CommonRvAdapter(Context context, List<T> datas, final int layoutId) {
-        super(context);
+        super(context,datas);
         this.context = context;
         inflater = LayoutInflater.from(context);
         this.datas = datas;

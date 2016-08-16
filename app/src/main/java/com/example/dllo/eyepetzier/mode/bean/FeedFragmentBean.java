@@ -83,9 +83,81 @@ public class FeedFragmentBean {
     }
 
     public static class SectionListBean {
+
+        /**
+         * type : textHeader
+         * data : {"text":"最近更新作者","font":"bold","adTrack":null}
+         */
+
+        private HeaderBean header;
+
+        public HeaderBean getHeader() {
+            return header;
+        }
+
+        public void setHeader(HeaderBean header) {
+            this.header = header;
+        }
+
+        public static class HeaderBean {
+            private String type;
+            /**
+             * text : 最近更新作者
+             * font : bold
+             * adTrack : null
+             */
+
+            private DataBean data;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public DataBean getData() {
+                return data;
+            }
+
+            public void setData(DataBean data) {
+                this.data = data;
+            }
+
+            public static class DataBean {
+                private String text;
+                private String font;
+                private Object adTrack;
+
+                public String getText() {
+                    return text;
+                }
+
+                public void setText(String text) {
+                    this.text = text;
+                }
+
+                public String getFont() {
+                    return font;
+                }
+
+                public void setFont(String font) {
+                    this.font = font;
+                }
+
+                public Object getAdTrack() {
+                    return adTrack;
+                }
+
+                public void setAdTrack(Object adTrack) {
+                    this.adTrack = adTrack;
+                }
+            }
+        }
+
         private int id;
         private String type;
-        private Object header;
         /**
          * type : forwardFooter
          * data : {"text":"查看更多精选","font":"normal","actionUrl":"eyepetizer://feed/","adTrack":null}
@@ -115,14 +187,6 @@ public class FeedFragmentBean {
 
         public void setType(String type) {
             this.type = type;
-        }
-
-        public Object getHeader() {
-            return header;
-        }
-
-        public void setHeader(Object header) {
-            this.header = header;
         }
 
         public FooterBean getFooter() {
@@ -288,11 +352,78 @@ public class FeedFragmentBean {
                 }
 
                 public static class HeaderBean {
+
+                    /**
+                     * id : 228
+                     * icon : http://img.wdjimg.com/image/video/19c7c03d61cacf97ba9e77fb81244867_0_0.jpeg
+                     * title : adidas Originals
+                     * subTitle : 5 个视频
+                     * description : NMD_超越过去 ，再创未来
+                     * actionUrl : eyepetizer://pgc/detail/228/?title=adidas%20Originals
+                     * adTrack : null
+                     */
+
+                    private String icon;
+                    private String title;
+                    private String subTitle;
+                    private String description;
+                    private String actionUrl;
+                    private Object adTrack;
+
+
+
+                    public String getIcon() {
+                        return icon;
+                    }
+
+                    public void setIcon(String icon) {
+                        this.icon = icon;
+                    }
+
+                    public String getTitle() {
+                        return title;
+                    }
+
+                    public void setTitle(String title) {
+                        this.title = title;
+                    }
+
+                    public String getSubTitle() {
+                        return subTitle;
+                    }
+
+                    public void setSubTitle(String subTitle) {
+                        this.subTitle = subTitle;
+                    }
+
+                    public String getDescription() {
+                        return description;
+                    }
+
+                    public void setDescription(String description) {
+                        this.description = description;
+                    }
+
+                    public String getActionUrl() {
+                        return actionUrl;
+                    }
+
+                    public void setActionUrl(String actionUrl) {
+                        this.actionUrl = actionUrl;
+                    }
+
+                    public Object getAdTrack() {
+                        return adTrack;
+                    }
+
+                    public void setAdTrack(Object adTrack) {
+                        this.adTrack = adTrack;
+                    }
+
+
                     private int id;
-                    private Object title;
                     private String font;
                     private String cover;
-                    private String actionUrl;
 
                     public int getId() {
                         return id;
@@ -302,13 +433,7 @@ public class FeedFragmentBean {
                         this.id = id;
                     }
 
-                    public Object getTitle() {
-                        return title;
-                    }
 
-                    public void setTitle(Object title) {
-                        this.title = title;
-                    }
 
                     public String getFont() {
                         return font;
@@ -326,13 +451,7 @@ public class FeedFragmentBean {
                         this.cover = cover;
                     }
 
-                    public String getActionUrl() {
-                        return actionUrl;
-                    }
 
-                    public void setActionUrl(String actionUrl) {
-                        this.actionUrl = actionUrl;
-                    }
                 }
 
                 public static class ItemListBeanInner {

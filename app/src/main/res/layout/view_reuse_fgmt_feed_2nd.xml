@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 精选一级页面的复用布局 -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/view_reuse_fgmt_feed_imgv_header_2nd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="gone"
+        />
+
+    <com.example.dllo.eyepetzier.view.TitleTextView
+        android:id="@+id/view_reuse_fgmt_feed_tv_header_2nd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="text"
+        android:visibility="gone"
+        android:padding="@dimen/padding_default"
+        />
+
+    <RelativeLayout
+        android:id="@+id/view_reuse_fgmt_feed_relatlay_2nd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_default"
+        android:visibility="gone">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/view_reuse_fgmt_feed_cirimg_icon_2nd"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/view_reuse_fgmt_feed_tv_title_2nd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:layout_toRightOf="@id/view_reuse_fgmt_feed_cirimg_icon_2nd"
+            android:layout_marginLeft="@dimen/margin_default"
+            />
+        <TextView
+            android:id="@+id/view_reuse_fgmt_feed_tv_subtitle_2nd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="subtitle"
+            android:layout_toRightOf="@id/view_reuse_fgmt_feed_tv_title_2nd"
+            android:layout_marginLeft="@dimen/margin_default"
+            android:textSize="@dimen/textsize_app_small"
+            android:layout_alignBottom="@id/view_reuse_fgmt_feed_tv_title_2nd" />
+
+        <TextView
+            android:id="@+id/view_reuse_fgmt_feed_tv_description_2nd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/view_reuse_fgmt_feed_cirimg_icon_2nd"
+            android:text="description"
+            android:layout_alignLeft="@id/view_reuse_fgmt_feed_tv_title_2nd"
+            android:layout_alignBottom="@id/view_reuse_fgmt_feed_cirimg_icon_2nd"
+            android:layout_below="@id/view_reuse_fgmt_feed_tv_title_2nd"
+            android:gravity="bottom"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_action_next_grey"
+            android:layout_alignTop="@id/view_reuse_fgmt_feed_cirimg_icon_2nd"
+            android:layout_alignBottom="@id/view_reuse_fgmt_feed_cirimg_icon_2nd"
+            android:layout_alignParentRight="true"
+             />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/view_reuse_fgmt_feed_rv_2nd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- include visibility无代码提示,需要手动敲-->
+    <include
+        android:id="@+id/view_reuse_fgmt_feed_include_foot_2nd"
+        layout="@layout/item_lv_fgmt_feed_type_foot"
+        android:visibility="gone"
+        />
+</LinearLayout>
