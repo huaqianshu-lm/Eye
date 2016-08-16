@@ -83,9 +83,81 @@ public class FeedFragmentBean {
     }
 
     public static class SectionListBean {
+
+        /**
+         * type : textHeader
+         * data : {"text":"最近更新作者","font":"bold","adTrack":null}
+         */
+
+        private HeaderBean header;
+
+        public HeaderBean getHeader() {
+            return header;
+        }
+
+        public void setHeader(HeaderBean header) {
+            this.header = header;
+        }
+
+        public static class HeaderBean {
+            private String type;
+            /**
+             * text : 最近更新作者
+             * font : bold
+             * adTrack : null
+             */
+
+            private DataBean data;
+
+            public String getType() {
+                return type;
+            }
+
+            public void setType(String type) {
+                this.type = type;
+            }
+
+            public DataBean getData() {
+                return data;
+            }
+
+            public void setData(DataBean data) {
+                this.data = data;
+            }
+
+            public static class DataBean {
+                private String text;
+                private String font;
+                private Object adTrack;
+
+                public String getText() {
+                    return text;
+                }
+
+                public void setText(String text) {
+                    this.text = text;
+                }
+
+                public String getFont() {
+                    return font;
+                }
+
+                public void setFont(String font) {
+                    this.font = font;
+                }
+
+                public Object getAdTrack() {
+                    return adTrack;
+                }
+
+                public void setAdTrack(Object adTrack) {
+                    this.adTrack = adTrack;
+                }
+            }
+        }
+
         private int id;
         private String type;
-        private Object header;
         /**
          * type : forwardFooter
          * data : {"text":"查看更多精选","font":"normal","actionUrl":"eyepetizer://feed/","adTrack":null}
@@ -115,14 +187,6 @@ public class FeedFragmentBean {
 
         public void setType(String type) {
             this.type = type;
-        }
-
-        public Object getHeader() {
-            return header;
-        }
-
-        public void setHeader(Object header) {
-            this.header = header;
         }
 
         public FooterBean getFooter() {
@@ -225,6 +289,8 @@ public class FeedFragmentBean {
         }
 
         public static class ItemListBean {
+
+
             private String type;
             /**
              * dataType : TextHeader
@@ -252,6 +318,761 @@ public class FeedFragmentBean {
             }
 
             public static class DataBean {
+
+                /**
+                 * id : 46
+                 * title : null
+                 * font : normal
+                 * cover : http://img.wdjimg.com/image/video/61efa648055acafb84769e8ff95ac38a_0_0.jpeg
+                 * actionUrl : eyepetizer://tag/46/?title=%E6%95%99%E7%A8%8B
+                 */
+
+                private HeaderBean header;
+                /**
+                 * type : video
+                 * data : {"dataType":"VideoBeanForClient","id":5428,"title":"滋补佳品：药材皇帝鸡","description":"新加坡美食融合了潮州菜、粤菜、马来菜还有印度菜发展而成。除了海南鸡饭，药材皇帝鸡也是一道经典菜肴。粉末状的药材在蒸煮的过程中更容易渗入鸡肉之中，绝对是滋补的好味道。From The Meatmen","provider":{"name":"Vimeo","alias":"vimeo","icon":"http://img.wdjimg.com/image/video/c3ad630be461cbb081649c9e21d6cbe3_256_256.png"},"category":"开胃","author":{"id":162,"icon":"http://img.wdjimg.com/image/video/5b730856a3e7cf1d76fe5393320f3817_0_0.jpeg","name":"The Meatmen","description":"家中就可以做的高质量美食教程，最美味的亚洲菜系。","link":"","latestReleaseTime":1457366400000,"videoNum":9,"adTrack":null},"cover":{"feed":"http://img.wdjimg.com/image/video/8d84bbf9974380498465bbd1250c51cc_0_0.jpeg","detail":"http://img.wdjimg.com/image/video/8d84bbf9974380498465bbd1250c51cc_0_0.jpeg","blurred":"http://img.wdjimg.com/image/video/1fe97a34fffb8344ce44669a23c3b697_0_0.jpeg","sharing":null},"playUrl":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=default","duration":116,"webUrl":{"raw":"http://www.wandoujia.com/eyepetizer/detail.html?vid=5428","forWeibo":"http://wandou.im/1i0euf"},"releaseTime":1457366400000,"playInfo":[{"height":360,"width":640,"name":"流畅","type":"low","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=low"},{"height":480,"width":854,"name":"标清","type":"normal","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=normal"},{"height":720,"width":1280,"name":"高清","type":"high","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=high"}],"consumption":{"collectionCount":3022,"shareCount":1875,"replyCount":38},"campaign":null,"waterMarks":null,"adTrack":null,"tags":[{"id":20,"name":"开胃","actionUrl":"eyepetizer://tag/20/?title=%E5%BC%80%E8%83%83","adTrack":null},{"id":262,"name":"肉","actionUrl":"eyepetizer://tag/262/?title=%E8%82%89","adTrack":null},{"id":46,"name":"教程","actionUrl":"eyepetizer://tag/46/?title=%E6%95%99%E7%A8%8B","adTrack":null},{"id":242,"name":"中华美食","actionUrl":"eyepetizer://tag/242/?title=%E4%B8%AD%E5%8D%8E%E7%BE%8E%E9%A3%9F","adTrack":null}],"type":"NORMAL","idx":0,"shareAdTrack":null,"favoriteAdTrack":null,"webAdTrack":null,"date":1457366400000,"promotion":null,"label":null}
+                 */
+
+                private List<ItemListBeanInner> itemList;
+
+                public HeaderBean getHeader() {
+                    return header;
+                }
+
+                public void setHeader(HeaderBean header) {
+                    this.header = header;
+                }
+
+                public List<ItemListBeanInner> getItemList() {
+                    return itemList;
+                }
+
+                public void setItemList(List<ItemListBeanInner> itemList) {
+                    this.itemList = itemList;
+                }
+
+                public static class HeaderBean {
+
+                    /**
+                     * id : 228
+                     * icon : http://img.wdjimg.com/image/video/19c7c03d61cacf97ba9e77fb81244867_0_0.jpeg
+                     * title : adidas Originals
+                     * subTitle : 5 个视频
+                     * description : NMD_超越过去 ，再创未来
+                     * actionUrl : eyepetizer://pgc/detail/228/?title=adidas%20Originals
+                     * adTrack : null
+                     */
+
+                    private String icon;
+                    private String title;
+                    private String subTitle;
+                    private String description;
+                    private String actionUrl;
+                    private Object adTrack;
+
+
+
+                    public String getIcon() {
+                        return icon;
+                    }
+
+                    public void setIcon(String icon) {
+                        this.icon = icon;
+                    }
+
+                    public String getTitle() {
+                        return title;
+                    }
+
+                    public void setTitle(String title) {
+                        this.title = title;
+                    }
+
+                    public String getSubTitle() {
+                        return subTitle;
+                    }
+
+                    public void setSubTitle(String subTitle) {
+                        this.subTitle = subTitle;
+                    }
+
+                    public String getDescription() {
+                        return description;
+                    }
+
+                    public void setDescription(String description) {
+                        this.description = description;
+                    }
+
+                    public String getActionUrl() {
+                        return actionUrl;
+                    }
+
+                    public void setActionUrl(String actionUrl) {
+                        this.actionUrl = actionUrl;
+                    }
+
+                    public Object getAdTrack() {
+                        return adTrack;
+                    }
+
+                    public void setAdTrack(Object adTrack) {
+                        this.adTrack = adTrack;
+                    }
+
+
+                    private int id;
+                    private String font;
+                    private String cover;
+
+                    public int getId() {
+                        return id;
+                    }
+
+                    public void setId(int id) {
+                        this.id = id;
+                    }
+
+
+
+                    public String getFont() {
+                        return font;
+                    }
+
+                    public void setFont(String font) {
+                        this.font = font;
+                    }
+
+                    public String getCover() {
+                        return cover;
+                    }
+
+                    public void setCover(String cover) {
+                        this.cover = cover;
+                    }
+
+
+                }
+
+                public static class ItemListBeanInner {
+                    private String type;
+                    /**
+                     * dataType : VideoBeanForClient
+                     * id : 5428
+                     * title : 滋补佳品：药材皇帝鸡
+                     * description : 新加坡美食融合了潮州菜、粤菜、马来菜还有印度菜发展而成。除了海南鸡饭，药材皇帝鸡也是一道经典菜肴。粉末状的药材在蒸煮的过程中更容易渗入鸡肉之中，绝对是滋补的好味道。From The Meatmen
+                     * provider : {"name":"Vimeo","alias":"vimeo","icon":"http://img.wdjimg.com/image/video/c3ad630be461cbb081649c9e21d6cbe3_256_256.png"}
+                     * category : 开胃
+                     * author : {"id":162,"icon":"http://img.wdjimg.com/image/video/5b730856a3e7cf1d76fe5393320f3817_0_0.jpeg","name":"The Meatmen","description":"家中就可以做的高质量美食教程，最美味的亚洲菜系。","link":"","latestReleaseTime":1457366400000,"videoNum":9,"adTrack":null}
+                     * cover : {"feed":"http://img.wdjimg.com/image/video/8d84bbf9974380498465bbd1250c51cc_0_0.jpeg","detail":"http://img.wdjimg.com/image/video/8d84bbf9974380498465bbd1250c51cc_0_0.jpeg","blurred":"http://img.wdjimg.com/image/video/1fe97a34fffb8344ce44669a23c3b697_0_0.jpeg","sharing":null}
+                     * playUrl : http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=default
+                     * duration : 116
+                     * webUrl : {"raw":"http://www.wandoujia.com/eyepetizer/detail.html?vid=5428","forWeibo":"http://wandou.im/1i0euf"}
+                     * releaseTime : 1457366400000
+                     * playInfo : [{"height":360,"width":640,"name":"流畅","type":"low","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=low"},{"height":480,"width":854,"name":"标清","type":"normal","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=normal"},{"height":720,"width":1280,"name":"高清","type":"high","url":"http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=high"}]
+                     * consumption : {"collectionCount":3022,"shareCount":1875,"replyCount":38}
+                     * campaign : null
+                     * waterMarks : null
+                     * adTrack : null
+                     * tags : [{"id":20,"name":"开胃","actionUrl":"eyepetizer://tag/20/?title=%E5%BC%80%E8%83%83","adTrack":null},{"id":262,"name":"肉","actionUrl":"eyepetizer://tag/262/?title=%E8%82%89","adTrack":null},{"id":46,"name":"教程","actionUrl":"eyepetizer://tag/46/?title=%E6%95%99%E7%A8%8B","adTrack":null},{"id":242,"name":"中华美食","actionUrl":"eyepetizer://tag/242/?title=%E4%B8%AD%E5%8D%8E%E7%BE%8E%E9%A3%9F","adTrack":null}]
+                     * type : NORMAL
+                     * idx : 0
+                     * shareAdTrack : null
+                     * favoriteAdTrack : null
+                     * webAdTrack : null
+                     * date : 1457366400000
+                     * promotion : null
+                     * label : null
+                     */
+
+                    private DataBeanInner data;
+
+                    public String getType() {
+                        return type;
+                    }
+
+                    public void setType(String type) {
+                        this.type = type;
+                    }
+
+                    public DataBeanInner getData() {
+                        return data;
+                    }
+
+                    public void setData(DataBeanInner data) {
+                        this.data = data;
+                    }
+
+                    public static class DataBeanInner {
+                        private String dataType;
+                        private int id;
+                        private String title;
+                        private String description;
+                        /**
+                         * name : Vimeo
+                         * alias : vimeo
+                         * icon : http://img.wdjimg.com/image/video/c3ad630be461cbb081649c9e21d6cbe3_256_256.png
+                         */
+
+                        private ProviderBean provider;
+                        private String category;
+                        /**
+                         * id : 162
+                         * icon : http://img.wdjimg.com/image/video/5b730856a3e7cf1d76fe5393320f3817_0_0.jpeg
+                         * name : The Meatmen
+                         * description : 家中就可以做的高质量美食教程，最美味的亚洲菜系。
+                         * link :
+                         * latestReleaseTime : 1457366400000
+                         * videoNum : 9
+                         * adTrack : null
+                         */
+
+                        private AuthorBean author;
+                        /**
+                         * feed : http://img.wdjimg.com/image/video/8d84bbf9974380498465bbd1250c51cc_0_0.jpeg
+                         * detail : http://img.wdjimg.com/image/video/8d84bbf9974380498465bbd1250c51cc_0_0.jpeg
+                         * blurred : http://img.wdjimg.com/image/video/1fe97a34fffb8344ce44669a23c3b697_0_0.jpeg
+                         * sharing : null
+                         */
+
+                        private CoverBean cover;
+                        private String playUrl;
+                        private int duration;
+                        /**
+                         * raw : http://www.wandoujia.com/eyepetizer/detail.html?vid=5428
+                         * forWeibo : http://wandou.im/1i0euf
+                         */
+
+                        private WebUrlBean webUrl;
+                        private long releaseTime;
+                        /**
+                         * collectionCount : 3022
+                         * shareCount : 1875
+                         * replyCount : 38
+                         */
+
+                        private ConsumptionBean consumption;
+                        private Object campaign;
+                        private Object waterMarks;
+                        private Object adTrack;
+                        private String type;
+                        private int idx;
+                        private Object shareAdTrack;
+                        private Object favoriteAdTrack;
+                        private Object webAdTrack;
+                        private long date;
+                        private Object promotion;
+                        private Object label;
+                        /**
+                         * height : 360
+                         * width : 640
+                         * name : 流畅
+                         * type : low
+                         * url : http://baobab.wandoujia.com/api/v1/playUrl?vid=5428&editionType=low
+                         */
+
+                        private List<PlayInfoBean> playInfo;
+                        /**
+                         * id : 20
+                         * name : 开胃
+                         * actionUrl : eyepetizer://tag/20/?title=%E5%BC%80%E8%83%83
+                         * adTrack : null
+                         */
+
+                        private List<TagsBean> tags;
+
+                        public String getDataType() {
+                            return dataType;
+                        }
+
+                        public void setDataType(String dataType) {
+                            this.dataType = dataType;
+                        }
+
+                        public int getId() {
+                            return id;
+                        }
+
+                        public void setId(int id) {
+                            this.id = id;
+                        }
+
+                        public String getTitle() {
+                            return title;
+                        }
+
+                        public void setTitle(String title) {
+                            this.title = title;
+                        }
+
+                        public String getDescription() {
+                            return description;
+                        }
+
+                        public void setDescription(String description) {
+                            this.description = description;
+                        }
+
+                        public ProviderBean getProvider() {
+                            return provider;
+                        }
+
+                        public void setProvider(ProviderBean provider) {
+                            this.provider = provider;
+                        }
+
+                        public String getCategory() {
+                            return category;
+                        }
+
+                        public void setCategory(String category) {
+                            this.category = category;
+                        }
+
+                        public AuthorBean getAuthor() {
+                            return author;
+                        }
+
+                        public void setAuthor(AuthorBean author) {
+                            this.author = author;
+                        }
+
+                        public CoverBean getCover() {
+                            return cover;
+                        }
+
+                        public void setCover(CoverBean cover) {
+                            this.cover = cover;
+                        }
+
+                        public String getPlayUrl() {
+                            return playUrl;
+                        }
+
+                        public void setPlayUrl(String playUrl) {
+                            this.playUrl = playUrl;
+                        }
+
+                        public int getDuration() {
+                            return duration;
+                        }
+
+                        public void setDuration(int duration) {
+                            this.duration = duration;
+                        }
+
+                        public WebUrlBean getWebUrl() {
+                            return webUrl;
+                        }
+
+                        public void setWebUrl(WebUrlBean webUrl) {
+                            this.webUrl = webUrl;
+                        }
+
+                        public long getReleaseTime() {
+                            return releaseTime;
+                        }
+
+                        public void setReleaseTime(long releaseTime) {
+                            this.releaseTime = releaseTime;
+                        }
+
+                        public ConsumptionBean getConsumption() {
+                            return consumption;
+                        }
+
+                        public void setConsumption(ConsumptionBean consumption) {
+                            this.consumption = consumption;
+                        }
+
+                        public Object getCampaign() {
+                            return campaign;
+                        }
+
+                        public void setCampaign(Object campaign) {
+                            this.campaign = campaign;
+                        }
+
+                        public Object getWaterMarks() {
+                            return waterMarks;
+                        }
+
+                        public void setWaterMarks(Object waterMarks) {
+                            this.waterMarks = waterMarks;
+                        }
+
+                        public Object getAdTrack() {
+                            return adTrack;
+                        }
+
+                        public void setAdTrack(Object adTrack) {
+                            this.adTrack = adTrack;
+                        }
+
+                        public String getType() {
+                            return type;
+                        }
+
+                        public void setType(String type) {
+                            this.type = type;
+                        }
+
+                        public int getIdx() {
+                            return idx;
+                        }
+
+                        public void setIdx(int idx) {
+                            this.idx = idx;
+                        }
+
+                        public Object getShareAdTrack() {
+                            return shareAdTrack;
+                        }
+
+                        public void setShareAdTrack(Object shareAdTrack) {
+                            this.shareAdTrack = shareAdTrack;
+                        }
+
+                        public Object getFavoriteAdTrack() {
+                            return favoriteAdTrack;
+                        }
+
+                        public void setFavoriteAdTrack(Object favoriteAdTrack) {
+                            this.favoriteAdTrack = favoriteAdTrack;
+                        }
+
+                        public Object getWebAdTrack() {
+                            return webAdTrack;
+                        }
+
+                        public void setWebAdTrack(Object webAdTrack) {
+                            this.webAdTrack = webAdTrack;
+                        }
+
+                        public long getDate() {
+                            return date;
+                        }
+
+                        public void setDate(long date) {
+                            this.date = date;
+                        }
+
+                        public Object getPromotion() {
+                            return promotion;
+                        }
+
+                        public void setPromotion(Object promotion) {
+                            this.promotion = promotion;
+                        }
+
+                        public Object getLabel() {
+                            return label;
+                        }
+
+                        public void setLabel(Object label) {
+                            this.label = label;
+                        }
+
+                        public List<PlayInfoBean> getPlayInfo() {
+                            return playInfo;
+                        }
+
+                        public void setPlayInfo(List<PlayInfoBean> playInfo) {
+                            this.playInfo = playInfo;
+                        }
+
+                        public List<TagsBean> getTags() {
+                            return tags;
+                        }
+
+                        public void setTags(List<TagsBean> tags) {
+                            this.tags = tags;
+                        }
+
+                        public static class ProviderBean {
+                            private String name;
+                            private String alias;
+                            private String icon;
+
+                            public String getName() {
+                                return name;
+                            }
+
+                            public void setName(String name) {
+                                this.name = name;
+                            }
+
+                            public String getAlias() {
+                                return alias;
+                            }
+
+                            public void setAlias(String alias) {
+                                this.alias = alias;
+                            }
+
+                            public String getIcon() {
+                                return icon;
+                            }
+
+                            public void setIcon(String icon) {
+                                this.icon = icon;
+                            }
+                        }
+
+                        public static class AuthorBean {
+                            private int id;
+                            private String icon;
+                            private String name;
+                            private String description;
+                            private String link;
+                            private long latestReleaseTime;
+                            private int videoNum;
+                            private Object adTrack;
+
+                            public int getId() {
+                                return id;
+                            }
+
+                            public void setId(int id) {
+                                this.id = id;
+                            }
+
+                            public String getIcon() {
+                                return icon;
+                            }
+
+                            public void setIcon(String icon) {
+                                this.icon = icon;
+                            }
+
+                            public String getName() {
+                                return name;
+                            }
+
+                            public void setName(String name) {
+                                this.name = name;
+                            }
+
+                            public String getDescription() {
+                                return description;
+                            }
+
+                            public void setDescription(String description) {
+                                this.description = description;
+                            }
+
+                            public String getLink() {
+                                return link;
+                            }
+
+                            public void setLink(String link) {
+                                this.link = link;
+                            }
+
+                            public long getLatestReleaseTime() {
+                                return latestReleaseTime;
+                            }
+
+                            public void setLatestReleaseTime(long latestReleaseTime) {
+                                this.latestReleaseTime = latestReleaseTime;
+                            }
+
+                            public int getVideoNum() {
+                                return videoNum;
+                            }
+
+                            public void setVideoNum(int videoNum) {
+                                this.videoNum = videoNum;
+                            }
+
+                            public Object getAdTrack() {
+                                return adTrack;
+                            }
+
+                            public void setAdTrack(Object adTrack) {
+                                this.adTrack = adTrack;
+                            }
+                        }
+
+                        public static class CoverBean {
+                            private String feed;
+                            private String detail;
+                            private String blurred;
+                            private Object sharing;
+
+                            public String getFeed() {
+                                return feed;
+                            }
+
+                            public void setFeed(String feed) {
+                                this.feed = feed;
+                            }
+
+                            public String getDetail() {
+                                return detail;
+                            }
+
+                            public void setDetail(String detail) {
+                                this.detail = detail;
+                            }
+
+                            public String getBlurred() {
+                                return blurred;
+                            }
+
+                            public void setBlurred(String blurred) {
+                                this.blurred = blurred;
+                            }
+
+                            public Object getSharing() {
+                                return sharing;
+                            }
+
+                            public void setSharing(Object sharing) {
+                                this.sharing = sharing;
+                            }
+                        }
+
+                        public static class WebUrlBean {
+                            private String raw;
+                            private String forWeibo;
+
+                            public String getRaw() {
+                                return raw;
+                            }
+
+                            public void setRaw(String raw) {
+                                this.raw = raw;
+                            }
+
+                            public String getForWeibo() {
+                                return forWeibo;
+                            }
+
+                            public void setForWeibo(String forWeibo) {
+                                this.forWeibo = forWeibo;
+                            }
+                        }
+
+                        public static class ConsumptionBean {
+                            private int collectionCount;
+                            private int shareCount;
+                            private int replyCount;
+
+                            public int getCollectionCount() {
+                                return collectionCount;
+                            }
+
+                            public void setCollectionCount(int collectionCount) {
+                                this.collectionCount = collectionCount;
+                            }
+
+                            public int getShareCount() {
+                                return shareCount;
+                            }
+
+                            public void setShareCount(int shareCount) {
+                                this.shareCount = shareCount;
+                            }
+
+                            public int getReplyCount() {
+                                return replyCount;
+                            }
+
+                            public void setReplyCount(int replyCount) {
+                                this.replyCount = replyCount;
+                            }
+                        }
+
+                        public static class PlayInfoBean {
+                            private int height;
+                            private int width;
+                            private String name;
+                            private String type;
+                            private String url;
+
+                            public int getHeight() {
+                                return height;
+                            }
+
+                            public void setHeight(int height) {
+                                this.height = height;
+                            }
+
+                            public int getWidth() {
+                                return width;
+                            }
+
+                            public void setWidth(int width) {
+                                this.width = width;
+                            }
+
+                            public String getName() {
+                                return name;
+                            }
+
+                            public void setName(String name) {
+                                this.name = name;
+                            }
+
+                            public String getType() {
+                                return type;
+                            }
+
+                            public void setType(String type) {
+                                this.type = type;
+                            }
+
+                            public String getUrl() {
+                                return url;
+                            }
+
+                            public void setUrl(String url) {
+                                this.url = url;
+                            }
+                        }
+
+                        public static class TagsBean {
+                            private int id;
+                            private String name;
+                            private String actionUrl;
+                            private Object adTrack;
+
+                            public int getId() {
+                                return id;
+                            }
+
+                            public void setId(int id) {
+                                this.id = id;
+                            }
+
+                            public String getName() {
+                                return name;
+                            }
+
+                            public void setName(String name) {
+                                this.name = name;
+                            }
+
+                            public String getActionUrl() {
+                                return actionUrl;
+                            }
+
+                            public void setActionUrl(String actionUrl) {
+                                this.actionUrl = actionUrl;
+                            }
+
+                            public Object getAdTrack() {
+                                return adTrack;
+                            }
+
+                            public void setAdTrack(Object adTrack) {
+                                this.adTrack = adTrack;
+                            }
+                        }
+                    }
+                }
+
 
                 /**
                  * id : 134

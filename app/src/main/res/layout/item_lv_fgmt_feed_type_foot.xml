@@ -9,9 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/view_foot_fgmt_feed_tv_text"
-        android:textSize="@dimen/textsize_app_small"
+        android:textSize="@dimen/textsize_app"
         android:layout_centerInParent="true"
-        android:padding="@dimen/padding_view_head_foot" />
+        android:padding="@dimen/padding_default" />
 
     <ImageView
         android:layout_width="wrap_content"
