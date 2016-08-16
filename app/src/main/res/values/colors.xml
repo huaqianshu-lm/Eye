@@ -9,8 +9,11 @@
     <color name="white">#ffffff</color>
 
 
-
     <color name="bg">#ffffff</color>
     <color name="line">#aaaaaa</color>
-
+    <color name="author_fragment_child_rv_text_color">#ffffff</color>
+    <color name="author_fragment_item_subtitle_text_color">#999999</color>
+    <color name="author_fragment_item_description_text_color">#777777</color>
+    <color name="author_fragment_item_title_text_color">#333333</color>
+    <color name="author_fragment_itme_line_bg">#eeeeee</color>
 </resources>

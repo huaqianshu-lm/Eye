@@ -30,4 +30,5 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.15'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.youth.banner:banner:+'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
 }
