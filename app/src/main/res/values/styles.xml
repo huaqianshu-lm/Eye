@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!--发现界面RecycleView的边距-->
+        <item name="android:listDivider">@drawable/divider_bg</item>
     </style>
 
     <style name="EyepetzierTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -25,5 +27,21 @@
     <style name="StyleFgmtFeedLvTextview">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_app_large</item>
+    </style>
+    <!--发现界面线性布局设置-->
+    <style name="FragmentDiscovery_ll_set">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <!--发现界面左边图片边距-->
+    <style name="FragmentDiscovery_left_icon_margin">
+        <item name="android:layout_marginRight">1dp</item>
+    </style>
+    <!--发现界面右边图片边距-->
+    <style name="FragmentDiscovery_right_icon_margin">
+        <item name="android:layout_marginLeft">1dp</item>
     </style>
 </resources>
