@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_author_fragment_child_rv_rl"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,11 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="3dp"
-        android:src="@mipmap/ic_launcher" />
+        android:layout_margin="3dp" />
 
     <RelativeLayout
-
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,49 +24,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold"
-            android:text="title" />
+            android:textStyle="bold" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_below="@id/item_author_fragment_child_rv_title_tv">
+            android:layout_below="@id/item_author_fragment_child_rv_title_tv"
+            android:gravity="center">
 
             <TextView
-                android:textSize="@dimen/author_fragment_item_category_text_size"
                 android:id="@+id/sign_shape_tv"
                 style="@style/AuthorFragmentChildTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="#" />
+                android:text="#"
+                android:textSize="@dimen/author_fragment_item_category_text_size" />
 
             <TextView
-                android:textSize="@dimen/author_fragment_item_category_text_size"
                 android:id="@+id/item_author_fragment_child_rv_category_tv"
                 style="@style/AuthorFragmentChildTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_author_fragment_child_rv_title_tv"
-                android:text="category" />
+                android:textSize="@dimen/author_fragment_item_category_text_size" />
 
             <TextView
-                android:textSize="@dimen/author_fragment_item_category_text_size"
                 android:id="@+id/sign_tv"
                 style="@style/AuthorFragmentChildTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/" />
+                android:text="/"
+                android:textSize="@dimen/author_fragment_item_category_text_size" />
 
             <TextView
-                android:textSize="@dimen/author_fragment_item_category_text_size"
                 android:id="@+id/item_author_fragment_child_rv_latestreleasttime_tv"
                 style="@style/AuthorFragmentChildTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_author_fragment_child_rv_title_tv"
-                android:text="time" />
+                android:textSize="@dimen/author_fragment_item_category_text_size" />
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
