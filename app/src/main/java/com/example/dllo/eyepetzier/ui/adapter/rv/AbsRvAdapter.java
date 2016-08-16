@@ -34,11 +34,6 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
         notifyDataSetChanged();
     }
 
-    public AbsRvAdapter(Context context, List<T> datas) {
-        this.context = context;
-        this.datas = datas;
-        itemViewDelegateManager = new ItemViewDelegateManager();
-    }
 
     @Override
     public int getItemViewType(int position) {
