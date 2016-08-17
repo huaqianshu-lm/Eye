@@ -15,4 +15,6 @@
     <string name="tab_author">作者</string>
     <string name="tab_mine">我的</string>
     <string name="feed_fgmt_imgv_content_description">feed fgmt image</string>
+    <string name="acty_feed2nd_review_tv_title">每日精选</string>
+    <string name="acty_feed2nd_review_tv_time">Today</string>
 </resources>

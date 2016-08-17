@@ -43,7 +43,7 @@ public class NetRequestSingleton implements INetwork{
      * method 2 - 既请求,也解析
      * 返回Entity实体类 response 到主线程
      * @param url
-     * @param clazz
+     * @param clazz 实体类的type
      * @param onHttpCallback
      * @param <T>
      */

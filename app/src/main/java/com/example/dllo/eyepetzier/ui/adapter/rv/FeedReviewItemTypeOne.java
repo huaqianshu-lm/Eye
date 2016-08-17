@@ -26,6 +26,4 @@ public class FeedReviewItemTypeOne implements IItemViewDelegate<Feed2ndReviewBea
     public void convert(RvViewHolder holder, Feed2ndReviewBean.IssueListBean.ItemListBean itemListBean, int pos) {
         holder.setText(R.id.item_lv_fgmt_feed_type_1st_tv, itemListBean.getData().getText());
     }
-
-
 }

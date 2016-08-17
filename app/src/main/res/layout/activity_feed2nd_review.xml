@@ -9,10 +9,18 @@
         android:id="@+id/acty_feed2nd_review_include_title"
         layout="@layout/title" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/acty_feed2nd_review_rv"
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/acty_feed2nd_review_rv"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/acty_feed2nd_review_include_title" />-->
+
+    <ListView
+        android:id="@+id/acty_feed2nd_review_lv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/acty_feed2nd_review_include_title" />
+        android:layout_below="@id/acty_feed2nd_review_include_title"
+        >
+    </ListView>
 
 </RelativeLayout>

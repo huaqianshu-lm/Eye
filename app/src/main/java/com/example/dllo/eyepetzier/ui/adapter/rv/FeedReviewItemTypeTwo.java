@@ -1,9 +1,16 @@
 package com.example.dllo.eyepetzier.ui.adapter.rv;
 
+import android.util.Log;
+import android.view.InflateException;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
+
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.Feed2ndReviewBean;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.IItemViewDelegate;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
+import com.example.dllo.eyepetzier.ui.application.EyeApp;
 import com.example.dllo.eyepetzier.utils.TextStyleSetter;
 
 /**
@@ -23,18 +30,22 @@ public class FeedReviewItemTypeTwo implements IItemViewDelegate<Feed2ndReviewBea
     @Override
     public void convert(RvViewHolder holder, Feed2ndReviewBean.IssueListBean.ItemListBean itemListBean, int pos) {
 
-        holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_title, );
+        holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_title, itemListBean.getData().getTitle());
         // tvTitle 字体加粗
-         new TextStyleSetter().setBoldText(holder2nd.tvTitle.getPaint()); 
+        View view = LayoutInflater.from(EyeApp.getContext()).inflate(getItemViewLayoutId(), null);
+        TextView tvTitle = (TextView) view.findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_title);
+        new TextStyleSetter().setBoldText(tvTitle.getPaint());
+        holder.setText(
+                R.id.item_lv_fgmt_feed_type_2nd_tv_category, "#"
+                        + itemListBean.getData().getCategory()
+                        + " / " + formatTime(itemListBean.getData().getDuration()));
 
-        holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_category, "#" + datas.get(position).getData().getCategory() + " / " + time);
-
-        if (datas.get(position).getData().getAuthor() != null) {
-            holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name, );
+        if (itemListBean.getData().getAuthor() != null) {
+            holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name, itemListBean.getData().getAuthor().getName());
         }
 
-        holder.setImgUrl(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed, );
-        
+        Log.e("zzz", itemListBean.getData().getCover().getFeed());
+        holder.setImgUrl(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed, itemListBean.getData().getCover().getFeed());
     }
 
     /**
@@ -57,6 +68,4 @@ public class FeedReviewItemTypeTwo implements IItemViewDelegate<Feed2ndReviewBea
             second = "0" + seconds;
         return minute + "' " + second +"\"";
     }
-
-
 }
