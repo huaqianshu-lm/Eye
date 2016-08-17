@@ -92,7 +92,8 @@ public class AuthorFragment extends AbaBaseFragment {
                                     WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                                     wm.getDefaultDisplay().getMetrics(dm);
                                     int width = dm.widthPixels;
-                                    holder.setImgUrl(R.id.item_author_fragment_child_rv_iv, videoItemListBean.getData().getCover().getFeed(), width / 4 * 3, 500);
+                                    holder.setImgUrl(R.id.item_author_fragment_child_rv_iv, videoItemListBean.getData().getCover().getFeed(), width / 4 * 3
+                                            , 500);
                                     int minute = videoItemListBean.getData().getDuration() / 60;
                                     int sec = videoItemListBean.getData().getDuration() % 60;
                                     String time = String.valueOf(minute) + "'" + String.valueOf(sec) + " \" ";
