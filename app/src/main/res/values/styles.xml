@@ -14,6 +14,7 @@
         <item name="android:textSize">@dimen/textsize_app</item>
         <!--<item name="android:typeface">@string/app_font_family</item>-->
         <item name="android:textColor">@color/black</item>
+        <!--<item name="android:background">@color/white</item>-->
     </style>
 
     <style name="CustomTabLayout">
@@ -28,6 +29,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/textsize_app_large</item>
     </style>
+
     <!--发现界面线性布局设置-->
     <style name="FragmentDiscovery_ll_set">
         <item name="android:layout_marginTop">2dp</item>
@@ -52,5 +54,12 @@
 
     <style name="AuthorFragmentChildTextView">
         <item name="android:textColor">@color/author_fragment_child_rv_text_color</item>
+    </style>
+
+    <!--feed fgmt 分割线-->
+    <style name="DivideLineStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/divide_line_height</item>
+        <item name="android:background">@color/grey_lite</item>
     </style>
 </resources>
