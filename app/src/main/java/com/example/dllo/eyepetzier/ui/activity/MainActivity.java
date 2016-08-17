@@ -36,7 +36,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     protected void initView() {
         viewPager = bindView(R.id.main_viewpager);
         tabLayout = bindView(R.id.main_tablayout);
-        titleIv = bindView(R.id.title_iv);
+        titleIv = bindView(R.id.search_iv);
         titleIv.setOnClickListener(this);
     }
 
@@ -50,6 +50,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         setTabLayout();
         tabLayout.getTabAt(0).setIcon(R.mipmap.ic_tab_strip_icon_feed_selected);
         setTitle();
+
 
     }
 

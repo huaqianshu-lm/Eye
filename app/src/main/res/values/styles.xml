@@ -62,4 +62,18 @@
         <item name="android:layout_height">@dimen/divide_line_height</item>
         <item name="android:background">@color/grey_lite</item>
     </style>
+
+    <style name="MineFragmentStyle">
+        <item name="android:layout_gravity">center_horizontal|center_vertical</item>
+        <item name="android:layout_margin">@dimen/mine_fragment_margin</item>
+        <item name="android:textSize">@dimen/mine_fragment_text_size</item>
+        <item name="android:textColor">@color/mine_fragment_text_color</item>
+    </style>
+    <style name="MineFragmentStyleDown">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/mine_fragment_text_size</item>
+        <item name="android:textColor">@color/mine_fragment_text_color</item>
+        <item name="android:layout_marginTop">@dimen/mine_fragment_margin</item>
+        <item name="android:layout_marginBottom">@dimen/mine_fragment_margin</item>
+    </style>
 </resources>

@@ -29,4 +29,11 @@
     <dimen name="author_fragment_item_category_text_size">12sp</dimen>
     <dimen name="author_fragment_item_line_height">0.5dp</dimen>
 
+    <dimen name="mine_fragment_text_size">15dp</dimen>
+    <dimen name="mine_fragment_margin">20dp</dimen>
+    <dimen name="mine_fragment_line_width">0.5dp</dimen>
+    <dimen name="mine_fragment_drawable_padding">10dp</dimen>
+    <dimen name="mine_fragment_version_text_size">10sp</dimen>
+    <dimen name="mine_fragment_text_padding_collection">15dp</dimen>
+
 </resources>
