@@ -1,4 +1,4 @@
-package com.example.dllo.eyepetzier.ui.adapter.rv;
+package com.example.dllo.eyepetzier.ui.adapter.rv.tools;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

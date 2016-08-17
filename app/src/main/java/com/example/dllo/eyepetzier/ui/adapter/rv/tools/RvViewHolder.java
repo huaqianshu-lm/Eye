@@ -1,4 +1,4 @@
-package com.example.dllo.eyepetzier.ui.adapter.rv;
+package com.example.dllo.eyepetzier.ui.adapter.rv.tools;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.widget.Checkable;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;

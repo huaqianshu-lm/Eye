@@ -20,8 +20,32 @@
         android:layout_margin="@dimen/title_iv_margin" />
 
     <View
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
         android:background="@color/line" />
+
+    <!-- 其它页面用 -->
+    <ImageView
+        android:id="@+id/title_iv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/title_tv"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/title_tv"
+        android:src="@mipmap/ic_action_back"
+        android:visibility="gone" />
+
+    <com.example.dllo.eyepetzier.view.TitleTextView
+        android:id="@+id/title_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/title_tv"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/title_tv"
+        android:layout_marginRight="@dimen/title_iv_margin"
+        android:gravity="center"
+        android:text="Today"
+        android:textSize="@dimen/textsize_app"
+        android:visibility="gone"/>
 </RelativeLayout>
