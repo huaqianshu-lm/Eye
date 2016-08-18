@@ -15,4 +15,12 @@
     <string name="tab_author">作者</string>
     <string name="tab_mine">我的</string>
     <string name="feed_fgmt_imgv_content_description">feed fgmt image</string>
+
+    <string name="mine_login_text">点击登录即可发表评论</string>
+    <string name="mine_my_collection_text">我的收藏</string>
+    <string name="mine_my_comment_text">我的评论</string>
+    <string name="mine_my_message_text">我的消息</string>
+    <string name="mine_my_cache_text">我的缓存</string>
+    <string name="mine_my_suggestion_text">意见反馈</string>
+    <string name="mine_my_contribution_text">我要投稿</string>
 </resources>

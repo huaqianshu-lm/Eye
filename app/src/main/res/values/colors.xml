@@ -7,10 +7,16 @@
     <color name="black">#000000</color>
     <color name="red">#ff0000</color>
     <color name="white">#ffffff</color>
-
-
+    <color name="grey">#aaaaaa</color>
+    <color name="grey_lite">#dedede</color>
 
     <color name="bg">#ffffff</color>
-    <color name="line">#aaaaaa</color>
-
+    <color name="line">#cccccc</color>
+    <color name="author_fragment_child_rv_text_color">#ffffff</color>
+    <color name="author_fragment_item_subtitle_text_color">#999999</color>
+    <color name="author_fragment_item_description_text_color">#777777</color>
+    <color name="author_fragment_item_title_text_color">#333333</color>
+    <color name="author_fragment_itme_line_bg">#eeeeee</color>
+    <color name="mine_fragment_text_color">#555555</color>
+    <color name="mine_fragment_version_text_color">#aaaaaa</color>
 </resources>
