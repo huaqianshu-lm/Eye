@@ -3,9 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_lv_fgmt_feed_type_2nd_framelayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <ImageView
+    <com.example.dllo.eyepetzier.view.OomImageView
         android:id="@+id/item_lv_fgmt_feed_type_2nd_imgv_feed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

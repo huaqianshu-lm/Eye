@@ -1,4 +1,4 @@
-package com.example.dllo.eyepetzier.ui.adapter.rv;
+package com.example.dllo.eyepetzier.ui.adapter.rv.tools;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -31,6 +31,15 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
 
     public void setDatas(List<T> datas) {
         this.datas = datas;
+        notifyDataSetChanged();
+    }
+
+    /**
+     * 在行尾添加数据
+     * @param data
+     */
+    public void addItemAtEnd(T data){
+        datas.add(datas.size()-1, data);
         notifyDataSetChanged();
     }
 

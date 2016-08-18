@@ -1,16 +1,17 @@
 package com.example.dllo.eyepetzier.ui.adapter.lv;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dllo.eyepetzier.R;
+import com.example.dllo.eyepetzier.mode.bean.Feed2ndReviewBean;
 import com.example.dllo.eyepetzier.mode.bean.FeedFragmentBean;
 import com.example.dllo.eyepetzier.utils.EScreenSizeDensity;
 import com.example.dllo.eyepetzier.utils.ScreenSize;
@@ -24,22 +25,41 @@ import java.util.List;
  * Created by dllo on 16/8/13.
  *
  */
-public class FeedFragmentLvAdapter extends BaseAdapter {
+public class Feed2ndReviewLvAdapter extends BaseAdapter {
 
     private Context context;
-    private List<FeedFragmentBean.SectionListBean.ItemListBean> datas;
+    private List<Feed2ndReviewBean.IssueListBean.ItemListBean> datas;
     /**
      * 不同行type
      */
     private static final int TYPE_1 = 0;
     private static final int TYPE_2 = 1;
 
-    public FeedFragmentLvAdapter(Context context) {
+    public Feed2ndReviewLvAdapter(Context context) {
         this.context = context;
     }
 
-    public FeedFragmentLvAdapter setDatas(List<FeedFragmentBean.SectionListBean.ItemListBean> datas) {
+    public Feed2ndReviewLvAdapter setDatas(List<Feed2ndReviewBean.IssueListBean.ItemListBean> datas) {
         this.datas = datas;
+        notifyDataSetChanged();
+        return this;
+    }
+
+    /**
+     *  行尾添加单条数据
+     */
+    public Feed2ndReviewLvAdapter addLastItem(Feed2ndReviewBean.IssueListBean.ItemListBean data) {
+        datas.add(data);
+        notifyDataSetChanged();
+        return this;
+    }
+
+    /**
+     * 行尾添加数据组
+     */
+    public Feed2ndReviewLvAdapter addLastItem(List<Feed2ndReviewBean.IssueListBean.ItemListBean> datas) {
+
+        this.datas.addAll(datas);
         notifyDataSetChanged();
         return this;
     }
@@ -54,7 +74,7 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
     }
 
     @Override
-    public FeedFragmentBean.SectionListBean.ItemListBean getItem(int position) {
+    public Feed2ndReviewBean.IssueListBean.ItemListBean getItem(int position) {
         return ifNull() ? datas.get(position) : null;
     }
 
@@ -88,6 +108,7 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
                     convertView.setLayoutParams(params);
                     break;
             }
+
         } else {
             switch (viewType){
                 case TYPE_1:
@@ -114,11 +135,10 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
                     holder2nd.tvAuthorName.setVisibility(View.VISIBLE);
                     holder2nd.tvAuthorName.setText(datas.get(position).getData().getAuthor().getName());
                 }
-                Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
+                Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).config(Bitmap.Config.RGB_565).skipMemoryCache().error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
                 break;
         }
         return convertView;
-
     }
 
     /**
@@ -152,7 +172,6 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
         private TitleTextView titleTextView;
 
         public HolderType1st(View itemView) {
-
             titleTextView = (TitleTextView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_1st_tv);
         }
     }
@@ -173,7 +192,6 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
             tvCategory = (TextView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_category);
             tvAuthorName = (TextView)itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name);
             imgvFeed = (ImageView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed);
-
         }
     }
 

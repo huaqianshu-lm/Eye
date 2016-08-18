@@ -1,4 +1,4 @@
-package com.example.dllo.eyepetzier.ui.adapter.rv;
+package com.example.dllo.eyepetzier.ui.adapter.rv.tools;
 
 import android.support.v4.util.SparseArrayCompat;
 

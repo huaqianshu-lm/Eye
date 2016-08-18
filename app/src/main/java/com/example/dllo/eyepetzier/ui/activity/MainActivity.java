@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.dllo.eyepetzier.R;
-import com.example.dllo.eyepetzier.ui.adapter.MainViewAdapter;
+import com.example.dllo.eyepetzier.ui.adapter.vp.MainViewAdapter;
 import com.example.dllo.eyepetzier.ui.fragment.AuthorFragment;
 import com.example.dllo.eyepetzier.ui.fragment.DiscoveryFragment;
 import com.example.dllo.eyepetzier.ui.fragment.FeedFragment;
@@ -50,8 +50,6 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         setTabLayout();
         tabLayout.getTabAt(0).setIcon(R.mipmap.ic_tab_strip_icon_feed_selected);
         setTitle();
-
-
     }
 
     /**
