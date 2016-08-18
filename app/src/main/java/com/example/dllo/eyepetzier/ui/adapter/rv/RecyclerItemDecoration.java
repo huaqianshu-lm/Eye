@@ -17,10 +17,10 @@ public class RecyclerItemDecoration extends RecyclerView.ItemDecoration {
 
         int position = parent.getChildAdapterPosition(view);
         if (position > 1) {
-            outRect.top = 8;
+            outRect.top = 6;
         }
         if (position % 2 != 0) {
-            outRect.left = 8;
+            outRect.left = 6;
         }
     }
 
