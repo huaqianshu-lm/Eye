@@ -71,12 +71,6 @@ public class Feed2ndReviewActivity extends AbsBaseActivity {
      * 初始化listview
      */
     private void initLv() {
-//        netUrls = new ArrayList<>();
-//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_TODAY);
-//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_16);
-//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_15);
-//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_14);
-//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_13);
 
         NetRequestSingleton.getInstance().startRequest(NetUrl.FEED_2ND_REVIEW_URL_TODAY, Feed2ndReviewBean.class, new IOnHttpCallback<Feed2ndReviewBean>() {
             @Override
@@ -127,6 +121,7 @@ public class Feed2ndReviewActivity extends AbsBaseActivity {
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                 // 改变标题栏textview的文字
+                // nextUrl在子线程中获取,不判断会崩
                 if (nextUrl != null) {
                     Feed2ndReviewBean.IssueListBean.ItemListBean firstVisibleBean = (Feed2ndReviewBean.IssueListBean.ItemListBean) view.getAdapter().getItem(firstVisibleItem);
                     if (firstVisibleBean.getType().equals("textHeader")) {
@@ -144,13 +139,10 @@ public class Feed2ndReviewActivity extends AbsBaseActivity {
 
             }
         });
-
-
     }
 
     /**
      * 获取listview数据
-     *
      * @param response
      * @return
      */

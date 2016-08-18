@@ -139,7 +139,6 @@ public class Feed2ndReviewLvAdapter extends BaseAdapter {
                 break;
         }
         return convertView;
-
     }
 
     /**
@@ -173,7 +172,6 @@ public class Feed2ndReviewLvAdapter extends BaseAdapter {
         private TitleTextView titleTextView;
 
         public HolderType1st(View itemView) {
-
             titleTextView = (TitleTextView) itemView.findViewById(R.id.item_lv_fgmt_feed_type_1st_tv);
         }
     }
