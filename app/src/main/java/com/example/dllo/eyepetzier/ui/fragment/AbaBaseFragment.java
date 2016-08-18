@@ -28,7 +28,6 @@ public abstract class AbaBaseFragment extends Fragment {
         super.onAttach(context);
         this.context = context;
 
-
     }
 
     @Nullable

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends AbsBaseActivity implements View.OnClickListener {
+public class MainActivity extends AbsBaseActivity implements View.OnClickListener, FeedFragment.ITurn {
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private MainViewAdapter mainViewAdapter;
@@ -104,5 +104,13 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public void turn() {
+        /**
+         * 切换到作者页
+         */
+        viewPager.setCurrentItem(2);
     }
 }
