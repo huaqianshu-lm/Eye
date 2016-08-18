@@ -24,7 +24,9 @@ public class OomImageView extends ImageView{
 
     @Override
     protected void onDetachedFromWindow() {
+
         super.onDetachedFromWindow();
+
         setImageDrawable(null);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.dllo.eyepetzier.ui.adapter;
+package com.example.dllo.eyepetzier.ui.adapter.vp;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -26,7 +26,7 @@ import java.util.List;
  * 精选二级页面 : 每日精选
  * 由一级页面 查看往期编辑精选 跳转
  */
-public class Feed2ndReviewActivity extends AbsBaseActivity{
+public class Feed2ndReviewActivity extends AbsBaseActivity {
 
     private TitleTextView tvTitle;
     private TitleTextView tvTime;
@@ -35,18 +35,11 @@ public class Feed2ndReviewActivity extends AbsBaseActivity{
     private ListView lv;
     private Feed2ndReviewLvAdapter adapter;
     //    private RecyclerView rv;
-    /**
-     * 接口的集合
-     */
-    private List<String> netUrls;
-    /**
-     * 当前加载了几天的页,用于netUrls
-     */
-    private int index = 0;
+    private String nextUrl;
     /**
      * 判断lv是否滑动到了底部
      */
-    boolean isScrollToBottom;
+    private boolean isFirstLoaded = false;
 
     @Override
     protected int setLayout() {
@@ -58,7 +51,7 @@ public class Feed2ndReviewActivity extends AbsBaseActivity{
         tvTitle = bindView(R.id.title_tv);
         tvTime = bindView(R.id.title_time);
         ivBack = bindView(R.id.title_iv_back);
-        ivSearch = bindView(R.id.title_iv);
+        ivSearch = bindView(R.id.search_iv);
 //        rv = bindView(R.id.acty_feed2nd_review_rv);
         lv = bindView(R.id.acty_feed2nd_review_lv);
     }
@@ -70,39 +63,7 @@ public class Feed2ndReviewActivity extends AbsBaseActivity{
         // init lv
         initLv();
         // lv scroll load data
-        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                // 如果滑动到最后的位置
-//                Log.e("zzzz", "view.getLastVisiblePosition():" + view.getLastVisiblePosition());
-//                Log.e("zzzz", "firstVisiblePosition():" + view.getFirstVisiblePosition());
-//                FeedFragmentBean.SectionListBean.ItemListBean bean = (FeedFragmentBean.SectionListBean.ItemListBean) view.getAdapter().getItem(view.getFirstVisiblePosition());
-//                Log.e("zzzzz", );
-
-                if (view.getLastVisiblePosition() == totalItemCount - 1) {
-                    // 解析下一天的数据
-                    NetRequestSingleton.getInstance().startRequest(netUrls.get(index++), Feed2ndReviewBean.class, new IOnHttpCallback<Feed2ndReviewBean>() {
-                        @Override
-                        public void onSuccess(Feed2ndReviewBean response) {
-                            adapter.addLastItem(getDatas(response));
-                        }
-
-                        @Override
-                        public void onError(Throwable ex) {
-
-                        }
-                    });
-                }
-//                Log.e("zzzz", "view.getFirstVisiblePosition():" + view.getFirstVisiblePosition());
-//                Log.e("xxxx", "(firstVisibleItem):" + view.getAdapter().getItemViewType(firstVisibleItem));
-//                view.getAdapter().getItem(firstVisibleItem)
-//                Log.e("zzz", "view.getFirstVisiblePosition():" + view.getFirstVisiblePosition());
-            }
-        });
 
     }
 
@@ -110,29 +71,86 @@ public class Feed2ndReviewActivity extends AbsBaseActivity{
      * 初始化listview
      */
     private void initLv() {
-        netUrls = new ArrayList<>();
-        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_TODAY);
-        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_16);
-        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_15);
-        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_14);
-        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_13);
+//        netUrls = new ArrayList<>();
+//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_TODAY);
+//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_16);
+//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_15);
+//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_14);
+//        netUrls.add(NetUrl.FEED_2ND_REVIEW_URL_AUG_13);
 
-        NetRequestSingleton.getInstance().startRequest(netUrls.get(index++), Feed2ndReviewBean.class, new IOnHttpCallback<Feed2ndReviewBean>() {
+        NetRequestSingleton.getInstance().startRequest(NetUrl.FEED_2ND_REVIEW_URL_TODAY, Feed2ndReviewBean.class, new IOnHttpCallback<Feed2ndReviewBean>() {
             @Override
             public void onSuccess(Feed2ndReviewBean response) {
                 adapter = new Feed2ndReviewLvAdapter(Feed2ndReviewActivity.this);
                 adapter.setDatas(getDatas(response));
                 lv.setAdapter(adapter);
+                nextUrl = response.getNextPageUrl();
+                Log.e("xxx", nextUrl);
             }
 
             @Override
             public void onError(Throwable ex) {
+
             }
         });
+
+        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+            /**
+             * @param view
+             * @param scrollState 参数值0 : 代表不在划动, 参数值1 : 代表手动去划动, 参数值2 : 代表惯性在划动
+             */
+            @Override
+            public void onScrollStateChanged(final AbsListView view, int scrollState) {
+                // 当listview停下来,并且滑动到最后的位置时
+                if (scrollState == 0 && view.getLastVisiblePosition() == view.getAdapter().getCount() - 1 && !isFirstLoaded && nextUrl != null) {
+
+                    isFirstLoaded = true;
+                    // 解析下一天的数据
+                    NetRequestSingleton.getInstance().startRequest(nextUrl, Feed2ndReviewBean.class, new IOnHttpCallback<Feed2ndReviewBean>() {
+                        @Override
+                        public void onSuccess(Feed2ndReviewBean response) {
+                            adapter.addLastItem(getDatas(response));
+                            nextUrl = response.getNextPageUrl();
+
+                            isFirstLoaded = false;
+                        }
+
+                        @Override
+                        public void onError(Throwable ex) {
+                        }
+                    });
+
+
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                // 改变标题栏textview的文字
+                if (nextUrl != null) {
+                    Feed2ndReviewBean.IssueListBean.ItemListBean firstVisibleBean = (Feed2ndReviewBean.IssueListBean.ItemListBean) view.getAdapter().getItem(firstVisibleItem);
+                    if (firstVisibleBean.getType().equals("textHeader")) {
+
+                        String str = firstVisibleBean.getData().getText();
+                        for (int i = 0; i < str.length(); i++) {
+                            // 46是"."的char值,判断时候str里是否含有"."
+                            if (str.charAt(i) == 46) {
+                                tvTime.setText(firstVisibleBean.getData().getText());
+                            }
+                        }
+
+                    }
+                }
+
+            }
+        });
+
+
     }
 
     /**
      * 获取listview数据
+     *
      * @param response
      * @return
      */

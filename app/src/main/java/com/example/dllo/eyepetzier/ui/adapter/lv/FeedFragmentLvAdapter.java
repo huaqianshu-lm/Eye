@@ -6,11 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.FeedFragmentBean;
+import com.example.dllo.eyepetzier.utils.EScreenSizeDensity;
+import com.example.dllo.eyepetzier.utils.ScreenSize;
 import com.example.dllo.eyepetzier.utils.TextStyleSetter;
 import com.example.dllo.eyepetzier.view.TitleTextView;
 import com.squareup.picasso.Picasso;
@@ -77,6 +80,12 @@ public class FeedFragmentLvAdapter extends BaseAdapter {
                     convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_fgmt_feed_type_2nd, parent, false);
                     holder2nd = new HolderType2nd(convertView);
                     convertView.setTag(holder2nd);
+
+                    // 指定item的高度
+                    ViewGroup.LayoutParams params = convertView.getLayoutParams();
+                    params.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) * 2 / 5;
+                    params.width = ScreenSize.getScreenSize(context, EScreenSizeDensity.WIDTH);
+                    convertView.setLayoutParams(params);
                     break;
             }
         } else {

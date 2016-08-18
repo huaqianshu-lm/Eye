@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.Feed2ndReviewActivity"></activity>
+        <activity
+            android:name=".ui.activity.Feed2ndReviewActivity"
+            android:process=":picture"
+            />
     </application>
 
 </manifest>

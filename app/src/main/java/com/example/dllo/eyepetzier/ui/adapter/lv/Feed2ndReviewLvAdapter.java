@@ -1,6 +1,7 @@
 package com.example.dllo.eyepetzier.ui.adapter.lv;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.Feed2ndReviewBean;
 import com.example.dllo.eyepetzier.mode.bean.FeedFragmentBean;
+import com.example.dllo.eyepetzier.utils.EScreenSizeDensity;
+import com.example.dllo.eyepetzier.utils.ScreenSize;
 import com.example.dllo.eyepetzier.utils.TextStyleSetter;
 import com.example.dllo.eyepetzier.view.TitleTextView;
 import com.squareup.picasso.Picasso;
@@ -56,9 +59,7 @@ public class Feed2ndReviewLvAdapter extends BaseAdapter {
      */
     public Feed2ndReviewLvAdapter addLastItem(List<Feed2ndReviewBean.IssueListBean.ItemListBean> datas) {
 
-        for (int i = 0; i < datas.size(); i++) {
-            this.datas.add(datas.get(i));
-        }
+        this.datas.addAll(datas);
         notifyDataSetChanged();
         return this;
     }
@@ -99,8 +100,15 @@ public class Feed2ndReviewLvAdapter extends BaseAdapter {
                     convertView = LayoutInflater.from(context).inflate(R.layout.item_lv_fgmt_feed_type_2nd, parent, false);
                     holder2nd = new HolderType2nd(convertView);
                     convertView.setTag(holder2nd);
+
+                    // 指定item的高度
+                    ViewGroup.LayoutParams params = convertView.getLayoutParams();
+                    params.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) * 2 / 5;
+                    params.width = ScreenSize.getScreenSize(context, EScreenSizeDensity.WIDTH);
+                    convertView.setLayoutParams(params);
                     break;
             }
+
         } else {
             switch (viewType){
                 case TYPE_1:
@@ -127,7 +135,7 @@ public class Feed2ndReviewLvAdapter extends BaseAdapter {
                     holder2nd.tvAuthorName.setVisibility(View.VISIBLE);
                     holder2nd.tvAuthorName.setText(datas.get(position).getData().getAuthor().getName());
                 }
-                Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
+                Picasso.with(context).load(datas.get(position).getData().getCover().getFeed()).config(Bitmap.Config.RGB_565).skipMemoryCache().error(R.mipmap.ic_launcher).into(holder2nd.imgvFeed);
                 break;
         }
         return convertView;

@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/acty_feed2nd_review_include_title"
-        >
+        android:background="@color/white">
     </ListView>
 
 </RelativeLayout>
