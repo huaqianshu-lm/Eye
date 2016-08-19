@@ -1,5 +1,6 @@
 package com.example.dllo.eyepetzier.ui.fragment;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,7 @@ import com.example.dllo.eyepetzier.mode.bean.DiscoveryFragmentBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
+import com.example.dllo.eyepetzier.ui.activity.DiscoveryDetailedActivity;
 import com.example.dllo.eyepetzier.ui.adapter.rv.CommonRvAdapter;
 import com.example.dllo.eyepetzier.ui.adapter.rv.RecyclerItemDecoration;
 import com.example.dllo.eyepetzier.ui.adapter.rv.RvViewHolder;
@@ -66,7 +68,6 @@ public class DiscoveryFragment extends AbaBaseFragment {
             @Override
             public void onSuccess(DiscoveryFragmentBean response) {
                 List<DiscoveryFragmentBean.ItemListBean> listBeen = response.getItemList();
-                Log.e("msg", listBeen.size()+"");
                 listBeen.remove(0);
                 Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(150, 150).into(top10_iv);
                 Picasso.with(context).load(listBeen.get(1).getData().getImage()).resize(150, 150).into(topic_iv);
@@ -77,8 +78,17 @@ public class DiscoveryFragment extends AbaBaseFragment {
                 CommonRvAdapter<DiscoveryFragmentBean.ItemListBean> adapter = new CommonRvAdapter<DiscoveryFragmentBean.ItemListBean>(context, response.getItemList(), R.layout.item_discovery) {
                     @Override
                     protected void convert(RvViewHolder holder, DiscoveryFragmentBean.ItemListBean itemListBean, int pos) {
-                        holder.setImgUrl(R.id.item_discovery_iv, itemListBean.getData().getImage());
+                        holder.setImgUrl(R.id.item_discovery_iv, itemListBean.getData().getImage(), 150, 150);
                         holder.setText(R.id.item_discovery_tv, itemListBean.getData().getTitle());
+                        holder.setOnClickListener(R.id.item_discovery_iv, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("time", NetUrl.DISCOVERY_DETAIL_TIME);
+                                bundle.putString("share", NetUrl.DISCOVERY_DETAIL_SHARE);
+                                goTo(context, DiscoveryDetailedActivity.class, bundle);
+                            }
+                        });
                     }
                 };
                 GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false);

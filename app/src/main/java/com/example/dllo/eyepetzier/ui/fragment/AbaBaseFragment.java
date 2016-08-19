@@ -93,4 +93,16 @@ public abstract class AbaBaseFragment extends Fragment {
         context.startActivity(intent);
     }
 
+    /**
+     * 简化intent带值跳转
+     * @param from
+     * @param to
+     * @param values
+     */
+    protected void goTo(Context from, Class<? extends AbsBaseActivity> to, Bundle values){
+        Intent intent = new Intent(from,to);
+        intent.putExtras(values);
+        context.startActivity(intent);
+    }
+
 }
