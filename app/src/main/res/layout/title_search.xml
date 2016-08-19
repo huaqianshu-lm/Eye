@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@color/bg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+    <com.example.dllo.eyepetzier.view.SearchEditText
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:layout_gravity="center"
+        android:drawableLeft="@mipmap/ic_action_search_no_padding"
+        android:hint="帮你找到感兴趣的视频"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/search_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_text"
+        android:textColor="@color/search_title_text_color"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/margin_default"
+        />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/line_height"
+        android:background="@color/line" />
+</LinearLayout>

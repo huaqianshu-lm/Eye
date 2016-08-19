@@ -27,4 +27,7 @@
     <string name="mine_my_suggestion_text">意见反馈</string>
     <string name="mine_my_contribution_text">我要投稿</string>
 
+    <string name="search_text">取消</string>
+    <string name="search_content_text">输入标题或描述中的关键词找到更多的视频</string>
+    <string name="search_hot_text">- 热门搜索词 -</string>
 </resources>

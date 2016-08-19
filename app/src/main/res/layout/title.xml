@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="@dimen/title_height"
     android:background="@color/bg">
 
     <com.example.dllo.eyepetzier.view.TitleTextView
@@ -17,8 +17,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_action_search_no_padding"
         android:layout_margin="@dimen/title_iv_margin" />
-
+    <ImageView
+        android:id="@+id/set_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_action_search_no_padding"
+        android:layout_margin="@dimen/title_iv_margin" />
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
