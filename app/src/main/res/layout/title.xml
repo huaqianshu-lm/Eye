@@ -17,14 +17,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_action_search_no_padding"
         android:layout_margin="@dimen/title_iv_margin" />
     <ImageView
         android:id="@+id/set_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_action_search_no_padding"
         android:layout_margin="@dimen/title_iv_margin" />
     <View
         android:layout_width="match_parent"
