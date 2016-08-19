@@ -19,4 +19,6 @@
     <color name="author_fragment_itme_line_bg">#eeeeee</color>
     <color name="mine_fragment_text_color">#555555</color>
     <color name="mine_fragment_version_text_color">#aaaaaa</color>
+    <color name="search_title_text_color">#999999</color>
+
 </resources>

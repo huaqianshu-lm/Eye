@@ -50,6 +50,7 @@ public class AuthorFragment extends AbaBaseFragment {
                     @Override
                     protected void convert(RvViewHolder holder, final AuthorFragmentBean.ItemListBean itemListBean, int pos) {
                         holder.setIsRecyclable(false);
+                        AuthorFragmentBean.ItemListBean.DataBean dataBean = itemListBean.getData();
                         if (itemListBean.getType().equals("leftAlignTextHeader")) {
                             holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getText());
                             holder.setVisible(R.id.item_author_fragment_title_tv, false);
@@ -60,10 +61,10 @@ public class AuthorFragment extends AbaBaseFragment {
                             L.d("header", itemListBean.getData().getText());
                         }
                         if (itemListBean.getType().equals("briefCard")) {
-                            holder.setText(R.id.item_author_fragment_title_tv, itemListBean.getData().getTitle());
-                            holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getDescription());
-                            holder.setText(R.id.item_author_fragment_subtitle_tv, itemListBean.getData().getSubTitle());
-                            holder.setImgUrl(R.id.item_author_fragment_civ, itemListBean.getData().getIcon(), 150, 150);
+                            holder.setText(R.id.item_author_fragment_title_tv, dataBean.getTitle());
+                            holder.setText(R.id.item_author_fragment_description_tv, dataBean.getDescription());
+                            holder.setText(R.id.item_author_fragment_subtitle_tv, dataBean.getSubTitle());
+                            holder.setImgUrl(R.id.item_author_fragment_civ, dataBean.getIcon(), 150, 150);
                             holder.setVisible(R.id.item_author_fragment_rv_rv, false);
                             holder.setOnClickListener(R.id.top, new View.OnClickListener() {
                                 @Override
@@ -78,26 +79,28 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setVisible(R.id.item_author_fragment_line, false);
                         }
                         if (itemListBean.getType().equals("videoCollectionWithBrief")) {
+                            AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
                             List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
-                            holder.setText(R.id.item_author_fragment_title_tv, itemListBean.getData().getHeader().getTitle());
-                            holder.setText(R.id.item_author_fragment_subtitle_tv, itemListBean.getData().getHeader().getSubTitle());
-                            holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getHeader().getDescription());
-                            holder.setImgUrl(R.id.item_author_fragment_civ, itemListBean.getData().getHeader().getIcon(), 150, 150);
+                                  holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
+                               holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
+                            holder.setText(R.id.item_author_fragment_description_tv, headerBean.getDescription());
+                                     holder.setImgUrl(R.id.item_author_fragment_civ, headerBean.getIcon(), 150, 150);
                             final CommonRvAdapter<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoAdapter = new CommonRvAdapter<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean>(context, videoItemListBeen, R.layout.item_author_fragment_child_rv) {
                                 @Override
                                 protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean, int pos) {
-                                    holder.setText(R.id.item_author_fragment_child_rv_title_tv, videoItemListBean.getData().getTitle());
-                                    holder.setText(R.id.item_author_fragment_child_rv_category_tv, videoItemListBean.getData().getCategory());
+                                    AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean videoDataBean = videoItemListBean.getData();
+                                       holder.setText(R.id.item_author_fragment_child_rv_title_tv,videoDataBean.getTitle());
+                                    holder.setText(R.id.item_author_fragment_child_rv_category_tv,videoDataBean.getCategory());
                                     // 获取屏幕的宽度
                                     DisplayMetrics dm = new DisplayMetrics();
                                     WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
                                     wm.getDefaultDisplay().getMetrics(dm);
                                     int width = dm.widthPixels;
-                                    holder.setImgUrl(R.id.item_author_fragment_child_rv_iv, videoItemListBean.getData().getCover().getFeed(), width / 4 * 3
+                                    holder.setImgUrl(R.id.item_author_fragment_child_rv_iv, videoDataBean.getCover().getFeed(), width / 4 * 3
                                             , 500);
-                                    int minute = videoItemListBean.getData().getDuration() / 60;
-                                    int sec = videoItemListBean.getData().getDuration() % 60;
-                                    String time = String.valueOf(minute) + "'" + String.valueOf(sec) + " \" ";
+                                    int minute = videoDataBean.getDuration() / 60;
+                                    int sec = videoDataBean.getDuration() % 60;
+                                    String time = String.valueOf(minute) + " '" + String.valueOf(sec) + "  \"  ";
                                     holder.setText(R.id.item_author_fragment_child_rv_latestreleasttime_tv, time);
                                     holder.setOnClickListener(R.id.item_author_fragment_child_rv_rl, new View.OnClickListener() {
                                         @Override
