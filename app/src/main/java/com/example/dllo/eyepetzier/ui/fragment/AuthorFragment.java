@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -47,7 +48,7 @@ public class AuthorFragment extends AbaBaseFragment {
                 L.d("itemlistbean", itemListBeen.size() + "");
                 CommonRvAdapter<AuthorFragmentBean.ItemListBean> adapter = new CommonRvAdapter<AuthorFragmentBean.ItemListBean>(context, itemListBeen, R.layout.item_author_fragment_rv) {
                     @Override
-                    protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean itemListBean, int pos) {
+                    protected void convert(RvViewHolder holder, final AuthorFragmentBean.ItemListBean itemListBean, int pos) {
                         holder.setIsRecyclable(false);
                         if (itemListBean.getType().equals("leftAlignTextHeader")) {
                             holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getText());
@@ -109,6 +110,7 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setOnClickListener(R.id.top, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });

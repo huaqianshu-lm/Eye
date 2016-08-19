@@ -79,7 +79,6 @@ public class Feed2ndReviewActivity extends AbsBaseActivity {
                 adapter.setDatas(getDatas(response));
                 lv.setAdapter(adapter);
                 nextUrl = response.getNextPageUrl();
-                Log.e("xxx", nextUrl);
             }
 
             @Override
@@ -128,7 +127,7 @@ public class Feed2ndReviewActivity extends AbsBaseActivity {
 
                         String str = firstVisibleBean.getData().getText();
                         for (int i = 0; i < str.length(); i++) {
-                            // 46是"."的char值,判断时候str里是否含有"."
+                            // 46是"."的char值,判断str里是否含有"."
                             if (str.charAt(i) == 46) {
                                 tvTime.setText(firstVisibleBean.getData().getText());
                             }

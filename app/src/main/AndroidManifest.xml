@@ -18,14 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.activity.Feed2ndReviewActivity"
-            android:process=":picture"
-            />
-
-        <activity android:name=".ui.activity.DiscoveryDetailedActivity"/>
-
+            android:process=":picture" />
+        <activity android:name=".ui.activity.DiscoveryDetailedActivity" />
+        <activity android:name=".ui.activity.Author2ndDetailActivity"></activity>
     </application>
 
 </manifest>
