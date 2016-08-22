@@ -22,7 +22,11 @@
             android:name=".ui.activity.Feed2ndReviewActivity"
             android:process=":picture" />
         <activity android:name=".ui.activity.DiscoveryDetailedActivity" />
-        <activity android:name=".ui.activity.Author2ndDetailActivity"></activity>
+        <activity android:name=".ui.activity.Author2ndDetailActivity"
+            android:process=":picture"
+            />
+
+        <activity android:name=".ui.activity.VideoIntroduceActivity"/>
     </application>
 
 </manifest>
