@@ -93,7 +93,7 @@ public class FlowLayout extends FrameLayout {
 
     private void layoutFlow() {
         int childCount = getChildCount();
-        int left = getPaddingLeft();
+        int left = getPaddingLeft() + 20;
         int top = getPaddingTop();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
@@ -103,13 +103,14 @@ public class FlowLayout extends FrameLayout {
                 left = child.getMeasuredWidth();
             } else {
                 View childAt = getChildAt(i - 1);
-                if (childAt.getRight() + child.getMeasuredWidth() + getPaddingRight() > getMeasuredWidth()) {
-
+                int totalWidth = childAt.getRight() + child.getMeasuredWidth() + getPaddingRight() + 20;
+                if (totalWidth > getMeasuredWidth()) {
                     top = childAt.getBottom();
                     left = getPaddingLeft();
                 } else {
                     left = childAt.getRight();
                 }
+                left += 20;
                 child.layout(left, top, left + child.getMeasuredWidth(), top + child.getMeasuredHeight());
             }
         }

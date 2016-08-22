@@ -26,7 +26,6 @@
                 style="@style/AuthorFragmentTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:textColor="@color/author_fragment_item_title_text_color"
                 android:textStyle="bold" />
 
@@ -37,7 +36,6 @@
                 android:layout_alignBottom="@id/item_author_fragment_title_tv"
                 android:layout_marginLeft="@dimen/author_fragment_item_margin"
                 android:layout_toRightOf="@id/item_author_fragment_title_tv"
-
                 android:textColor="@color/author_fragment_item_subtitle_text_color"
                 android:textSize="@dimen/author_fragment_item_subtitle_text_size" />
 
@@ -50,7 +48,6 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingTop="@dimen/author_fragment_item_textview_padding_top"
-
                 android:textColor="@color/author_fragment_item_description_text_color"
                 android:textSize="@dimen/author_fragment_item_description_text_size" />
         </RelativeLayout>

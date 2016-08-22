@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,7 +85,6 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         viewPager.setAdapter(mainViewAdapter);
         tabLayout.setupWithViewPager(viewPager);
         setTabLayout();
-        tabLayout.getTabAt(0).setIcon(R.mipmap.ic_tab_strip_icon_feed_selected);
         setTitle();
 
 
@@ -119,6 +119,10 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                     String str = list.get(i).toString();
                     searchTv.setText(str);
                     searchFl.addView(searchTv);
+                    ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) searchTv.getLayoutParams();
+                    marginLayoutParams.leftMargin = 10;
+                    searchTv.setLayoutParams(marginLayoutParams);
+                    searchTv.setTextColor(Color.argb(255,200,200,0));
                 }
             }
 
@@ -149,6 +153,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
             View view = LayoutInflater.from(MainActivity.this).inflate(ids[i], null);
             tabLayout.getTabAt(i).setCustomView(view);
         }
+
         tabLayout.setSelectedTabIndicatorHeight(0);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabTextColors(Color.GRAY, Color.BLACK);

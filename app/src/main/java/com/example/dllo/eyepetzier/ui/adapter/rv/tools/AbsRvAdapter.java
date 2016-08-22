@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,26 +21,44 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
 
     public AbsRvAdapter(Context context, List<T> datas) {
         this.context = context;
-        this.datas = datas;
+        if (this.datas == null) {
+            this.datas = new ArrayList<>();
+        } else {
+            this.datas.clear();
+        }
+        this.datas.addAll(datas);
         itemViewDelegateManager = new ItemViewDelegateManager();
     }
 
     public AbsRvAdapter(Context context) {
         this.context = context;
+        if (this.datas == null){
+            this.datas = new ArrayList<>();
+        }else {
+            this.datas.clear();
+        }
+        this.datas.addAll(datas);
         itemViewDelegateManager = new ItemViewDelegateManager();
     }
 
     public void setDatas(List<T> datas) {
-        this.datas = datas;
+
+        if (this.datas == null) {
+            this.datas = new ArrayList<>();
+        } else {
+            this.datas.clear();
+        }
+        this.datas.addAll(datas);
         notifyDataSetChanged();
     }
 
     /**
      * 在行尾添加数据
+     *
      * @param data
      */
-    public void addItemAtEnd(T data){
-        datas.add(datas.size()-1, data);
+    public void addItemAtEnd(T data) {
+        datas.add(datas.size() - 1, data);
         notifyDataSetChanged();
     }
 
@@ -61,7 +80,7 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
             return super.getItemViewType(position);
         }
         // 否则就返回行布局的类型的值,值为int类型
-        return itemViewDelegateManager.getItemViewType(datas.get(position),position);
+        return itemViewDelegateManager.getItemViewType(datas.get(position), position);
     }
 
 
@@ -69,50 +88,51 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
     public RvViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         IItemViewDelegate IItemViewDelegate = itemViewDelegateManager.getItemViewDelegate(viewType);
         int layoutId = IItemViewDelegate.getItemViewLayoutId();
-        RvViewHolder holder = RvViewHolder.createViewHolder(context,parent,layoutId);
-        onViewHolderCreated(holder,holder.getConvertView());
-        setListener(parent,holder,viewType);
+        RvViewHolder holder = RvViewHolder.createViewHolder(context, parent, layoutId);
+        onViewHolderCreated(holder, holder.getConvertView());
+        setListener(parent, holder, viewType);
         return holder;
     }
 
-    public void onViewHolderCreated(RvViewHolder holder, View itemView){
+    public void onViewHolderCreated(RvViewHolder holder, View itemView) {
 
     }
 
     @Override
     public void onBindViewHolder(RvViewHolder holder, int position) {
-        convert(holder,datas.get(position));
+        convert(holder, datas.get(position));
     }
 
-    protected boolean isEnable(int viewType){
+    protected boolean isEnable(int viewType) {
         return true;
     }
 
     /**
      * 设置行布局的点击事件(包括长按点击事件)
+     *
      * @param parent
      * @param rvViewHolder
      * @param viewType
      */
-    protected void setListener(ViewGroup parent, final RvViewHolder rvViewHolder, final int viewType){
-        if (!isEnable(viewType)){
+    protected void setListener(ViewGroup parent, final RvViewHolder rvViewHolder, final int viewType) {
+        if (!isEnable(viewType)) {
             return;
         }
         rvViewHolder.getConvertView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (onItemClickListener != null){
+                if (onItemClickListener != null) {
                     int pos = rvViewHolder.getAdapterPosition();
-                    onItemClickListener.onItemClick(v, rvViewHolder,pos);
+                    onItemClickListener.onItemClick(v, rvViewHolder, pos);
                 }
             }
         });
         rvViewHolder.getConvertView().setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if (onItemClickListener != null){
+                if (onItemClickListener != null) {
                     int pos = rvViewHolder.getAdapterPosition();
-                    onItemClickListener.onItemLongClick(v, rvViewHolder,pos);
+                    onItemClickListener.onItemLongClick(v, rvViewHolder, pos);
                 }
                 return false;
             }
@@ -124,21 +144,22 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
         return datas.size();
     }
 
-    public List<T> getDatas(){
+    public List<T> getDatas() {
         return datas;
     }
 
     /**
      * 添加设置行布局的接口
+     *
      * @param IItemViewDelegate
      * @return
      */
-    public AbsRvAdapter addItemViewDelegate(IItemViewDelegate<T> IItemViewDelegate){
+    public AbsRvAdapter addItemViewDelegate(IItemViewDelegate<T> IItemViewDelegate) {
         itemViewDelegateManager.addDelegate(IItemViewDelegate);
         return this;
     }
 
-    public AbsRvAdapter addItemViewDelegate(int viewType, IItemViewDelegate<T> IItemViewDelegate){
+    public AbsRvAdapter addItemViewDelegate(int viewType, IItemViewDelegate<T> IItemViewDelegate) {
         itemViewDelegateManager.addDelegate(viewType, IItemViewDelegate);
         return this;
     }
@@ -164,10 +185,11 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
 
     /**
      * 将行布局的数据传出去
+     *
      * @param holder
      * @param t
      */
-    public void convert(RvViewHolder holder , T t){
-        itemViewDelegateManager.convert(holder,t,holder.getAdapterPosition());
+    public void convert(RvViewHolder holder, T t) {
+        itemViewDelegateManager.convert(holder, t, holder.getAdapterPosition());
     }
 }
