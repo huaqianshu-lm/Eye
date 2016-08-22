@@ -1,6 +1,7 @@
 package com.example.dllo.eyepetzier.ui.fragment;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -13,6 +14,7 @@ import com.example.dllo.eyepetzier.mode.bean.AuthorFragmentBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
+import com.example.dllo.eyepetzier.ui.activity.Author2ndDetailActivity;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.CommonRvAdapter;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
 import com.example.dllo.eyepetzier.utils.L;
@@ -79,7 +81,7 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setVisible(R.id.item_author_fragment_line, false);
                         }
                         if (itemListBean.getType().equals("videoCollectionWithBrief")) {
-                            AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
+                            final AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
                             List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
                                   holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
                                holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
@@ -106,6 +108,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                         @Override
                                         public void onClick(View v) {
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
+
                                         }
                                     });
                                 }
@@ -113,7 +116,20 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setOnClickListener(R.id.top, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
+                                    String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
+                                            + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
+                                            + NetUrl.AUTHOR_2ND_DETAIL_URL_DATE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
+                                            + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
+                                            + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    Log.e("zzz", urlDate);
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
+                                    bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
+                                    bundle.putString(NetUrl.KEY_AUTHOR, headerBean.getTitle());
+                                    bundle.putString(NetUrl.KEY_DESCRIPTION, headerBean.getDescription());
+                                    bundle.putString(NetUrl.KEY_LOGO, headerBean.getIcon());
+                                    goTo(getActivity(), Author2ndDetailActivity.class, bundle);
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });

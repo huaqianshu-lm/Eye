@@ -43,6 +43,16 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
         notifyDataSetChanged();
     }
 
+    /**
+     * 在行尾添加数据组
+     * @param datas
+     */
+    public void addItemAtEnd(List<T> datas){
+        int lastIndexPosition = this.datas.size() - 1;
+        this.datas.addAll(datas);
+        notifyItemRangeInserted(lastIndexPosition, datas.size());
+    }
+
 
     @Override
     public int getItemViewType(int position) {

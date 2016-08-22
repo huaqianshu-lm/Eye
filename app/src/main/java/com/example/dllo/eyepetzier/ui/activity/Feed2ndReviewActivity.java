@@ -62,9 +62,6 @@ public class Feed2ndReviewActivity extends AbsBaseActivity {
         setTitle();
         // init lv
         initLv();
-        // lv scroll load data
-
-
     }
 
     /**

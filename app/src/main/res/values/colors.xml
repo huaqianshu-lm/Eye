@@ -9,6 +9,7 @@
     <color name="white">#ffffff</color>
     <color name="grey">#aaaaaa</color>
     <color name="grey_lite">#dedede</color>
+    <color name="transparent">#00ffffff</color>
 
     <color name="bg">#ffffff</color>
     <color name="line">#cccccc</color>
@@ -20,5 +21,7 @@
     <color name="mine_fragment_text_color">#555555</color>
     <color name="mine_fragment_version_text_color">#aaaaaa</color>
     <color name="search_title_text_color">#999999</color>
+
+
 
 </resources>
