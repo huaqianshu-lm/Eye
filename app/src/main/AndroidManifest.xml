@@ -23,9 +23,7 @@
             android:process=":picture" />
         <activity android:name=".ui.activity.DiscoveryDetailedActivity" />
         <activity android:name=".ui.activity.Author2ndDetailActivity"
-            android:process=":picture"
-            />
-
+            android:process=":picture" />
         <activity android:name=".ui.activity.VideoIntroduceActivity"/>
     </application>
 
