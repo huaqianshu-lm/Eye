@@ -25,7 +25,7 @@
             />
 
         <activity android:name=".ui.activity.DiscoveryDetailedActivity"/>
-
+        <activity android:name=".ui.activity.VideoIntroduceActivity"/>
     </application>
 
 </manifest>
