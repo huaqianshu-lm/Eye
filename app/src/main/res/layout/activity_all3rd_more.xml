@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/recommend_bg_unlike"
+    android:orientation="vertical"
+    tools:context="com.example.dllo.eyepetzier.ui.activity.All3rdMoreActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.example.dllo.eyepetzier.view.TypeTextView
+                android:id="@+id/acty_all3rd_more_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/video_introduce_margin"
+                android:text="title"
+                android:textColor="@color/video_introduce_title_text_color"
+                android:textSize="@dimen/video_introduce_title_text_size"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/acty_all3rd_more_iv_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="@dimen/video_introduce_margin"
+                android:src="@mipmap/ic_action_open_detail_more"
+                android:textSize="@dimen/video_introduce_subtitle_text_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/acty_all3rd_more_iv_detail"
+                android:background="@color/video_introduce_title_text_color" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/acty_all3rd_more_sv_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/acty_all3rd_more_ll_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
+
+</LinearLayout>

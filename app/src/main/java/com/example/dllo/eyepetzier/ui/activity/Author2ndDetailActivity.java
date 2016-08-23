@@ -231,7 +231,6 @@ public class Author2ndDetailActivity extends AbsBaseActivity {
                     lineBottomRight.setVisibility(View.VISIBLE);
                     viewPager.setCurrentItem(1);
                 }
-
             }
 
             @Override
@@ -247,10 +246,7 @@ public class Author2ndDetailActivity extends AbsBaseActivity {
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
-                Log.e("vvvvvv", "reselected");
             }
         });
-
     }
 }
