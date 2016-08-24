@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
@@ -19,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.AuthorFragmentBean;
+import com.example.dllo.eyepetzier.mode.net.NetUrl;
 import com.example.dllo.eyepetzier.ui.adapter.vp.VideoVpAdapter;
 import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.DepthPagerTransfromer;
@@ -27,7 +27,6 @@ import com.example.dllo.eyepetzier.utils.T;
 import com.example.dllo.eyepetzier.view.TypeTextView;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +60,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private TypeTextView durationTv;
     private View view;// viewpager里放在view
     private RelativeLayout textInfoRl;
+    private RelativeLayout twolineRl;
     private List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen;
     private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean;
     private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.CoverBean coverBean;
@@ -68,6 +68,17 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private int width; // 屏幕的宽度
     private int height; // 屏幕的高度
     private Animation animation; // 图片的缩放动画
+//    private TextView likeTv,shareTv,commmentTv;
+    /**
+     * 三级页面用
+     */
+    private String toolbarTitle;
+    private String iconUrl;
+    private String itemTitle;
+    private String itemSubtitle;
+    private String itemDescription;
+    private String dataUrl;
+    private int itemId;
     private TextView likeTv, shareTv, commmentTv;
     private Bundle toPlayBundle;
     private int pos;// 当前视频的位置,由上一个界面传来
@@ -100,7 +111,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         int bgHeight = height / 17 * 9;
         // 刚进入时的界面
         videoItemListBeen = dataBean.getItemList();
-        L.d(videoItemListBeen.size() + " ----------");
         videoItemListBean = videoItemListBeen.get(pos);
         setVp();
         int count = videoItemListBeen.size();
@@ -122,7 +132,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             videoItemListBean = videoItemListBeen.get(pos);
             Picasso.with(this).load(videoItemListBean.getData().getCover().getDetail()).resize(width, bgHeight).into(bgIv);
         }
-
 
         // 设打字效果
         contentTv.setListener(this);
@@ -173,13 +182,22 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
      * 设置页面的内容
      */
     private void setVp() {
+
+        AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
         videoDataBean = videoItemListBean.getData();
         coverBean = videoDataBean.getCover();
         contentTv.start(videoDataBean.getDescription());
-        titleTv.start(videoDataBean.getTitle());
+        titleTv.start(toolbarTitle);
         categoryTv.start(videoDataBean.getCategory());
+
+        toolbarTitle = videoDataBean.getTitle();
+        iconUrl = headerBean.getIcon();
+        itemTitle = headerBean.getTitle();
+        itemSubtitle = headerBean.getSubTitle();
+        itemDescription = headerBean.getDescription();
+        itemId = videoDataBean.getId();
         // 设置title,分类时间
-        videoDataBean = videoItemListBean.getData();
+//        videoDataBean = videoItemListBean.getData();
         int min = videoDataBean.getDuration() / 60;
         int sec = videoDataBean.getDuration() % 60;
         String duration = String.valueOf(min) + "'" + String.valueOf(sec) + "\"";
@@ -189,11 +207,10 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         float rotateHeight = blurIvHeight / 2;
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
         // 设置带图标的内容
-        AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
-        Picasso.with(VideoIntroduceActivity.this).load(headerBean.getIcon()).resize(150, 150).into(iconIv);
-        secondTitleTv.setText(headerBean.getTitle());
-        secondSubTitleTv.setText(headerBean.getSubTitle());
-        secondDescriptionTv.setText(headerBean.getDescription());
+        Picasso.with(VideoIntroduceActivity.this).load(iconUrl).resize(150, 150).into(iconIv);
+        secondTitleTv.setText(itemTitle);
+        secondSubTitleTv.setText(itemSubtitle);
+        secondDescriptionTv.setText(itemDescription);
         AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.ConsumptionBean consumptionBean = videoDataBean.getConsumption();
         likeTv.setText(String.valueOf(consumptionBean.getCollectionCount()));
         shareTv.setText(String.valueOf(consumptionBean.getShareCount()));
@@ -227,8 +244,10 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         likeTv = bindView(R.id.item_video_introduce_vp_like_tv);
         shareTv = bindView(R.id.item_video_introduce_vp_share_tv);
         commmentTv = bindView(R.id.item_video_introduce_vp_comment_tv);
+        twolineRl = bindView(R.id.twoline_rl);
         backIv.setOnClickListener(this);
         toDetailIv.setOnClickListener(this);
+        twolineRl.setOnClickListener(this);
         playIv.setOnClickListener(this);
     }
 
@@ -257,6 +276,19 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             case R.id.item_video_introduce_vp_to_detail_iv:
                 T.shortMsg("跳转到下一个界面");
                 break;
+            case R.id.twoline_rl:
+                dataUrl = NetUrl.ALL_3RD_MORE_URL_START + itemId + NetUrl.ALL_3RD_MORE_URL_END;
+                Bundle bundle = new Bundle();
+                bundle.putString(Contant.KEY_3RD_TOOLBAR_TITLE, toolbarTitle);
+                bundle.putString(Contant.KEY_3RD_ICON_URL, iconUrl);
+                bundle.putString(Contant.KEY_3RD_TITLE, itemTitle);
+                bundle.putString(Contant.KEY_3RD_SUBTITLE, itemSubtitle);
+                bundle.putString(Contant.KEY_3RD_DESCRIPTION, itemDescription);
+                bundle.putString(Contant.KEY_3RD_DATA_URL,dataUrl);
+                goTo(VideoIntroduceActivity.this, All3rdMoreActivity.class, bundle);
+                T.shortMsg("跳转到一个三级界面");
+                break;
+
             // 跳转到播放视频页
             case R.id.item_video_introduce_vp_bg_iv:
 

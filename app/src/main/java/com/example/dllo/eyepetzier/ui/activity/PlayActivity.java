@@ -10,7 +10,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -49,6 +53,9 @@ public class PlayActivity extends AbsBaseActivity {
     private ImageView infoLowIv;
     private Handler handler;
     private RelativeLayout controlRl;
+    private RelativeLayout loadingRl;
+    private ImageView loadingIv;
+    private LinearLayout infoLl;
     private AuthorFragmentBean.ItemListBean.DataBean dataBean;
     private List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen;
     private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean videoDataBean;
@@ -59,6 +66,9 @@ public class PlayActivity extends AbsBaseActivity {
     private Timer timer = new Timer();
     private boolean isShowControlRl = false;// 记录控制界面的显示状态
     private boolean isInfoShow = false; // 记录切换清晰度的按钮显示的状态
+    private Animation loadingAnimation;
+    private List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.PlayInfoBean> playInfoBeen;
+    private String defaultUrl;
 
     @Override
     protected int setLayout() {
@@ -82,6 +92,10 @@ public class PlayActivity extends AbsBaseActivity {
         playSeekBar = bindView(R.id.play_aty_seekbar);
         surfaceView = bindView(R.id.play_aty_surfaceview);
         controlRl = bindView(R.id.play_aty_control_rl);
+        loadingIv = bindView(R.id.play_aty_loading_iv);
+        loadingRl = bindView(R.id.play_aty_loading_rl);
+        infoLl = bindView(R.id.play_aty_info_ll);
+        infoLl.setOnClickListener(listener);
         controlRl.setOnClickListener(listener);
         backIv.setOnClickListener(listener);
         infoHighIv.setOnClickListener(listener);
@@ -100,12 +114,19 @@ public class PlayActivity extends AbsBaseActivity {
 
     @Override
     protected void initData() {
+        // 等待动画
+        loadingAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_loading);
+        loadingAnimation.setInterpolator(new LinearInterpolator());
+        loading();
         Intent intent = getIntent();
         dataBean = intent.getParcelableExtra(Contant.VIDEO_TO_PLAY);
         pos = intent.getIntExtra(Contant.VIDEO_POS, 0);
         videoItemListBeen = dataBean.getItemList();
         videoDataBean = videoItemListBeen.get(pos).getData();
+        defaultUrl = videoItemListBeen.get(pos).getData().getPlayUrl();
+        playInfoBeen = videoDataBean.getPlayInfo();
         titleTv.setText(videoDataBean.getTitle());
+
         playIv.setImageResource(R.mipmap.ic_player_pause);
         controlRl.setVisibility(View.INVISIBLE);
         // 设置视频播放的进度时间
@@ -132,6 +153,16 @@ public class PlayActivity extends AbsBaseActivity {
     }
 
     /**
+     * 等待动画
+     */
+    private void loading() {
+        loadingRl.setVisibility(View.VISIBLE);
+        if (loadingAnimation != null) {
+            loadingIv.startAnimation(loadingAnimation);
+        }
+    }
+
+    /**
      * view的点击事件
      */
     private View.OnClickListener listener = new View.OnClickListener() {
@@ -143,23 +174,63 @@ public class PlayActivity extends AbsBaseActivity {
                     Bundle bundle = new Bundle();
                     bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                     goTo(PlayActivity.this, VideoIntroduceActivity.class, bundle);
+                    mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = null;
                     finish();
-//                    mediaPlayer.stop();
                     break;
                 // 选择视频的清晰度
+                // 高清
                 case R.id.play_aty_info_high_iv:
                     if (isInfoShow) {
                         infoLowIv.setVisibility(View.GONE);
                         infoNormalIv.setVisibility(View.GONE);
                         isInfoShow = !isInfoShow;
-                    }else {
+                    } else {
                         infoNormalIv.setVisibility(View.VISIBLE);
                         infoLowIv.setVisibility(View.VISIBLE);
-                        isInfoShow = ! isInfoShow;
+                        isInfoShow = !isInfoShow;
                     }
+//                    loading();
+//                    currentPos = mediaPlayer.getCurrentPosition();
+//                    String highUrl = playInfoBeen.get(2).getUrl();
+//                    play(highUrl,currentPos);
                     T.shortMsg("清晰度");
+                    break;
+                // 流畅
+                case R.id.play_aty_info_low_iv:
+                    if (isInfoShow) {
+                        infoHighIv.setVisibility(View.GONE);
+                        infoNormalIv.setVisibility(View.GONE);
+                        isInfoShow = !isInfoShow;
+                    } else {
+                        infoNormalIv.setVisibility(View.VISIBLE);
+                        infoHighIv.setVisibility(View.VISIBLE);
+                        isInfoShow = !isInfoShow;
+                    }
+                    loading();
+                    currentPos = mediaPlayer.getCurrentPosition();
+                    String lowUrl = playInfoBeen.get(0).getUrl();
+                    play(lowUrl, currentPos);
+                    T.shortMsg("流畅");
+                    break;
+                // 标清
+                case R.id.play_aty_info_normal_iv:
+                    if (isInfoShow) {
+                        infoLowIv.setVisibility(View.GONE);
+                        infoHighIv.setVisibility(View.GONE);
+                        isInfoShow = !isInfoShow;
+                    } else {
+                        infoLowIv.setVisibility(View.VISIBLE);
+                        infoHighIv.setVisibility(View.VISIBLE);
+                        isInfoShow = !isInfoShow;
+                    }
+                    T.shortMsg("标清");
+                    loading();
+                    currentPos = mediaPlayer.getCurrentPosition();
+                    String normalUrl = playInfoBeen.get(1).getUrl();
+                    play(normalUrl, currentPos);
+                    L.d("current", currentPos + "=-=-=-=-=-=-==");
                     break;
                 // 收藏
                 case R.id.play_aty_like_iv:
@@ -187,11 +258,11 @@ public class PlayActivity extends AbsBaseActivity {
                     break;
                 // 控制界面是否显示
                 case R.id.play_aty_surfaceview:
-                    if (isShowControlRl){
+                    if (isShowControlRl) {
                         controlRl.setVisibility(View.VISIBLE);
                         isShowControlRl = false;
                         autoInvisible();
-                    }else {
+                    } else {
                         controlRl.setVisibility(View.INVISIBLE);
                         isShowControlRl = true;
                     }
@@ -206,7 +277,7 @@ public class PlayActivity extends AbsBaseActivity {
     private SurfaceHolder.Callback callback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
-
+            mediaPlayer.setDisplay(surfaceHolder);
         }
 
         @Override
@@ -224,22 +295,27 @@ public class PlayActivity extends AbsBaseActivity {
     /**
      * 开始播放
      *
-     * @param pos
+     * @param url
+     * @param msec
      */
-    private void play(final int pos) {
+    private void play(String url, final int msec) {
 //        mediaPlayer.reset();
         // 设置音频流的类型 The audio stream for music playback
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
         mediaPlayer.setDisplay(surfaceHolder);
         try {
-            String url = videoItemListBeen.get(pos).getData().getPlayUrl();
+//            String url = videoItemListBeen.get(pos).getData().getPlayUrl();
             mediaPlayer.setDataSource(url);
-            // 设置显示视频的surfaceHolder
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     mediaPlayer.start();
+                    if (msec > 0) {
+                        mediaPlayer.seekTo(msec);
+                    }
+//                    loadingIv.clearAnimation();
+                    loadingRl.setVisibility(View.GONE);
                     playSeekBar.setMax(videoDataBean.getDuration() * 1000);
 //                    mediaPlayer.seekTo(pos);
                     new Thread(new Runnable() {
@@ -265,6 +341,7 @@ public class PlayActivity extends AbsBaseActivity {
                     }).start();
                 }
             });
+
 
             mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -315,14 +392,18 @@ public class PlayActivity extends AbsBaseActivity {
      * 下一个视频
      */
     private void next() {
+
+        loading();
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
 //            mediaPlayer.release();
             int size = videoItemListBeen.size();
             if (pos < size) {
                 pos += 1;
+                videoDataBean = videoItemListBeen.get(pos).getData();
+                String url = videoDataBean.getPlayUrl();
                 mediaPlayer.reset();
-                play(pos);
-                titleTv.setText(videoItemListBeen.get(pos).getData().getTitle());
+                play(url, 0);
+                titleTv.setText(videoDataBean.getTitle());
             } else {
                 nextIv.setVisibility(View.GONE);
             }
@@ -354,13 +435,13 @@ public class PlayActivity extends AbsBaseActivity {
     /**
      * 4秒后,操作界面消失
      */
-    private void autoInvisible(){
+    private void autoInvisible() {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 handler.sendEmptyMessage(Contant.AUTO_INVISIABLE);
             }
-        },4000);
+        }, 4000);
     }
 
     /**
@@ -369,6 +450,7 @@ public class PlayActivity extends AbsBaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        mediaPlayer.stop();
         mediaPlayer.release();
         mediaPlayer = null;
         finish();
@@ -376,11 +458,14 @@ public class PlayActivity extends AbsBaseActivity {
 
     /**
      * 进入界面后自动播放视频
+     *
      * @param hasFocus
      */
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        play(pos);
+        play(defaultUrl, 0);
     }
+
+
 }
