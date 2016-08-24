@@ -49,7 +49,7 @@ public class Feed2ndReviewLvAdapter extends BaseAdapter {
      *  行尾添加单条数据
      */
     public Feed2ndReviewLvAdapter addLastItem(Feed2ndReviewBean.IssueListBean.ItemListBean data) {
-        datas.add(data);
+        this.datas.add(data);
         notifyDataSetChanged();
         return this;
     }

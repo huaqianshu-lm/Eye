@@ -2,10 +2,12 @@ package com.example.dllo.eyepetzier.ui.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -14,6 +16,7 @@ import com.example.dllo.eyepetzier.mode.bean.AuthorFragmentBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
+import com.example.dllo.eyepetzier.ui.activity.Author2ndDetailActivity;
 import com.example.dllo.eyepetzier.ui.activity.VideoIntroduceActivity;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.CommonRvAdapter;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
@@ -52,7 +55,7 @@ public class AuthorFragment extends AbaBaseFragment {
                 L.d("itemlistbean", itemListBeen.size() + "");
                 CommonRvAdapter<AuthorFragmentBean.ItemListBean> adapter = new CommonRvAdapter<AuthorFragmentBean.ItemListBean>(context, itemListBeen, R.layout.item_author_fragment_rv) {
                     @Override
-                    protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean itemListBean, int pos) {
+                    protected void convert(RvViewHolder holder, final AuthorFragmentBean.ItemListBean itemListBean, int pos) {
                         holder.setIsRecyclable(false);
                         final AuthorFragmentBean.ItemListBean.DataBean dataBean = itemListBean.getData();
                         if (itemListBean.getType().equals("leftAlignTextHeader")) {
@@ -83,8 +86,14 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setVisible(R.id.item_author_fragment_line, false);
                         }
                         if (itemListBean.getType().equals("videoCollectionWithBrief")) {
-                            AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
+
+                            final AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
+
                             final List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
+<<<<<<< HEAD
+=======
+
+>>>>>>> bd364a37d2f536fb787e92e0a514cad6c7bafdc5
                             holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
                             holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
                             holder.setText(R.id.item_author_fragment_description_tv, headerBean.getDescription());
@@ -110,10 +119,16 @@ public class AuthorFragment extends AbaBaseFragment {
                                         @Override
                                         public void onClick(View v) {
                                             Bundle bundle = new Bundle();
+<<<<<<< HEAD
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                                             bundle.putInt(Contant.VIDEO_POS,pos);
+=======
+//                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+>>>>>>> bd364a37d2f536fb787e92e0a514cad6c7bafdc5
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
+
                                         }
                                     });
                                 }
@@ -121,9 +136,29 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setOnClickListener(R.id.top, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
+<<<<<<< HEAD
                                     goTo(context, VideoIntroduceActivity.class, bundle);
+=======
+                                    goTo(context, VideoIntroduceActivity.class,bundle);
+
+                                    String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
+                                            + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
+                                            + NetUrl.AUTHOR_2ND_DETAIL_URL_DATE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
+                                            + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
+                                            + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    Log.e("zzz", urlDate);
+                                    bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
+                                    bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
+                                    bundle.putString(NetUrl.KEY_AUTHOR, headerBean.getTitle());
+                                    bundle.putString(NetUrl.KEY_DESCRIPTION, headerBean.getDescription());
+                                    bundle.putString(NetUrl.KEY_LOGO, headerBean.getIcon());
+                                    goTo(getActivity(), Author2ndDetailActivity.class, bundle);
+
+>>>>>>> bd364a37d2f536fb787e92e0a514cad6c7bafdc5
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });

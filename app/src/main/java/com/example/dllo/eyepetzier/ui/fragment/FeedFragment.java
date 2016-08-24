@@ -159,8 +159,6 @@ public class FeedFragment extends AbaBaseFragment {
                 listView.setDivider(null);
                 listView.setDividerHeight(0);
                 // 设置监听
-
-
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
