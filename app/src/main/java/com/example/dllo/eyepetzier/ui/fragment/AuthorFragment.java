@@ -116,7 +116,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                         @Override
                                         public void onClick(View v) {
                                             Bundle bundle = new Bundle();
-//                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");

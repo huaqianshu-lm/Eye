@@ -121,9 +121,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             Picasso.with(this).load(coverBean.getDetail()).resize(width, height / 17 * 9).into(bgIv);
             views.add(view);
         }
-
-
-
+        
         // 设打字效果
         contentTv.setListener(this);
         videoVpAdapter.setViews(views);
