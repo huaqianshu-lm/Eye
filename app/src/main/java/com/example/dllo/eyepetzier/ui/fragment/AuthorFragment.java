@@ -90,7 +90,6 @@ public class AuthorFragment extends AbaBaseFragment {
                             final AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
 
                             final List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
-
                             holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
                             holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
                             holder.setText(R.id.item_author_fragment_description_tv, headerBean.getDescription());
@@ -130,6 +129,10 @@ public class AuthorFragment extends AbaBaseFragment {
 //                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
 
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+                                            bundle.putInt(Contant.VIDEO_POS,pos);
+//                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -150,6 +153,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                     goTo(context, VideoIntroduceActivity.class, bundle);
 
 
+                                    goTo(context, VideoIntroduceActivity.class, bundle);
                                     goTo(context, VideoIntroduceActivity.class,bundle);
 
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
