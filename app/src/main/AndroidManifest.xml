@@ -11,13 +11,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/EyepetzierTheme">
-        <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask">
+
+
+
+        <activity android:name=".ui.activity.MainActivity"
+            android:theme="@style/ImagesListActivityStyle"
+            android:launchMode="singleTask">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui.activity.Feed2ndReviewActivity"
             android:process=":picture" />
@@ -29,6 +36,10 @@
         <activity android:name=".ui.activity.All3rdMoreActivity"></activity>
         <activity android:name=".ui.activity.PlayActivity" android:screenOrientation="landscape"
             />
+
+        <!--<activity android:name=".ui.activity.DiscoveryDetailedActivity"/>-->
+        <activity android:name=".ui.activity.ImageDetailsActivity"/>
+
     </application>
 
 </manifest>

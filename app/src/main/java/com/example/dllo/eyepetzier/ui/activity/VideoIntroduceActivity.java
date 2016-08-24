@@ -279,7 +279,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 break;
             case R.id.twoline_rl:
                 dataUrl = NetUrl.ALL_3RD_MORE_URL_START + itemId + NetUrl.ALL_3RD_MORE_URL_END;
-                Log.e("VideoIntroduceActivity", dataUrl);
                 Bundle bundle = new Bundle();
                 bundle.putString(Contant.KEY_3RD_TOOLBAR_TITLE, toolbarTitle);
                 bundle.putString(Contant.KEY_3RD_ICON_URL, iconUrl);

@@ -116,10 +116,11 @@ public class AuthorFragment extends AbaBaseFragment {
                                         @Override
                                         public void onClick(View v) {
                                             Bundle bundle = new Bundle();
+
                                             bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                                             bundle.putInt(Contant.VIDEO_POS,pos);
-                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -133,8 +134,8 @@ public class AuthorFragment extends AbaBaseFragment {
                                     Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
+
                                     goTo(context, VideoIntroduceActivity.class, bundle);
-                                    goTo(context, VideoIntroduceActivity.class,bundle);
 
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
@@ -142,7 +143,6 @@ public class AuthorFragment extends AbaBaseFragment {
                                     String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
-                                    Log.e("zzz", urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
                                     bundle.putString(NetUrl.KEY_AUTHOR, headerBean.getTitle());
