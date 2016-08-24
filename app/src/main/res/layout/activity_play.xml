@@ -46,6 +46,7 @@
             android:src="@mipmap/ic_action_favorites" />
 
         <LinearLayout
+            android:id="@+id/play_aty_info_ll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@id/play_aty_like_iv"
@@ -62,16 +63,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/action_normal_mode"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/play_aty_info_low_iv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/action_low_mode"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
 
         </LinearLayout>
@@ -127,4 +126,24 @@
                 android:textSize="@dimen/play_aty_time_text_size" />
         </LinearLayout>
     </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/play_aty_loading_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/play_aty_loading_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_eye_white_inner" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_eye_white_outer" />
+    </RelativeLayout>
+
 </RelativeLayout>
