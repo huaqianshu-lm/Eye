@@ -47,4 +47,8 @@
     <dimen name="video_introduce_text_margin_top">12dp</dimen>
     <dimen name="video_introduce_line_height">0.5dp</dimen>
 
+    <dimen name="play_aty_title_text_size">17sp</dimen>
+    <dimen name="play_aty_time_text_size">10sp</dimen>
+    <dimen name="play_aty_time_margin">15dp</dimen>
+    <dimen name="play_aty_seekbar_height">1dp</dimen>
 </resources>

@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/EyepetzierTheme">
-        <activity android:name=".ui.activity.MainActivity">
+        <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,8 @@
 
         <activity android:name=".ui.activity.DiscoveryDetailedActivity"/>
         <activity android:name=".ui.activity.VideoIntroduceActivity"/>
+        <activity android:name=".ui.activity.PlayActivity" android:screenOrientation="landscape"
+            />
     </application>
 
 </manifest>

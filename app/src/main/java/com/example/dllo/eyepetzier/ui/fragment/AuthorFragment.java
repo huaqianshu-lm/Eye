@@ -85,16 +85,16 @@ public class AuthorFragment extends AbaBaseFragment {
                         if (itemListBean.getType().equals("videoCollectionWithBrief")) {
                             AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
                             final List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
-                                  holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
-                               holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
+                            holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
+                            holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
                             holder.setText(R.id.item_author_fragment_description_tv, headerBean.getDescription());
-                                     holder.setImgUrl(R.id.item_author_fragment_civ, headerBean.getIcon(), 150, 150);
+                            holder.setImgUrl(R.id.item_author_fragment_civ, headerBean.getIcon(), 150, 150);
                             final CommonRvAdapter<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoAdapter = new CommonRvAdapter<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean>(context, videoItemListBeen, R.layout.item_author_fragment_child_rv) {
                                 @Override
-                                protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean, int pos) {
+                                protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean, final int pos) {
                                     AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean videoDataBean = videoItemListBean.getData();
-                                       holder.setText(R.id.item_author_fragment_child_rv_title_tv,videoDataBean.getTitle());
-                                    holder.setText(R.id.item_author_fragment_child_rv_category_tv,videoDataBean.getCategory());
+                                    holder.setText(R.id.item_author_fragment_child_rv_title_tv, videoDataBean.getTitle());
+                                    holder.setText(R.id.item_author_fragment_child_rv_category_tv, videoDataBean.getCategory());
                                     // 获取屏幕的宽度
                                     DisplayMetrics dm = new DisplayMetrics();
                                     WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -110,9 +110,9 @@ public class AuthorFragment extends AbaBaseFragment {
                                         @Override
                                         public void onClick(View v) {
                                             Bundle bundle = new Bundle();
-//                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
-                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO,dataBean);
-                                            goTo(context, VideoIntroduceActivity.class,bundle);
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+                                            bundle.putInt(Contant.VIDEO_POS,pos);
+                                            goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
                                         }
                                     });
@@ -123,7 +123,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                 public void onClick(View v) {
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
-                                    goTo(context, VideoIntroduceActivity.class,bundle);
+                                    goTo(context, VideoIntroduceActivity.class, bundle);
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });
