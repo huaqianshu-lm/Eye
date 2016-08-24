@@ -1,8 +1,11 @@
 package com.example.dllo.eyepetzier.ui.activity;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,7 +27,9 @@ import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
 import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.EScreenSizeDensity;
 import com.example.dllo.eyepetzier.utils.ScreenSize;
+import com.example.dllo.eyepetzier.utils.T;
 import com.example.dllo.eyepetzier.utils.TextStyleSetter;
+import com.example.dllo.eyepetzier.view.TitleTextView;
 import com.example.dllo.eyepetzier.view.TypeTextView;
 import com.squareup.picasso.Picasso;
 
@@ -35,12 +40,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * 三级页面: 更多
  */
-public class All3rdMoreActivity extends AbsBaseActivity {
+public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickListener {
 
     private TypeTextView tvTitle;
     private ScrollView sv;
     private LinearLayout ll;
     private Bundle bundle;
+    private ImageView imgv;
 
     private List<All3rdMoreActyBean.ItemListBeanOuter> outerItemBeans;
     private All3rdMoreActyBean.ItemListBeanOuter outerItemBean;
@@ -72,6 +78,7 @@ public class All3rdMoreActivity extends AbsBaseActivity {
         tvTitle = bindView(R.id.acty_all3rd_more_tv_title);
         sv = bindView(R.id.acty_all3rd_more_sv_content);
         ll = bindView(R.id.acty_all3rd_more_ll_content);
+        imgv = bindView(R.id.acty_all3rd_more_iv_detail);
 
     }
 
@@ -79,9 +86,9 @@ public class All3rdMoreActivity extends AbsBaseActivity {
     protected void initData() {
 
         bundle = getIntent().getExtras();
-
+        // 初始化标题栏
         initTitlebar();
-
+        // 初始化Scrollview
         initScrollView();
 
     }
@@ -91,6 +98,20 @@ public class All3rdMoreActivity extends AbsBaseActivity {
      */
     private void initTitlebar() {
         tvTitle.setText(bundle.get(Contant.KEY_3RD_TOOLBAR_TITLE).toString());
+        // 旋转图标
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_action_open_detail_more);
+        Matrix matrix = new Matrix();
+        matrix.postRotate(180, 26, 26);
+        Bitmap rotateBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+        imgv.setImageBitmap(rotateBitmap);
+
+        imgv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     /**
@@ -98,13 +119,11 @@ public class All3rdMoreActivity extends AbsBaseActivity {
      */
     private void initScrollView() {
 
-        Log.e("All3rdMoreActivity", bundle.get(Contant.KEY_3RD_DATA_URL).toString());
         NetRequestSingleton.getInstance().startRequest(bundle.get(Contant.KEY_3RD_DATA_URL).toString(), All3rdMoreActyBean.class, new IOnHttpCallback<All3rdMoreActyBean>() {
             @Override
             public void onSuccess(All3rdMoreActyBean response) {
                 outerItemBeans = response.getItemList();
                 if (outerItemBeans != null && outerItemBeans.size() > 0) {
-                    Log.e("All3rdMoreActivity", "outerItemBeans.size():" + outerItemBeans.size());
                     for (int i = 0; i < outerItemBeans.size(); i++) {
                         View itemView = getLayoutInflater().inflate(R.layout.view_reuse_sv_acty_all3rd_more, null);
                         initItemView(itemView);
@@ -113,10 +132,12 @@ public class All3rdMoreActivity extends AbsBaseActivity {
                         switch (getBeanType(i)) {
                             case VideoCollectionWithBrief:
                                 initTypeOne();
+                                initRV(innerItemBeans);
                                 break;
 
                             case BriefCard:
                                 initTypeOne();
+                                rv.setVisibility(View.GONE);
                                 break;
 
                             case VideoCollectionWithTitle:
@@ -129,6 +150,21 @@ public class All3rdMoreActivity extends AbsBaseActivity {
                     }
                 }
 
+                /**
+                 * 添加尾布局
+                 */
+                View footview = getLayoutInflater().inflate(R.layout.title, null);
+                TitleTextView tvTitle = (TitleTextView) footview.findViewById(R.id.title_tv);
+                tvTitle.setText("- The End -");
+                tvTitle.setTextColor(ContextCompat.getColor(All3rdMoreActivity.this, R.color.white));
+                RelativeLayout rl = (RelativeLayout) footview.findViewById(R.id.title_rl);
+                rl.setBackgroundColor(ContextCompat.getColor(All3rdMoreActivity.this, R.color.transparent));
+                // 0表示添加在顶部,-1表示添加在底部
+                ll.addView(footview);
+
+                LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) footview.getLayoutParams();
+                params.height = ScreenSize.getScreenSize(All3rdMoreActivity.this, EScreenSizeDensity.HEIGHT) / 3;
+                footview.setLayoutParams(params);
             }
 
             private void initTypeOne() {
@@ -137,7 +173,6 @@ public class All3rdMoreActivity extends AbsBaseActivity {
                 tvTitleType1st.setText(bundle.getString(Contant.KEY_3RD_TITLE));
                 tvSubtitleType1st.setText(bundle.getString(Contant.KEY_3RD_SUBTITLE));
                 tvDecriptionType1st.setText(bundle.getString(Contant.KEY_3RD_DESCRIPTION));
-                initRV(innerItemBeans);
             }
 
             /**
@@ -152,6 +187,9 @@ public class All3rdMoreActivity extends AbsBaseActivity {
                 rlType2nd = (RelativeLayout) itemView.findViewById(R.id.item_sv_acty_all3rd_more_2nd_rl);
                 tvTitleType2nd = (TextView) itemView.findViewById(R.id.item_sv_acty_all3rd_more_2nd_tv_title);
                 rv = (RecyclerView) itemView.findViewById(R.id.item_sv_acty_all3rd_more_rv);
+
+                rlType1st.setOnClickListener(All3rdMoreActivity.this);
+                rlType2nd.setOnClickListener(All3rdMoreActivity.this);
             }
 
             @Override
@@ -159,6 +197,7 @@ public class All3rdMoreActivity extends AbsBaseActivity {
 
             }
         });
+
 
     }
 
@@ -202,6 +241,16 @@ public class All3rdMoreActivity extends AbsBaseActivity {
                 new TextStyleSetter().setBoldText(tvTitle.getPaint());
                 TextView tvCategory = (TextView) holder.getConvertView().findViewById(R.id.item_lv_fgmt_feed_type_2nd_tv_category);
                 tvCategory.setTextSize(10);
+
+                /**
+                 * 设置点击事件
+                 */
+                holder.setOnClickListener(R.id.item_lv_fgmt_feed_type_2nd_framelayout, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        T.shortMsg("跳转到视频详情界面");
+                    }
+                });
             }
 
             /**
@@ -246,6 +295,20 @@ public class All3rdMoreActivity extends AbsBaseActivity {
 
             default:
                 return null;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.item_sv_acty_all3rd_more_1st_rl:
+                T.shortMsg("跳转到排序详情界面");
+                break;
+
+            case R.id.item_sv_acty_all3rd_more_2nd_rl:
+                T.shortMsg("跳转到排序详情界面");
+                break;
+
         }
     }
 

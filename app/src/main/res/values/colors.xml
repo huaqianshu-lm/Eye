@@ -10,6 +10,8 @@
     <color name="grey">#aaaaaa</color>
     <color name="grey_lite">#dedede</color>
     <color name="transparent">#00ffffff</color>
+    <color name="semi_transparent">#99ffffff</color>
+
 
     <color name="bg">#ffffff</color>
     <color name="line">#cccccc</color>

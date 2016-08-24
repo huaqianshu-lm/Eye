@@ -36,9 +36,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="0.5dp"
                 android:layout_below="@id/acty_all3rd_more_iv_detail"
-                android:background="@color/video_introduce_title_text_color" />
+                android:background="@color/semi_transparent" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
