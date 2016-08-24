@@ -11,13 +11,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/EyepetzierTheme">
+<<<<<<< HEAD
         <activity android:name=".ui.activity.MainActivity" android:launchMode="singleTask">
+=======
+        <activity android:name=".ui.activity.MainActivity"
+            android:theme="@style/ImagesListActivityStyle">
+>>>>>>> feature/ZHY_发现的详情界面
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <activity
             android:name=".ui.activity.Feed2ndReviewActivity"
             android:process=":picture" />
@@ -27,6 +33,10 @@
         <activity android:name=".ui.activity.VideoIntroduceActivity"/>
         <activity android:name=".ui.activity.PlayActivity" android:screenOrientation="landscape"
             />
+=======
+        <activity android:name=".ui.activity.DiscoveryDetailedActivity"/>
+        <activity android:name=".ui.activity.ImageDetailsActivity"/>
+>>>>>>> feature/ZHY_发现的详情界面
     </application>
 
 </manifest>

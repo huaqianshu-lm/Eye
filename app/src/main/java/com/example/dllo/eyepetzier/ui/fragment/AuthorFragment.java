@@ -91,9 +91,13 @@ public class AuthorFragment extends AbaBaseFragment {
 
                             final List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> bd364a37d2f536fb787e92e0a514cad6c7bafdc5
+=======
+
+>>>>>>> feature/ZHY_发现的详情界面
                             holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
                             holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
                             holder.setText(R.id.item_author_fragment_description_tv, headerBean.getDescription());
@@ -120,12 +124,22 @@ public class AuthorFragment extends AbaBaseFragment {
                                         public void onClick(View v) {
                                             Bundle bundle = new Bundle();
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                                             bundle.putInt(Contant.VIDEO_POS,pos);
 =======
 //                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
 >>>>>>> bd364a37d2f536fb787e92e0a514cad6c7bafdc5
+=======
+
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+                                            bundle.putInt(Contant.VIDEO_POS,pos);
+
+//                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+
+>>>>>>> feature/ZHY_发现的详情界面
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -140,8 +154,14 @@ public class AuthorFragment extends AbaBaseFragment {
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
 <<<<<<< HEAD
+<<<<<<< HEAD
                                     goTo(context, VideoIntroduceActivity.class, bundle);
 =======
+=======
+
+                                    goTo(context, VideoIntroduceActivity.class, bundle);
+
+>>>>>>> feature/ZHY_发现的详情界面
                                     goTo(context, VideoIntroduceActivity.class,bundle);
 
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
@@ -158,7 +178,11 @@ public class AuthorFragment extends AbaBaseFragment {
                                     bundle.putString(NetUrl.KEY_LOGO, headerBean.getIcon());
                                     goTo(getActivity(), Author2ndDetailActivity.class, bundle);
 
+<<<<<<< HEAD
 >>>>>>> bd364a37d2f536fb787e92e0a514cad6c7bafdc5
+=======
+
+>>>>>>> feature/ZHY_发现的详情界面
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });
