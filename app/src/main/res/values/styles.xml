@@ -76,4 +76,20 @@
         <item name="android:layout_marginTop">@dimen/mine_fragment_margin</item>
         <item name="android:layout_marginBottom">@dimen/mine_fragment_margin</item>
     </style>
+
+
+    <style name="ImagesDetailsActivityStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
+
+        <item name="colorPrimaryDark">@color/white2</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+    <style name="ImagesListActivityStyle" parent="AppTheme">
+
+    <item name="colorPrimaryDark">@color/green</item>
+    <item name="android:windowBackground">@color/green</item>
+    </style>
+
+
 </resources>
