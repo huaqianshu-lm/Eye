@@ -22,6 +22,7 @@ import com.example.dllo.eyepetzier.mode.net.NetUrl;
 import com.example.dllo.eyepetzier.ui.adapter.vp.VideoVpAdapter;
 import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.DepthPagerTransfromer;
+import com.example.dllo.eyepetzier.utils.L;
 import com.example.dllo.eyepetzier.utils.T;
 import com.example.dllo.eyepetzier.view.TypeTextView;
 import com.squareup.picasso.Picasso;
@@ -67,7 +68,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private int width; // 屏幕的宽度
     private int height; // 屏幕的高度
     private Animation animation; // 图片的缩放动画
-    private TextView likeTv,shareTv,commmentTv;
+//    private TextView likeTv,shareTv,commmentTv;
     /**
      * 三级页面用
      */
@@ -78,6 +79,11 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private String itemDescription;
     private String dataUrl;
     private int itemId;
+    private TextView likeTv, shareTv, commmentTv;
+    private Bundle toPlayBundle;
+    private int pos;// 当前视频的位置,由上一个界面传来
+    private int nextPos; // 在该界面滑动的位置,传到下一个界面
+
 
     @Override
     protected int setLayout() {
@@ -87,6 +93,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     @Override
     protected void initView() {
         initWidget();
+        backIv.setAlpha(0.6f);
         videoVpAdapter = new VideoVpAdapter();
         views = new ArrayList<>();
     }
@@ -94,20 +101,24 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     @Override
     protected void initData() {
         Intent intent = getIntent();
+        pos = intent.getIntExtra(Contant.VIDEO_POS, 0);
         dataBean = intent.getParcelableExtra(Contant.AUTHOR_TO_VIDEO);
-        videoItemListBeen = dataBean.getItemList();
         // 获取屏幕的宽和高
         WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
-        // 刚打开时默认为第一第数据
-        videoItemListBean = videoItemListBeen.get(0);
+        int bgHeight = height / 17 * 9;
+        // 刚进入时的界面
+        videoItemListBeen = dataBean.getItemList();
+        L.d(videoItemListBeen.size() + " ----------");
+        videoItemListBean = videoItemListBeen.get(pos);
         setVp();
         int count = videoItemListBeen.size();
         for (int i = 0; i < count; i++) {
             view = LayoutInflater.from(this).inflate(R.layout.item_video_introduce_vp, null);
             bgIv = (ImageView) view.findViewById(R.id.item_video_introduce_vp_bg_iv);
+            bgIv.setOnClickListener(this);
             // 设置图片缩放动画
             animation = new ScaleAnimation(1, 1.1f, 1, 1.1f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             animation.setRepeatCount(Animation.INFINITE);
@@ -115,11 +126,12 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             animation.setDuration(4000);
             bgIv.setAnimation(animation);
             animation.startNow();
-
             videoItemListBean = videoItemListBeen.get(i);
             coverBean = videoItemListBean.getData().getCover();
-            Picasso.with(this).load(coverBean.getDetail()).resize(width, height / 17 * 9).into(bgIv);
+            Picasso.with(this).load(coverBean.getDetail()).resize(width, bgHeight).into(bgIv);
             views.add(view);
+            videoItemListBean = videoItemListBeen.get(pos);
+            Picasso.with(this).load(videoItemListBean.getData().getCover().getDetail()).resize(width, bgHeight).into(bgIv);
         }
 
         // 设打字效果
@@ -153,6 +165,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 animation.startNow();
                 videoItemListBean = videoItemListBeen.get(position);
                 setVp();
+                nextPos = position;
 
 
             }
@@ -162,6 +175,8 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
 
             }
         });
+
+
     }
 
     /**
@@ -191,7 +206,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         int blurIvHeight = height / 17 * 8;
         float rotateWidth = width / 2;
         float rotateHeight = blurIvHeight / 2;
-        Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f,rotateWidth,rotateHeight).into(blurIv);
+        Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
         // 设置带图标的内容
         Picasso.with(VideoIntroduceActivity.this).load(iconUrl).resize(150, 150).into(iconIv);
         secondTitleTv.setText(itemTitle);
@@ -234,6 +249,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         backIv.setOnClickListener(this);
         toDetailIv.setOnClickListener(this);
         twolineRl.setOnClickListener(this);
+        playIv.setOnClickListener(this);
     }
 
     @Override
@@ -249,10 +265,15 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        toPlayBundle = new Bundle();
+        toPlayBundle.putParcelable(Contant.VIDEO_TO_PLAY, dataBean);
+        toPlayBundle.putInt(Contant.VIDEO_POS, nextPos);
+        switch (v.getId()) {
+            // 返回
             case R.id.item_video_introduce_vp_back_iv:
                 finish();
                 break;
+            // 跳到下一个详情界面
             case R.id.item_video_introduce_vp_to_detail_iv:
                 T.shortMsg("跳转到下一个界面");
                 break;
@@ -270,6 +291,20 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 T.shortMsg("跳转到一个三级界面");
                 break;
 
+            // 跳转到播放视频页
+            case R.id.item_video_introduce_vp_bg_iv:
+
+                goTo(VideoIntroduceActivity.this, PlayActivity.class, toPlayBundle);
+                T.shortMsg("播放视频");
+                break;
+            case R.id.item_video_introduce_vp_play_iv:
+                goTo(VideoIntroduceActivity.this, PlayActivity.class, toPlayBundle);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        goTo(this, MainActivity.class);
     }
 }

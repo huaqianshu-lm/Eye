@@ -17,4 +17,8 @@ public final class Contant {
     public static final String KEY_3RD_DESCRIPTION = "key_3rd_description";
     public static final String KEY_3RD_DATA_URL = "key_3rd_data_url";
 
+    public static final String VIDEO_TO_PLAY = "play";
+    public static final String VIDEO_POS = "pos";
+    public static final int VIDEO_DURATION_MESSAGE = 0;
+    public static final int AUTO_INVISIABLE = 1;
 }

@@ -97,7 +97,7 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setImgUrl(R.id.item_author_fragment_civ, headerBean.getIcon(), 150, 150);
                             final CommonRvAdapter<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoAdapter = new CommonRvAdapter<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean>(context, videoItemListBeen, R.layout.item_author_fragment_child_rv) {
                                 @Override
-                                protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean, int pos) {
+                                protected void convert(RvViewHolder holder, AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean, final int pos) {
                                     AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean videoDataBean = videoItemListBean.getData();
                                     holder.setText(R.id.item_author_fragment_child_rv_title_tv, videoDataBean.getTitle());
                                     holder.setText(R.id.item_author_fragment_child_rv_category_tv, videoDataBean.getCategory());
@@ -118,6 +118,8 @@ public class AuthorFragment extends AbaBaseFragment {
                                             Bundle bundle = new Bundle();
                                             bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+                                            bundle.putInt(Contant.VIDEO_POS,pos);
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -131,6 +133,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                     Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                                     Bundle bundle = new Bundle();
                                     bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
+                                    goTo(context, VideoIntroduceActivity.class, bundle);
                                     goTo(context, VideoIntroduceActivity.class,bundle);
 
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
