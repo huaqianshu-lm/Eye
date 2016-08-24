@@ -111,7 +111,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         int bgHeight = height / 17 * 9;
         // 刚进入时的界面
         videoItemListBeen = dataBean.getItemList();
-        L.d(videoItemListBeen.size() + " ----------");
         videoItemListBean = videoItemListBeen.get(pos);
         setVp();
         int count = videoItemListBeen.size();

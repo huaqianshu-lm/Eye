@@ -111,6 +111,8 @@ public class Author2ndDetailActivity extends AbsBaseActivity {
         ivShare.setImageResource(R.mipmap.ic_action_share_grey);
         ivShare.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
+
+
 //        ViewTreeObserver vto = ivBack.getViewTreeObserver();
 //        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
