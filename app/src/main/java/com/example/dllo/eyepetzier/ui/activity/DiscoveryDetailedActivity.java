@@ -8,8 +8,7 @@ import android.widget.ImageView;
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
 import com.example.dllo.eyepetzier.ui.adapter.vp.DiscoveryDetailViewPagerAdapter;
-import com.example.dllo.eyepetzier.ui.fragment.DiscoveryDetailTimeFragment;
-import com.example.dllo.eyepetzier.utils.L;
+import com.example.dllo.eyepetzier.ui.fragment.All2ndDetailFragment;
 
 import java.util.ArrayList;
 
@@ -40,8 +39,8 @@ public class DiscoveryDetailedActivity extends AbsBaseActivity {
     @Override
     protected void initData() {
         fragments = new ArrayList<>();
-        fragments.add(DiscoveryDetailTimeFragment.getDiscoveryDetailAllFragment(NetUrl.DISCOVERY_DETAIL_TIME));
-        fragments.add(DiscoveryDetailTimeFragment.getDiscoveryDetailAllFragment(NetUrl.DISCOVERY_DETAIL_SHARE));
+        fragments.add(All2ndDetailFragment.getDiscoveryDetailAllFragment(NetUrl.DISCOVERY_DETAIL_TIME));
+        fragments.add(All2ndDetailFragment.getDiscoveryDetailAllFragment(NetUrl.DISCOVERY_DETAIL_SHARE));
         adapter = new DiscoveryDetailViewPagerAdapter(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

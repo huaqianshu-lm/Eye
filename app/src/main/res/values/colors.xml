@@ -9,6 +9,7 @@
     <color name="white">#ffffff</color>
     <color name="grey">#aaaaaa</color>
     <color name="grey_lite">#dedede</color>
+    <color name="transparent">#00ffffff</color>
 
     <color name="bg">#ffffff</color>
     <color name="line">#cccccc</color>
@@ -19,6 +20,18 @@
     <color name="author_fragment_itme_line_bg">#eeeeee</color>
     <color name="mine_fragment_text_color">#555555</color>
     <color name="mine_fragment_version_text_color">#aaaaaa</color>
+
     <color name="white2">#DDDDDD</color>
     <color name="green">@color/material_deep_teal_500</color>
+
+    <color name="search_title_text_color">#999999</color>
+
+    <color name="video_introduce_text_color">#ccffffff</color>
+    <color name="video_introduce_title_text_color">#ffffff</color>
+    <color name="video_introduce_line_color">#55cccccc</color>
+    <color name="play_aty_title_text_color">#aaaaaa</color>
+    <color name="play_aty_time_text_color">#ffffff</color>
+    <color name="play_aty_seekbar_progress">#ffffff</color>
+    <color name="play_aty_seekbar_secondary_progress">#888888</color>
+>>>>>>> dc7bb32f9cc3fc944538035e82cc3ae55a54c75c
 </resources>

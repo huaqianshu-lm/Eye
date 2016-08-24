@@ -8,7 +8,6 @@ import android.view.WindowManager;
  * Created by dllo on 16/7/25.
  * 屏幕适配类
  * 获取屏幕尺寸(宽 * 高)的工具类
- * 参见 : "Day004InterfaceDemo"
  */
 public class ScreenSize {
     public static int getScreenSize(Context context, EScreenSizeDensity state) {

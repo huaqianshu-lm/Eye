@@ -14,10 +14,14 @@ import com.example.dllo.eyepetzier.mode.bean.DiscoveryFragmentBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
+
+import com.example.dllo.eyepetzier.ui.adapter.rv.tools.CommonRvAdapter;
+import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RecyclerItemDecoration;
+import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
+
 import com.example.dllo.eyepetzier.ui.activity.DiscoveryDetailedActivity;
-import com.example.dllo.eyepetzier.ui.adapter.rv.CommonRvAdapter;
-import com.example.dllo.eyepetzier.ui.adapter.rv.RecyclerItemDecoration;
-import com.example.dllo.eyepetzier.ui.adapter.rv.RvViewHolder;
+
+
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 

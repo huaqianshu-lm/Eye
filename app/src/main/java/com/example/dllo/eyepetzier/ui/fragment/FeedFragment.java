@@ -6,10 +6,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,9 +21,10 @@ import com.example.dllo.eyepetzier.mode.bean.FeedFragmentBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
+import com.example.dllo.eyepetzier.ui.activity.Feed2ndReviewActivity;
 import com.example.dllo.eyepetzier.ui.adapter.lv.FeedFragmentLvAdapter;
-import com.example.dllo.eyepetzier.ui.adapter.rv.CommonRvAdapter;
-import com.example.dllo.eyepetzier.ui.adapter.rv.RvViewHolder;
+import com.example.dllo.eyepetzier.ui.adapter.rv.tools.CommonRvAdapter;
+import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
 import com.example.dllo.eyepetzier.utils.EScreenSizeDensity;
 import com.example.dllo.eyepetzier.utils.ScreenSize;
 import com.example.dllo.eyepetzier.utils.TextStyleSetter;
@@ -107,6 +108,7 @@ public class FeedFragment extends AbaBaseFragment {
         rv4thPart = (RecyclerView) footViewFeed.findViewById(R.id.fgmt_feed_include_3rd).findViewById(R.id.view_reuse_fgmt_feed_rv_3rd);
         rlFooter4thPart = (RelativeLayout) footViewFeed.findViewById(R.id.fgmt_feed_include_3rd).findViewById(R.id.view_reuse_fgmt_feed_include_foot_3rd);
         tvFooter4thPart = (TextView) rlFooter4thPart.findViewById(R.id.item_lv_fgmt_feed_type_foot_tv);
+
     }
 
     @Override
@@ -156,6 +158,18 @@ public class FeedFragment extends AbaBaseFragment {
                 // 去除分割线
                 listView.setDivider(null);
                 listView.setDividerHeight(0);
+                // 设置监听
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        // 1st footview
+                        if (position == parent.getAdapter().getCount() - 2) {
+                            goTo(getContext(), Feed2ndReviewActivity.class);
+                        };
+
+                    }
+                });
             }
 
             /**
@@ -220,8 +234,16 @@ public class FeedFragment extends AbaBaseFragment {
                 tvFooter4thPart.setText(setter.makeWordSpace(response.getSectionList().get(2).getFooter().getData().getText()));
                 setter.setBoldText(tvFooter4thPart.getPaint());
                 tvFooter4thPart.setTextColor(Color.GRAY);
-
+                // 设置viewpage跳转作者页
+                rlFooter4thPart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        iTurn = (ITurn) context;
+                        iTurn.turn();
+                    }
+                });
             }
+
             /**
              * 设置文字颜色
              */
@@ -331,5 +353,13 @@ public class FeedFragment extends AbaBaseFragment {
         });
 
 
+    }
+
+    /**
+     * activity实现viewpager换页的接口
+     */
+    private ITurn iTurn;
+    public interface ITurn {
+        void turn();
     }
 }

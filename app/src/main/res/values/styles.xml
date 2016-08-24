@@ -78,6 +78,7 @@
     </style>
 
 
+
     <style name="ImagesDetailsActivityStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
 
         <item name="colorPrimaryDark">@color/white2</item>
@@ -91,5 +92,20 @@
     <item name="android:windowBackground">@color/green</item>
     </style>
 
+
+
+    
+    <style name="pop_style">
+        <item name="android:windowEnterAnimation">@anim/pou_in</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+
+    <!-- 作者二级详情页  -->
+    <style name="Author2ndDetailActy">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/margin_default</item>
+    </style>
 
 </resources>

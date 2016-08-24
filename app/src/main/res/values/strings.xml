@@ -16,6 +16,9 @@
     <string name="tab_mine">我的</string>
     <string name="feed_fgmt_imgv_content_description">feed fgmt image</string>
 
+    <string name="acty_feed2nd_review_tv_title">每日精选</string>
+    <string name="acty_feed2nd_review_tv_time">Today</string>
+
     <string name="mine_login_text">点击登录即可发表评论</string>
     <string name="mine_my_collection_text">我的收藏</string>
     <string name="mine_my_comment_text">我的评论</string>
@@ -23,4 +26,9 @@
     <string name="mine_my_cache_text">我的缓存</string>
     <string name="mine_my_suggestion_text">意见反馈</string>
     <string name="mine_my_contribution_text">我要投稿</string>
+
+    <string name="search_text">取消</string>
+    <string name="search_content_text">输入标题或描述中的关键词找到更多的视频</string>
+    <string name="search_hot_text">- 热门搜索词 -</string>
+    <string name="video_activity_cache">缓存</string>
 </resources>
