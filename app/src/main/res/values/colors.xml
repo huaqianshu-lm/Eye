@@ -20,13 +20,12 @@
     <color name="author_fragment_itme_line_bg">#eeeeee</color>
     <color name="mine_fragment_text_color">#555555</color>
     <color name="mine_fragment_version_text_color">#aaaaaa</color>
-<<<<<<< HEAD
-=======
+
 
     <color name="white2">#DDDDDD</color>
     <color name="green">@color/material_deep_teal_500</color>
 
->>>>>>> feature/ZHY_发现的详情界面
+
     <color name="search_title_text_color">#999999</color>
 
     <color name="video_introduce_text_color">#ccffffff</color>
@@ -36,8 +35,6 @@
     <color name="play_aty_time_text_color">#ffffff</color>
     <color name="play_aty_seekbar_progress">#ffffff</color>
     <color name="play_aty_seekbar_secondary_progress">#888888</color>
-<<<<<<< HEAD
-=======
->>>>>>> dc7bb32f9cc3fc944538035e82cc3ae55a54c75c
->>>>>>> feature/ZHY_发现的详情界面
+
+
 </resources>

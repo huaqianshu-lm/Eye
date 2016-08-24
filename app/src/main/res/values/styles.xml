@@ -76,8 +76,7 @@
         <item name="android:layout_marginTop">@dimen/mine_fragment_margin</item>
         <item name="android:layout_marginBottom">@dimen/mine_fragment_margin</item>
     </style>
-<<<<<<< HEAD
-=======
+
 
 
 
@@ -96,7 +95,7 @@
 
 
 
->>>>>>> feature/ZHY_发现的详情界面
+
     
     <style name="pop_style">
         <item name="android:windowEnterAnimation">@anim/pou_in</item>
@@ -110,8 +109,7 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginTop">@dimen/margin_default</item>
     </style>
-<<<<<<< HEAD
-=======
 
->>>>>>> feature/ZHY_发现的详情界面
+
+
 </resources>
