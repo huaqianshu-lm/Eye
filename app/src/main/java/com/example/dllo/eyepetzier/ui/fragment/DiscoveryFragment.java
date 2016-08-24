@@ -73,16 +73,16 @@ public class DiscoveryFragment extends AbaBaseFragment {
             public void onSuccess(DiscoveryFragmentBean response) {
                 List<DiscoveryFragmentBean.ItemListBean> listBeen = response.getItemList();
                 listBeen.remove(0);
-                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(150, 150).into(top10_iv);
-                Picasso.with(context).load(listBeen.get(1).getData().getImage()).resize(150, 150).into(topic_iv);
+                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(300, 300).into(top10_iv);
+                Picasso.with(context).load(listBeen.get(1).getData().getImage()).resize(300, 300).into(topic_iv);
                 listBeen.remove(0);
                 listBeen.remove(0);
-                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(300, 150).into(view360_iv);
+                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(600, 300).into(view360_iv);
                 listBeen.remove(0);
                 CommonRvAdapter<DiscoveryFragmentBean.ItemListBean> adapter = new CommonRvAdapter<DiscoveryFragmentBean.ItemListBean>(context, response.getItemList(), R.layout.item_discovery) {
                     @Override
                     protected void convert(RvViewHolder holder, DiscoveryFragmentBean.ItemListBean itemListBean, int pos) {
-                        holder.setImgUrl(R.id.item_discovery_iv, itemListBean.getData().getImage(), 150, 150);
+                        holder.setImgUrl(R.id.item_discovery_iv, itemListBean.getData().getImage(), 300, 300);
                         holder.setText(R.id.item_discovery_tv, itemListBean.getData().getTitle());
                         holder.setOnClickListener(R.id.item_discovery_iv, new View.OnClickListener() {
                             @Override
