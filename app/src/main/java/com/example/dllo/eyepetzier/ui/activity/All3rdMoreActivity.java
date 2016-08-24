@@ -98,6 +98,7 @@ public class All3rdMoreActivity extends AbsBaseActivity {
      */
     private void initScrollView() {
 
+        Log.e("All3rdMoreActivity", bundle.get(Contant.KEY_3RD_DATA_URL).toString());
         NetRequestSingleton.getInstance().startRequest(bundle.get(Contant.KEY_3RD_DATA_URL).toString(), All3rdMoreActyBean.class, new IOnHttpCallback<All3rdMoreActyBean>() {
             @Override
             public void onSuccess(All3rdMoreActyBean response) {
@@ -106,25 +107,16 @@ public class All3rdMoreActivity extends AbsBaseActivity {
                     Log.e("All3rdMoreActivity", "outerItemBeans.size():" + outerItemBeans.size());
                     for (int i = 0; i < outerItemBeans.size(); i++) {
                         View itemView = getLayoutInflater().inflate(R.layout.view_reuse_sv_acty_all3rd_more, null);
-                        rlType1st = (RelativeLayout) itemView.findViewById(R.id.item_sv_acty_all3rd_more_1st_rl);
-                        cirImgvLogoType1st = (CircleImageView) itemView.findViewById(R.id.item_video_introduce_vp_civ);
-                        tvTitleType1st = (TextView) itemView.findViewById(R.id.item_video_introduce_vp_second_title_tv);
-                        tvSubtitleType1st = (TextView) itemView.findViewById(R.id.item_video_introduce_vp_second_subtitle_tv);
-                        tvDecriptionType1st = (TextView) itemView.findViewById(R.id.item_video_introduce_vp_description_tv);
-                        rlType2nd = (RelativeLayout) itemView.findViewById(R.id.item_sv_acty_all3rd_more_2nd_rl);
-                        tvTitleType2nd = (TextView) itemView.findViewById(R.id.item_sv_acty_all3rd_more_2nd_tv_title);
-                        rv = (RecyclerView) itemView.findViewById(R.id.item_sv_acty_all3rd_more_rv);
-
+                        initItemView(itemView);
                         innerItemBeans = outerItemBeans.get(i).getData().getItemList();
                         headerBean = outerItemBeans.get(i).getData().getHeader();
                         switch (getBeanType(i)) {
                             case VideoCollectionWithBrief:
-                                rlType2nd.setVisibility(View.GONE);
-                                Picasso.with(All3rdMoreActivity.this).load(bundle.getString(Contant.KEY_3RD_ICON_URL)).config(Bitmap.Config.RGB_565).skipMemoryCache().error(R.mipmap.ic_launcher).resize(150, 150).into(cirImgvLogoType1st);
-                                tvTitleType1st.setText(bundle.getString(Contant.KEY_3RD_TITLE));
-                                tvSubtitleType1st.setText(bundle.getString(Contant.KEY_3RD_SUBTITLE));
-                                tvDecriptionType1st.setText(bundle.getString(Contant.KEY_3RD_DESCRIPTION));
-                                initRV(innerItemBeans);
+                                initTypeOne();
+                                break;
+
+                            case BriefCard:
+                                initTypeOne();
                                 break;
 
                             case VideoCollectionWithTitle:
@@ -139,12 +131,27 @@ public class All3rdMoreActivity extends AbsBaseActivity {
 
             }
 
+            private void initTypeOne() {
+                rlType2nd.setVisibility(View.GONE);
+                Picasso.with(All3rdMoreActivity.this).load(bundle.getString(Contant.KEY_3RD_ICON_URL)).config(Bitmap.Config.RGB_565).skipMemoryCache().error(R.mipmap.ic_launcher).resize(150, 150).into(cirImgvLogoType1st);
+                tvTitleType1st.setText(bundle.getString(Contant.KEY_3RD_TITLE));
+                tvSubtitleType1st.setText(bundle.getString(Contant.KEY_3RD_SUBTITLE));
+                tvDecriptionType1st.setText(bundle.getString(Contant.KEY_3RD_DESCRIPTION));
+                initRV(innerItemBeans);
+            }
+
             /**
              * 初始化itemview的组件
              */
             private void initItemView(View itemView) {
-
-
+                rlType1st = (RelativeLayout) itemView.findViewById(R.id.item_sv_acty_all3rd_more_1st_rl);
+                cirImgvLogoType1st = (CircleImageView) itemView.findViewById(R.id.item_video_introduce_vp_civ);
+                tvTitleType1st = (TextView) itemView.findViewById(R.id.item_video_introduce_vp_second_title_tv);
+                tvSubtitleType1st = (TextView) itemView.findViewById(R.id.item_video_introduce_vp_second_subtitle_tv);
+                tvDecriptionType1st = (TextView) itemView.findViewById(R.id.item_video_introduce_vp_description_tv);
+                rlType2nd = (RelativeLayout) itemView.findViewById(R.id.item_sv_acty_all3rd_more_2nd_rl);
+                tvTitleType2nd = (TextView) itemView.findViewById(R.id.item_sv_acty_all3rd_more_2nd_tv_title);
+                rv = (RecyclerView) itemView.findViewById(R.id.item_sv_acty_all3rd_more_rv);
             }
 
             @Override
@@ -226,19 +233,23 @@ public class All3rdMoreActivity extends AbsBaseActivity {
     }
 
     private EBeanType getBeanType(int position) {
-        outerItemBean = outerItemBeans.get(position);
-        String str = outerItemBean.getType();
+        String str = outerItemBeans.get(position).getType();
         switch (str) {
             case "videoCollectionWithBrief":
                 return EBeanType.VideoCollectionWithBrief;
 
             case "videoCollectionWithTitle":
                 return EBeanType.VideoCollectionWithTitle;
+
+            case "briefCard":
+                return EBeanType.BriefCard;
+
+            default:
+                return null;
         }
-        return null;
     }
 
     private enum EBeanType {
-        VideoCollectionWithBrief, VideoCollectionWithTitle;
+        VideoCollectionWithBrief, VideoCollectionWithTitle, BriefCard;
     }
 }
