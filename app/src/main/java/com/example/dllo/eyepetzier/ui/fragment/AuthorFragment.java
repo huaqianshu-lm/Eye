@@ -3,6 +3,7 @@ package com.example.dllo.eyepetzier.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 
+import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -28,6 +29,7 @@ import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.L;
 import com.example.dllo.eyepetzier.utils.T;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,7 +58,7 @@ public class AuthorFragment extends AbaBaseFragment {
 
     @Override
     protected void initData() {
-        Animation loadingAnimation = AnimationUtils.loadAnimation(context,R.anim.rotate_loading);
+        Animation loadingAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate_loading);
         loadingAnimation.setInterpolator(new LinearInterpolator());
         loadingIv.startAnimation(loadingAnimation);
         NetRequestSingleton.getInstance().startRequest(NetUrl.AUTHOR_FRAGMENT_URL, AuthorFragmentBean.class, new IOnHttpCallback<AuthorFragmentBean>() {
@@ -94,7 +96,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                 @Override
                                 public void onClick(View v) {
                                     Bundle bundle = new Bundle();
-                                    L.d("id" ,id + "---");
+                                    L.d("id", id + "---");
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + String.valueOf(id) + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_DATE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
@@ -105,7 +107,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
                                     bundle.putString(NetUrl.KEY_AUTHOR, title);
-                                    bundle.putString(NetUrl.KEY_DESCRIPTION,des);
+                                    bundle.putString(NetUrl.KEY_DESCRIPTION, des);
                                     bundle.putString(NetUrl.KEY_LOGO, icon);
                                     goTo(context, Author2ndDetailActivity.class, bundle);
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
@@ -142,20 +144,12 @@ public class AuthorFragment extends AbaBaseFragment {
                                     String time = String.valueOf(minute) + "'" + String.valueOf(sec) + "\"";
                                     holder.setText(R.id.item_author_fragment_child_rv_latestreleasttime_tv, time);
                                     final Bundle bundle = new Bundle();
+                                    bundle.putParcelableArrayList(Contant.TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                     bundle.putParcelable(Contant.TO_VIDEO, dataBean);
                                     bundle.putInt(Contant.VIDEO_POS, pos);
                                     holder.setOnClickListener(R.id.item_author_fragment_child_rv_iv, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-<<<<<<< HEAD
-=======
-                                            Bundle bundle = new Bundle();
-
-                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
-                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
-                                            bundle.putInt(Contant.VIDEO_POS,pos);
-
->>>>>>> 4dee57cc0b86ad4f42e2892555278925a3a5995c
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -168,13 +162,10 @@ public class AuthorFragment extends AbaBaseFragment {
                                 public void onClick(View v) {
                                     Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                                     Bundle bundle = new Bundle();
-<<<<<<< HEAD
-=======
                                     bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
 
                                     goTo(context, VideoIntroduceActivity.class, bundle);
 
->>>>>>> 4dee57cc0b86ad4f42e2892555278925a3a5995c
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_DATE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
