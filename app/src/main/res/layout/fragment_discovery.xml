@@ -1,49 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/bg">
+    android:background="@color/bg"
+    android:orientation="vertical">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="wrap_content">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <com.youth.banner.Banner
-                android:id="@+id/discovery_banner"
-                android:layout_width="match_parent"
-                android:layout_height="200dp" />
+            android:layout_height="match_parent">
 
             <LinearLayout
-               style="@style/FragmentDiscovery_ll_set">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.youth.banner.Banner
+                    android:id="@+id/discovery_banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+
+                <LinearLayout style="@style/FragmentDiscovery_ll_set">
+
+                    <ImageView
+                        android:id="@+id/iv_top10"
+                        style="@style/FragmentDiscovery_left_icon_margin"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+
+                    <ImageView
+                        android:id="@+id/iv_topic"
+                        style="@style/FragmentDiscovery_right_icon_margin"
+                        android:layout_width="0dp"
+                        android:layout_height="150dp"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop" />
+                </LinearLayout>
+
                 <ImageView
-                    style="@style/FragmentDiscovery_left_icon_margin"
-                    android:id="@+id/iv_top10"
-                    android:layout_width="0dp"
+                    android:id="@+id/iv_360"
+                    android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"/>
-                <ImageView
-                    style="@style/FragmentDiscovery_right_icon_margin"
-                    android:id="@+id/iv_topic"
-                    android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/FragmentDiscovery_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
-            <ImageView
-                android:id="@+id/iv_360"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="centerCrop"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/FragmentDiscovery_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"></android.support.v7.widget.RecyclerView>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/discovery_fragment_loading_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/discovery_fragment_loading_iv"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/ic_eye_black_inner"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/ic_eye_black_outer"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

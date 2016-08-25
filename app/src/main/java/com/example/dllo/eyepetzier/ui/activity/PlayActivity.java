@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -69,6 +70,7 @@ public class PlayActivity extends AbsBaseActivity {
     private Animation loadingAnimation;
     private List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.PlayInfoBean> playInfoBeen;
     private String defaultUrl;
+    private ImageView loadingOuterIv;
 
     @Override
     protected int setLayout() {
@@ -95,6 +97,7 @@ public class PlayActivity extends AbsBaseActivity {
         loadingIv = bindView(R.id.play_aty_loading_iv);
         loadingRl = bindView(R.id.play_aty_loading_rl);
         infoLl = bindView(R.id.play_aty_info_ll);
+        loadingOuterIv = bindView(R.id.play_aty_loading_outer_iv);
         infoLl.setOnClickListener(listener);
         controlRl.setOnClickListener(listener);
         backIv.setOnClickListener(listener);
@@ -150,6 +153,7 @@ public class PlayActivity extends AbsBaseActivity {
             }
         });
         autoInvisible();
+        mediaPlayer.setOnBufferingUpdateListener(bufferingUpdateListener);
     }
 
     /**
@@ -172,11 +176,13 @@ public class PlayActivity extends AbsBaseActivity {
                 // 返回到视频详情页
                 case R.id.play_aty_back_iv:
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+                    bundle.putParcelable(Contant.TO_VIDEO, dataBean);
                     goTo(PlayActivity.this, VideoIntroduceActivity.class, bundle);
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    mediaPlayer = null;
+//                    mediaPlayer.stop();
+                    if (mediaPlayer != null) {
+                        mediaPlayer.release();
+                        mediaPlayer = null;
+                    }
                     finish();
                     break;
                 // 选择视频的清晰度
@@ -209,9 +215,13 @@ public class PlayActivity extends AbsBaseActivity {
                         isInfoShow = !isInfoShow;
                     }
                     loading();
-                    currentPos = mediaPlayer.getCurrentPosition();
+//                    currentPos = mediaPlayer.getCurrentPosition();
                     String lowUrl = playInfoBeen.get(0).getUrl();
-                    play(lowUrl, currentPos);
+                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                        mediaPlayer.reset();
+                        play(lowUrl, 0);
+                    }
+                    L.d("lowurl", lowUrl);
                     T.shortMsg("流畅");
                     break;
                 // 标清
@@ -228,8 +238,12 @@ public class PlayActivity extends AbsBaseActivity {
                     T.shortMsg("标清");
                     loading();
                     currentPos = mediaPlayer.getCurrentPosition();
+                    mediaPlayer.setOnVideoSizeChangedListener(sizeChangedListener);
                     String normalUrl = playInfoBeen.get(1).getUrl();
-                    play(normalUrl, currentPos);
+                    if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                        mediaPlayer.reset();
+                        play(normalUrl, 0);
+                    }
                     L.d("current", currentPos + "=-=-=-=-=-=-==");
                     break;
                 // 收藏
@@ -301,67 +315,79 @@ public class PlayActivity extends AbsBaseActivity {
     private void play(String url, final int msec) {
 //        mediaPlayer.reset();
         // 设置音频流的类型 The audio stream for music playback
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        mediaPlayer.setDisplay(surfaceHolder);
-        try {
-//            String url = videoItemListBeen.get(pos).getData().getPlayUrl();
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediaPlayer.start();
-                    if (msec > 0) {
-                        mediaPlayer.seekTo(msec);
-                    }
+        if (mediaPlayer != null) {
+            try {
+//        mediaPlayer = new MediaPlayer();
+//            if (mediaPlayer != null) {
+//                mediaPlayer.reset();
+//            }
+
+                mediaPlayer.setDisplay(surfaceHolder);
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                Log.d("PlayActivity", "surfaceholder");
+                mediaPlayer.setDataSource(url);
+                mediaPlayer.prepareAsync();
+                Log.d("PlayActivity", "prepareasync");
+                mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        Log.d("PlayActivity", "prepared");
+                        mediaPlayer.start();
+
+//                    if (msec > 0) {
+//                        mediaPlayer.seekTo(msec);
+//                    }
 //                    loadingIv.clearAnimation();
-                    loadingRl.setVisibility(View.GONE);
-                    playSeekBar.setMax(videoDataBean.getDuration() * 1000);
+                        loadingRl.setVisibility(View.GONE);
+                        playSeekBar.setMax(videoDataBean.getDuration() * 1000);
 //                    mediaPlayer.seekTo(pos);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            isPlaying = true;
-                            while (isPlaying) {
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                isPlaying = true;
+                                while (isPlaying) {
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    if (mediaPlayer != null) {
+                                        currentPos = mediaPlayer.getCurrentPosition();
+                                    }
+//                                    L.d(currentPos + "----------");
+                                    playSeekBar.setProgress(currentPos);
+                                    Message message = new Message();
+                                    message.what = Contant.VIDEO_DURATION_MESSAGE;
+                                    message.obj = currentPos;
+                                    handler.sendMessage(message);
+
                                 }
-                                currentPos = mediaPlayer.getCurrentPosition();
-                                L.d(currentPos + "----------");
-                                playSeekBar.setProgress(currentPos);
-                                Message message = new Message();
-                                message.what = Contant.VIDEO_DURATION_MESSAGE;
-                                message.obj = currentPos;
-                                handler.sendMessage(message);
-
                             }
-                        }
-                    }).start();
-                }
-            });
+                        }).start();
+                    }
+                });
 
+                mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                    @Override
+                    public boolean onError(MediaPlayer mp, int what, int extra) {
+                        // 发生错误重新播放
+//                    mediaPlayer.start();
+                        isPlaying = false;
+                        loadingOuterIv.setImageResource(R.mipmap.ic_eye_white_error);
+                        return false;
+                    }
+                });
+//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//                @Override
+//                public void onCompletion(MediaPlayer mp) {
+//                    playIv.setImageResource(R.mipmap.ic_player_play);
+//                    mediaPlayer.seekTo(0);
+//                }
+//            });
 
-            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    playIv.setImageResource(R.mipmap.ic_player_play);
-//                    mediaPlayer.stop()
-                    mediaPlayer.seekTo(0);
-                }
-            });
-            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
-                @Override
-                public boolean onError(MediaPlayer mp, int what, int extra) {
-                    // 发生错误重新播放
-                    mediaPlayer.start();
-                    isPlaying = false;
-                    return false;
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -395,7 +421,6 @@ public class PlayActivity extends AbsBaseActivity {
 
         loading();
         if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-//            mediaPlayer.release();
             int size = videoItemListBeen.size();
             if (pos < size) {
                 pos += 1;
@@ -450,9 +475,11 @@ public class PlayActivity extends AbsBaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        mediaPlayer.stop();
-        mediaPlayer.release();
-        mediaPlayer = null;
+//        mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
         finish();
     }
 
@@ -467,5 +494,33 @@ public class PlayActivity extends AbsBaseActivity {
         play(defaultUrl, 0);
     }
 
+    private MediaPlayer.OnVideoSizeChangedListener sizeChangedListener = new MediaPlayer.OnVideoSizeChangedListener() {
+        @Override
+        public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
+            mp.reset();
+            String normalUrl = playInfoBeen.get(1).getUrl();
+            play(normalUrl,0);
+        }
+    };
 
+    /**
+     * 缓冲的进度
+     */
+   private MediaPlayer.OnBufferingUpdateListener bufferingUpdateListener = new MediaPlayer.OnBufferingUpdateListener() {
+       @Override
+       public void onBufferingUpdate(MediaPlayer mp, int percent) {
+
+           percent += (mediaPlayer.getDuration() * percent / 100);
+           playSeekBar.setSecondaryProgress(percent);
+           L.d("present",percent + "");
+       }
+   };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+        }
+    }
 }

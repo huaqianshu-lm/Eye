@@ -227,4 +227,20 @@
         app:tabBackground="@null" />
 
 
+    <RelativeLayout
+        android:id="@+id/video_introduce_activity_loading_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/video_introduce_activity_loading_iv"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/ic_eye_white_inner"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/ic_eye_white_outer"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -10,6 +10,11 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.AuthorFragmentBean;
@@ -33,6 +38,9 @@ import java.util.List;
  */
 public class AuthorFragment extends AbaBaseFragment {
     private RecyclerView recyclerView;
+    private AuthorFragmentBean.ItemListBean.DataBean dataBean;
+    private ImageView loadingIv;
+    private RelativeLayout loadingRl;
 
     @Override
     protected int setLayout() {
@@ -42,22 +50,29 @@ public class AuthorFragment extends AbaBaseFragment {
     @Override
     protected void initView() {
         recyclerView = bindView(R.id.author_fragment_rv);
+        loadingIv = bindView(R.id.author_fragment_loading_iv);
+        loadingRl = bindView(R.id.author_fragment_loading_rl);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
     }
 
     @Override
     protected void initData() {
+        Animation loadingAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate_loading);
+        loadingAnimation.setInterpolator(new LinearInterpolator());
+        loadingIv.startAnimation(loadingAnimation);
         NetRequestSingleton.getInstance().startRequest(NetUrl.AUTHOR_FRAGMENT_URL, AuthorFragmentBean.class, new IOnHttpCallback<AuthorFragmentBean>() {
             @Override
             public void onSuccess(AuthorFragmentBean response) {
                 final List<AuthorFragmentBean.ItemListBean> itemListBeen = response.getItemList();
                 L.d("itemlistbean", itemListBeen.size() + "");
+                loadingRl.setVisibility(View.GONE);
                 CommonRvAdapter<AuthorFragmentBean.ItemListBean> adapter = new CommonRvAdapter<AuthorFragmentBean.ItemListBean>(context, itemListBeen, R.layout.item_author_fragment_rv) {
                     @Override
                     protected void convert(RvViewHolder holder, final AuthorFragmentBean.ItemListBean itemListBean, int pos) {
                         holder.setIsRecyclable(false);
-                        final AuthorFragmentBean.ItemListBean.DataBean dataBean = itemListBean.getData();
+                        dataBean = itemListBean.getData();
+                        final AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
                         if (itemListBean.getType().equals("leftAlignTextHeader")) {
                             holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getText());
                             holder.setVisible(R.id.item_author_fragment_title_tv, false);
@@ -73,9 +88,28 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setText(R.id.item_author_fragment_subtitle_tv, dataBean.getSubTitle());
                             holder.setImgUrl(R.id.item_author_fragment_civ, dataBean.getIcon(), 150, 150);
                             holder.setVisible(R.id.item_author_fragment_rv_rv, false);
+                            final int id = dataBean.getId();
+                            final String title = dataBean.getTitle();
+                            final String des = dataBean.getDescription();
+                            final String icon = dataBean.getIcon();
                             holder.setOnClickListener(R.id.top, new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
+                                    Bundle bundle = new Bundle();
+                                    L.d("id", id + "---");
+                                    String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
+                                            + String.valueOf(id) + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
+                                            + NetUrl.AUTHOR_2ND_DETAIL_URL_DATE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
+                                            + String.valueOf(id) + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
+                                            + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    Log.e("zzz", urlDate);
+                                    bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
+                                    bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
+                                    bundle.putString(NetUrl.KEY_AUTHOR, title);
+                                    bundle.putString(NetUrl.KEY_DESCRIPTION, des);
+                                    bundle.putString(NetUrl.KEY_LOGO, icon);
+                                    goTo(context, Author2ndDetailActivity.class, bundle);
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });
@@ -86,9 +120,6 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setVisible(R.id.item_author_fragment_line, false);
                         }
                         if (itemListBean.getType().equals("videoCollectionWithBrief")) {
-
-                            final AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
-
                             final List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
 
                             holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
@@ -112,15 +143,13 @@ public class AuthorFragment extends AbaBaseFragment {
                                     int sec = videoDataBean.getDuration() % 60;
                                     String time = String.valueOf(minute) + "'" + String.valueOf(sec) + "\"";
                                     holder.setText(R.id.item_author_fragment_child_rv_latestreleasttime_tv, time);
-                                    holder.setOnClickListener(R.id.item_author_fragment_child_rv_rl, new View.OnClickListener() {
+                                    final Bundle bundle = new Bundle();
+                                    bundle.putParcelableArrayList(Contant.TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                    bundle.putParcelable(Contant.TO_VIDEO, dataBean);
+                                    bundle.putInt(Contant.VIDEO_POS, pos);
+                                    holder.setOnClickListener(R.id.item_author_fragment_child_rv_iv, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
-                                            Bundle bundle = new Bundle();
-
-                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
-                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
-                                            bundle.putInt(Contant.VIDEO_POS,pos);
-
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 

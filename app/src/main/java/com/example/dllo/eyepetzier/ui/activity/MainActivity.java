@@ -31,6 +31,7 @@ import com.example.dllo.eyepetzier.ui.fragment.FeedFragment;
 import com.example.dllo.eyepetzier.ui.fragment.MineFragment;
 import com.example.dllo.eyepetzier.utils.T;
 import com.example.dllo.eyepetzier.view.FlowLayout;
+import com.example.dllo.eyepetzier.view.TitleTextView;
 
 import org.w3c.dom.Text;
 
@@ -52,6 +53,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private JSONArray list;
     private FlowLayout searchFl;
     private ImageView setIv;
+    private TitleTextView titleTv;
 
 
     @Override
@@ -68,6 +70,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         titleRl = bindView(R.id.main_title);
         searchLl = bindView(R.id.main_search_title);
         canclRreachTv = bindView(R.id.search_title_tv);
+        titleTv = bindView(R.id.title_tv);
         setIv = bindView(R.id.set_iv);
         setIv.setOnClickListener(this);
         searchIv.setOnClickListener(this);

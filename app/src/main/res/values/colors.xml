@@ -36,7 +36,7 @@
     <color name="play_aty_title_text_color">#aaaaaa</color>
     <color name="play_aty_time_text_color">#ffffff</color>
     <color name="play_aty_seekbar_progress">#ffffff</color>
-    <color name="play_aty_seekbar_secondary_progress">#888888</color>
+    <color name="play_aty_seekbar_secondary_progress">#aaaaaa</color>
 
 
 </resources>

@@ -9,6 +9,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -76,6 +79,9 @@ public class FeedFragment extends AbaBaseFragment {
     private RelativeLayout rlFooter4thPart;
     private TextView tvFooter4thPart;
 
+    private ImageView loadingIv;
+    private RelativeLayout loadingRl;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_feed;
@@ -109,11 +115,16 @@ public class FeedFragment extends AbaBaseFragment {
         rlFooter4thPart = (RelativeLayout) footViewFeed.findViewById(R.id.fgmt_feed_include_3rd).findViewById(R.id.view_reuse_fgmt_feed_include_foot_3rd);
         tvFooter4thPart = (TextView) rlFooter4thPart.findViewById(R.id.item_lv_fgmt_feed_type_foot_tv);
 
+        loadingIv = bindView(R.id.feed_fragment_loading_iv);
+        loadingRl = bindView(R.id.feed_fragment_loading_rl);
     }
 
     @Override
     protected void initData() {
-
+        // 加载动画
+        Animation loadingAnimaition = AnimationUtils.loadAnimation(context,R.anim.rotate_loading);
+        loadingAnimaition.setInterpolator(new LinearInterpolator());
+        loadingIv.startAnimation(loadingAnimaition);
         initListview();
 
     }
@@ -126,7 +137,8 @@ public class FeedFragment extends AbaBaseFragment {
 
             @Override
             public void onSuccess(FeedFragmentBean response) {
-
+                // 加载动画消失
+                loadingRl.setVisibility(View.GONE);
                 // set 1st part
                 set1stPart(response);
                 // set 2nd part
