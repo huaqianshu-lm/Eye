@@ -6,7 +6,7 @@ package com.example.dllo.eyepetzier.utils;
  * 常量类
  */
 public final class Contant {
-    public static final String AUTHOR_TO_VIDEO = "video";
+    public static final String TO_VIDEO = "video";
     public static final String AUTHOR_TO_SORT = "sort";
     public static final String VIDEO_TO_PLAY = "play";
     public static final String VIDEO_POS = "pos";

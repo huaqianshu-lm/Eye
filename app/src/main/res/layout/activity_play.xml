@@ -140,6 +140,7 @@
             android:src="@mipmap/ic_eye_white_inner" />
 
         <ImageView
+            android:id="@+id/play_aty_loading_outer_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
