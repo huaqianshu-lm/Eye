@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!-- 精选页 1st level -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -10,5 +10,20 @@
         android:id="@+id/fgmt_feed_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/feed_fragment_loading_rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/feed_fragment_loading_iv"
+            android:layout_width="wrap_content"
+            android:src="@mipmap/ic_eye_black_inner"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:src="@mipmap/ic_eye_black_outer"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

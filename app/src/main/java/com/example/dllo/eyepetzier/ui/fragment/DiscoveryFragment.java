@@ -1,12 +1,17 @@
 package com.example.dllo.eyepetzier.ui.fragment;
 
 import android.os.Bundle;
+import android.support.v4.text.BidiFormatter;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.dllo.eyepetzier.R;
 
@@ -42,6 +47,8 @@ public class DiscoveryFragment extends AbaBaseFragment {
     private ImageView top10_iv;
     private ImageView topic_iv;
     private ImageView view360_iv;
+    private ImageView loadingIv;
+    private RelativeLayout loadingRl;
     @Override
     protected int setLayout() {
         return R.layout.fragment_discovery;
@@ -54,10 +61,16 @@ public class DiscoveryFragment extends AbaBaseFragment {
         top10_iv = bindView(R.id.iv_top10);
         topic_iv = bindView(R.id.iv_topic);
         view360_iv = bindView(R.id.iv_360);
+        loadingIv = bindView(R.id.discovery_fragment_loading_iv);
+        loadingRl = bindView(R.id.discovery_fragment_loading_rl);
     }
 
     @Override
     protected void initData() {
+        // 加载动画
+        Animation loadingAnimaition = AnimationUtils.loadAnimation(context,R.anim.rotate_loading);
+        loadingAnimaition.setInterpolator(new LinearInterpolator());
+        loadingIv.startAnimation(loadingAnimaition);
         banner.setBannerStyle(Banner.CIRCLE_INDICATOR);
         banner.setImages(imageUrls);
         // banner的点击事件
@@ -71,18 +84,19 @@ public class DiscoveryFragment extends AbaBaseFragment {
         NetRequestSingleton.getInstance().startRequest(NetUrl.DISCOVERY_FRAG_ICON, DiscoveryFragmentBean.class, new IOnHttpCallback<DiscoveryFragmentBean>() {
             @Override
             public void onSuccess(DiscoveryFragmentBean response) {
+                loadingRl.setVisibility(View.GONE);
                 List<DiscoveryFragmentBean.ItemListBean> listBeen = response.getItemList();
                 listBeen.remove(0);
-                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(150, 150).into(top10_iv);
-                Picasso.with(context).load(listBeen.get(1).getData().getImage()).resize(150, 150).into(topic_iv);
+                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(300, 300).into(top10_iv);
+                Picasso.with(context).load(listBeen.get(1).getData().getImage()).resize(300, 300).into(topic_iv);
                 listBeen.remove(0);
                 listBeen.remove(0);
-                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(300, 150).into(view360_iv);
+                Picasso.with(context).load(listBeen.get(0).getData().getImage()).resize(600, 300).into(view360_iv);
                 listBeen.remove(0);
                 CommonRvAdapter<DiscoveryFragmentBean.ItemListBean> adapter = new CommonRvAdapter<DiscoveryFragmentBean.ItemListBean>(context, response.getItemList(), R.layout.item_discovery) {
                     @Override
                     protected void convert(RvViewHolder holder, DiscoveryFragmentBean.ItemListBean itemListBean, int pos) {
-                        holder.setImgUrl(R.id.item_discovery_iv, itemListBean.getData().getImage(), 150, 150);
+                        holder.setImgUrl(R.id.item_discovery_iv, itemListBean.getData().getImage(), 300, 300);
                         holder.setText(R.id.item_discovery_tv, itemListBean.getData().getTitle());
                         holder.setOnClickListener(R.id.item_discovery_iv, new View.OnClickListener() {
                             @Override

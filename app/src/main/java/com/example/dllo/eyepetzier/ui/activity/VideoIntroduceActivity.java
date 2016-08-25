@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -85,6 +87,9 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private Bundle toPlayBundle;
     private int pos;// 当前视频的位置,由上一个界面传来
     private int nextPos; // 在该界面滑动的位置,传到下一个界面
+    private int bgHeight;
+    private RelativeLayout loadingRl;
+    private ImageView loadingIv;
 
     /**
      * 评论页面用
@@ -103,23 +108,31 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         backIv.setAlpha(0.6f);
         videoVpAdapter = new VideoVpAdapter();
         views = new ArrayList<>();
+        viewPager.setOffscreenPageLimit(3);
     }
 
     @Override
     protected void initData() {
+        Animation loadAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_loading);
+        loadAnimation.setInterpolator(new LinearInterpolator());
+        loadingIv.startAnimation(loadAnimation);
+        //从上个界面传来的值
         Intent intent = getIntent();
         pos = intent.getIntExtra(Contant.VIDEO_POS, 0);
-        dataBean = intent.getParcelableExtra(Contant.AUTHOR_TO_VIDEO);
+        dataBean = intent.getParcelableExtra(Contant.TO_VIDEO);
+
         // 获取屏幕的宽和高
         WindowManager windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
-        int bgHeight = height / 17 * 9;
-        // 刚进入时的界面
+
         if (dataBean != null) {
+            // 刚进入时的界面
             videoItemListBeen = dataBean.getItemList();
+            L.d(videoItemListBeen.size() + " ----------");
             videoItemListBean = videoItemListBeen.get(pos);
+            loadingRl.setVisibility(View.GONE);
             setVp();
             int count = videoItemListBeen.size();
             for (int i = 0; i < count; i++) {
@@ -132,73 +145,82 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 animation.setRepeatMode(Animation.REVERSE);
                 animation.setDuration(4000);
                 bgIv.setAnimation(animation);
-                animation.startNow();
-                videoItemListBean = videoItemListBeen.get(i);
-                coverBean = videoItemListBean.getData().getCover();
+                loadAnimation.startNow();
+                bgHeight = height / 17 * 9;
+                AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean = videoItemListBeen.get(i);
+                AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.CoverBean coverBean = videoItemListBean.getData().getCover();
                 Picasso.with(this).load(coverBean.getDetail()).resize(width, bgHeight).into(bgIv);
+                Log.d("VideoIntroduceActivity", coverBean.getDetail());
                 views.add(view);
-                videoItemListBean = videoItemListBeen.get(pos);
-                Picasso.with(this).load(videoItemListBean.getData().getCover().getDetail()).resize(width, bgHeight).into(bgIv);
+            }
+            videoItemListBean = videoItemListBeen.get(pos);
+            Picasso.with(this).load(videoItemListBean.getData().getCover().getDetail()).resize(width, bgHeight).into(bgIv);
+        }
+        // 刚进入时的界面
+        videoItemListBeen = dataBean.getItemList();
+        videoItemListBean = videoItemListBeen.get(pos);
+
+        // 设打字效果
+        contentTv.setListener(this);
+        videoVpAdapter.setViews(views);
+        viewPager.setAdapter(videoVpAdapter);
+        viewPager.setPageTransformer(true, new DepthPagerTransfromer());
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setSelectedTabIndicatorHeight(3);
+        viewPager.setCurrentItem(pos);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // 当滑动时动画停止
+                bgIv.clearAnimation();
+                // 当滑动的时候组件的透明度的变化
+                if (positionOffset > 0 && positionOffset < 0.5) {
+                    float alpha = 1.0f - positionOffset * 2;
+                    playIv.setAlpha(alpha);
+                    backIv.setAlpha(alpha);
+                } else if (positionOffset > 0.5 && positionOffset < 1) {
+                    float alpha = positionOffset * 2 - 1.0f;
+                    playIv.setAlpha(alpha);
+                    backIv.setAlpha(alpha);
+                }
+                textInfoRl.setAlpha(1.0f - positionOffset);
             }
 
-            // 设打字效果
-            contentTv.setListener(this);
-            videoVpAdapter.setViews(views);
-            viewPager.setAdapter(videoVpAdapter);
-            viewPager.setPageTransformer(true, new DepthPagerTransfromer());
-            tabLayout.setupWithViewPager(viewPager);
-            tabLayout.setSelectedTabIndicatorHeight(3);
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    // 当滑动时动画停止
-                    bgIv.clearAnimation();
-                    // 当滑动的时候组件的透明度的变化
-                    if (positionOffset > 0 && positionOffset < 0.5) {
-                        float alpha = 1.0f - positionOffset * 2;
-                        playIv.setAlpha(alpha);
-                        backIv.setAlpha(alpha);
-                    } else if (positionOffset > 0.5 && positionOffset < 1) {
-                        float alpha = positionOffset * 2 - 1.0f;
-                        playIv.setAlpha(alpha);
-                        backIv.setAlpha(alpha);
-                    }
-                    textInfoRl.setAlpha(1.0f - positionOffset);
-                }
+            @Override
+            public void onPageSelected(int position) {
+                // 停止滑动时动画开始
+                animation.startNow();
+                videoItemListBean = videoItemListBeen.get(position);
+                setVp();
+                nextPos = position;
+            }
 
-                @Override
-                public void onPageSelected(int position) {
-                    // 停止滑动时动画开始
-                    animation.startNow();
-                    videoItemListBean = videoItemListBeen.get(position);
-                    setVp();
-                    nextPos = position;
-                }
+            @Override
+            public void onPageScrollStateChanged(int state) {
 
-                @Override
-                public void onPageScrollStateChanged(int state) {
+            }
+        });
 
-                }
-            });
-
-            // 获取评论页url
-            commentUrl = NetUrl.COMMENT_ACTIVITY_URL_START + videoItemListBean.getData().getId() + NetUrl.COMMENT_ACTIVITY_URL_END;
+        // 获取评论页url
+        commentUrl = NetUrl.COMMENT_ACTIVITY_URL_START + videoItemListBean.getData().getId() + NetUrl.COMMENT_ACTIVITY_URL_END;
 //            Log.e("VideoIntroduceActivity", "commentUrl:" + commentUrl);
 
-        }
+
     }
+
 
     /**
      * 设置页面的内容
      */
-    private void setVp() {
 
+    private void setVp() {
         AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
         videoDataBean = videoItemListBean.getData();
         coverBean = videoDataBean.getCover();
         contentTv.start(videoDataBean.getDescription());
         toolbarTitle = videoDataBean.getTitle();
         titleTv.start(toolbarTitle);
+        categoryTv.start(videoDataBean.getCategory());
         categoryTv.start(videoDataBean.getCategory());
 
         iconUrl = headerBean.getIcon();
@@ -207,7 +229,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         itemDescription = headerBean.getDescription();
         itemId = videoDataBean.getId();
         // 设置title,分类时间
-//        videoDataBean = videoItemListBean.getData();
         int min = videoDataBean.getDuration() / 60;
         int sec = videoDataBean.getDuration() % 60;
         String duration = String.valueOf(min) + "'" + String.valueOf(sec) + "\"";
@@ -218,6 +239,12 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
 
         // 设置带图标的内容
+        if (headerBean != null) {
+            Picasso.with(VideoIntroduceActivity.this).load(headerBean.getIcon()).resize(150, 150).into(iconIv);
+            secondTitleTv.setText(headerBean.getTitle());
+            secondSubTitleTv.setText(headerBean.getSubTitle());
+            secondDescriptionTv.setText(headerBean.getDescription());
+        }
         Picasso.with(VideoIntroduceActivity.this).load(iconUrl).resize(150, 150).into(iconIv);
         secondTitleTv.setText(itemTitle);
         secondSubTitleTv.setText(itemSubtitle);
@@ -260,6 +287,8 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         likeTv = bindView(R.id.item_video_introduce_vp_like_tv);
         shareTv = bindView(R.id.item_video_introduce_vp_share_tv);
         commmentTv = bindView(R.id.item_video_introduce_vp_comment_tv);
+        loadingIv = bindView(R.id.video_introduce_activity_loading_iv);
+        loadingRl = bindView(R.id.video_introduce_activity_loading_rl);
         twolineRl = bindView(R.id.twoline_rl);
 
         backIv.setOnClickListener(this);
@@ -304,7 +333,8 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 break;
             // 跳到下一个详情界面
             case R.id.item_video_introduce_vp_to_detail_iv:
-                T.shortMsg("跳转到下一个界面");
+                toThird();
+//                T.shortMsg("跳转到下一个界面");
                 break;
             case R.id.twoline_rl:
                 dataUrl = NetUrl.ALL_3RD_MORE_URL_START + itemId + NetUrl.ALL_3RD_MORE_URL_END;
@@ -317,7 +347,8 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 bundle.putString(Contant.KEY_3RD_DATA_URL, dataUrl);
                 bundle.putString(Contant.KEY_3RD_BACKGROUND_URL, backgroundUrl);
                 goTo(VideoIntroduceActivity.this, All3rdMoreActivity.class, bundle);
-                T.shortMsg("跳转到一个三级界面");
+                toThird();
+//                T.shortMsg("跳转到一个三级界面");
                 break;
 
             // 跳转到播放视频页
@@ -360,6 +391,21 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             backIv.setVisibility(View.VISIBLE);
             playIv.setVisibility(View.VISIBLE);
         }
+    }
+
+    /**
+     * 跳转到3级界面
+     */
+    private void toThird() {
+        dataUrl = NetUrl.ALL_3RD_MORE_URL_START + itemId + NetUrl.ALL_3RD_MORE_URL_END;
+        Bundle bundle = new Bundle();
+        bundle.putString(Contant.KEY_3RD_TOOLBAR_TITLE, toolbarTitle);
+        bundle.putString(Contant.KEY_3RD_ICON_URL, iconUrl);
+        bundle.putString(Contant.KEY_3RD_TITLE, itemTitle);
+        bundle.putString(Contant.KEY_3RD_SUBTITLE, itemSubtitle);
+        bundle.putString(Contant.KEY_3RD_DESCRIPTION, itemDescription);
+        bundle.putString(Contant.KEY_3RD_DATA_URL, dataUrl);
+        goTo(VideoIntroduceActivity.this, All3rdMoreActivity.class, bundle);
     }
 
     @Override

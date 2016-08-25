@@ -7,7 +7,7 @@ package com.example.dllo.eyepetzier.utils;
  * 包括 : intent跳转页面,bundle需要的key值等
  */
 public final class Contant {
-    public static final String AUTHOR_TO_VIDEO = "video";
+    public static final String TO_VIDEO = "video";
     public static final String AUTHOR_TO_SORT = "sort";
 
     public static final String KEY_3RD_TOOLBAR_TITLE = "key_3rd_tool_bar";
