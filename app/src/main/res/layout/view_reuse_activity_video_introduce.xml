@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/twoline_rl"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/one_line_rl"
+    android:layout_margin="@dimen/video_introduce_margin">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/item_video_introduce_vp_civ"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher" />
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/item_video_introduce_vp_civ">
+
+        <TextView
+            android:id="@+id/item_video_introduce_vp_second_title_tv"
+            style="@style/AuthorFragmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sdff"
+            android:textColor="@color/video_introduce_title_text_color"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/item_video_introduce_vp_second_subtitle_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/item_video_introduce_vp_second_title_tv"
+            android:layout_marginLeft="@dimen/author_fragment_item_margin"
+            android:layout_toRightOf="@id/item_video_introduce_vp_second_title_tv"
+            android:text="2324"
+            android:textColor="@color/video_introduce_text_color"
+            android:textSize="@dimen/author_fragment_item_subtitle_text_size" />
+
+        <TextView
+            android:id="@+id/item_video_introduce_vp_description_tv"
+            style="@style/AuthorFragmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_video_introduce_vp_second_title_tv"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="werwet"
+            android:textColor="@color/video_introduce_text_color"
+            android:textSize="@dimen/video_introduce_subtitle_text_size" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/item_author_fragment_more_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_action_more_arrow_dark" />
+</RelativeLayout>
+

@@ -119,6 +119,7 @@ public class AuthorFragment extends AbaBaseFragment {
                         }
                         if (itemListBean.getType().equals("videoCollectionWithBrief")) {
                             final List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> videoItemListBeen = itemListBean.getData().getItemList();
+
                             holder.setText(R.id.item_author_fragment_title_tv, headerBean.getTitle());
                             holder.setText(R.id.item_author_fragment_subtitle_tv, headerBean.getSubTitle());
                             holder.setText(R.id.item_author_fragment_description_tv, headerBean.getDescription());
@@ -146,6 +147,15 @@ public class AuthorFragment extends AbaBaseFragment {
                                     holder.setOnClickListener(R.id.item_author_fragment_child_rv_iv, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
+<<<<<<< HEAD
+=======
+                                            Bundle bundle = new Bundle();
+
+                                            bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                            bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
+                                            bundle.putInt(Contant.VIDEO_POS,pos);
+
+>>>>>>> 4dee57cc0b86ad4f42e2892555278925a3a5995c
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -158,19 +168,26 @@ public class AuthorFragment extends AbaBaseFragment {
                                 public void onClick(View v) {
                                     Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                                     Bundle bundle = new Bundle();
+<<<<<<< HEAD
+=======
+                                    bundle.putParcelableArrayList(Contant.AUTHOR_TO_SORT, (ArrayList<? extends Parcelable>) itemListBeen);
+
+                                    goTo(context, VideoIntroduceActivity.class, bundle);
+
+>>>>>>> 4dee57cc0b86ad4f42e2892555278925a3a5995c
                                     String urlDate = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_DATE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
                                     String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
-                                    Log.e("zzz", urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
                                     bundle.putString(NetUrl.KEY_AUTHOR, headerBean.getTitle());
                                     bundle.putString(NetUrl.KEY_DESCRIPTION, headerBean.getDescription());
                                     bundle.putString(NetUrl.KEY_LOGO, headerBean.getIcon());
                                     goTo(getActivity(), Author2ndDetailActivity.class, bundle);
+
                                     T.shortMsg("作者界面的item点击事件,跳转到排序界面");
                                 }
                             });

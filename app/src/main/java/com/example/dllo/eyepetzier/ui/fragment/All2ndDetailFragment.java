@@ -56,7 +56,6 @@ public class All2ndDetailFragment extends AbaBaseFragment {
     protected void initData() {
         Bundle bundle = getArguments();
         this.str = bundle.getString("url");
-        Log.e("", "-1-1-1-1:" + str);
         NetRequestSingleton.getInstance().startRequest(this.str, DisconveryDetailBean.class, new IOnHttpCallback<DisconveryDetailBean>() {
             @Override
             public void onSuccess(DisconveryDetailBean response) {

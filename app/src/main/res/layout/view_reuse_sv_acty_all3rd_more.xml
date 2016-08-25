@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/item_sv_acty_all3rd_more_ll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    >
+    <!--android:background="@mipmap/recommend_bg_unlike"-->
+
+    <include
+        android:id="@+id/item_sv_acty_all3rd_more_1st_rl"
+        layout="@layout/view_reuse_activity_video_introduce"/>
+
+    <RelativeLayout
+        android:id="@+id/item_sv_acty_all3rd_more_2nd_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_sv_acty_all3rd_more_2nd_tv_title"
+            style="@style/AuthorFragmentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sdff"
+            android:textColor="@color/video_introduce_title_text_color"
+            android:textStyle="bold"
+            android:layout_alignTop="@+id/item_sv_acty_all3rd_more_2nd_iv"
+            android:layout_alignBottom="@+id/item_sv_acty_all3rd_more_2nd_iv"
+            android:gravity="center"
+            />
+
+        <ImageView
+            android:id="@+id/item_sv_acty_all3rd_more_2nd_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_action_more_arrow_dark"
+            android:layout_toRightOf="@id/item_sv_acty_all3rd_more_2nd_tv_title"
+            />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/item_sv_acty_all3rd_more_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/semi_transparent"
+        android:layout_marginTop="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
+        />
+</LinearLayout>

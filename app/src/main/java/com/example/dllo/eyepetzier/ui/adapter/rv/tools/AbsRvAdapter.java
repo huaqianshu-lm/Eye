@@ -54,7 +54,6 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
 
     /**
      * 在行尾添加数据
-     *
      * @param data
      */
     public void addItemAtEnd(T data) {
