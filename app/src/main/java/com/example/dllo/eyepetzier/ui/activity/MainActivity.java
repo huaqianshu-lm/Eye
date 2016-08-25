@@ -86,9 +86,6 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         tabLayout.setupWithViewPager(viewPager);
         setTabLayout();
         setTitle();
-
-
-
     }
 
 

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.dllo.eyepetzier.ui.activity.CommentActivity"
+    android:background="@color/transparent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:padding="@dimen/padding_extra"
+        android:background="@color/transparent">
+        <ImageView
+            android:id="@+id/acty_comment_imgv_arrow_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_action_down_white"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/acty_comment_tv_video_title"
+            android:layout_alignParentTop="true"
+            android:background="@color/transparent"
+            />
+        <TextView
+            android:id="@+id/acty_comment_tv_video_title"
+            style="@style/CommentActyTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="video title"
+            android:textSize="@dimen/textsize_app"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:background="@color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/acty_comment_tv_total_comment_num"
+            style="@style/CommentActyTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="total comment num"
+            android:textSize="@dimen/textsize_app_small"
+            android:gravity="center"
+            android:layout_below="@id/acty_comment_tv_video_title"
+            android:layout_marginBottom="@dimen/margin_extra"
+            android:background="@color/transparent"
+            />
+
+        <EditText
+            android:id="@+id/acty_comment_et_write_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/acty_comment_tv_total_comment_num"
+            android:background="@drawable/shape_comment_editext"
+            />
+
+        <TextView
+            style="@style/CommentActyTextViewStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/coment_acty_write_comment"
+            android:layout_alignTop="@id/acty_comment_et_write_comment"
+            android:layout_alignBottom="@id/acty_comment_et_write_comment"
+            android:gravity="center"
+            android:background="@color/transparent"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/acty_comment_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        />
+
+</LinearLayout>

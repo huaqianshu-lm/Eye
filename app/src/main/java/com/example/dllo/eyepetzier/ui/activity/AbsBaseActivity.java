@@ -17,14 +17,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         //设置全屏显示
-
-//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
@@ -79,5 +72,18 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
         Intent intent = new Intent(from,to);
         intent.putExtras(values);
         startActivity(intent);
+    }
+
+    /**
+     * intent带值跳转 返回
+     * @param from
+     * @param to
+     * @param values
+     * @param requestCode
+     */
+    protected void goTo(Context from, Class<? extends AbsBaseActivity> to, Bundle values, int requestCode){
+        Intent intent = new Intent(from,to);
+        intent.putExtras(values);
+        startActivityForResult(intent, requestCode);
     }
 }

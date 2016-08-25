@@ -58,6 +58,7 @@ public class AuthorFragment extends AbaBaseFragment {
                     protected void convert(RvViewHolder holder, final AuthorFragmentBean.ItemListBean itemListBean, int pos) {
                         holder.setIsRecyclable(false);
                         final AuthorFragmentBean.ItemListBean.DataBean dataBean = itemListBean.getData();
+//                        Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                         if (itemListBean.getType().equals("leftAlignTextHeader")) {
                             holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getText());
                             holder.setVisible(R.id.item_author_fragment_title_tv, false);
@@ -73,12 +74,13 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setText(R.id.item_author_fragment_subtitle_tv, dataBean.getSubTitle());
                             holder.setImgUrl(R.id.item_author_fragment_civ, dataBean.getIcon(), 150, 150);
                             holder.setVisible(R.id.item_author_fragment_rv_rv, false);
-                            holder.setOnClickListener(R.id.top, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    T.shortMsg("作者界面的item点击事件,跳转到排序界面");
-                                }
-                            });
+//                            Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
+//                            holder.setOnClickListener(R.id.top, new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    T.shortMsg("作者界面的item点击事件,跳转到排序界面");
+//                                }
+//                            });
                         }
                         if (itemListBean.getType().equals("blankCard")) {
                             holder.setVisible(R.id.top, false);
@@ -119,7 +121,7 @@ public class AuthorFragment extends AbaBaseFragment {
 
                                             bundle.putParcelableArrayList(Contant.AUTHOR_TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
                                             bundle.putParcelable(Contant.AUTHOR_TO_VIDEO, dataBean);
-                                            bundle.putInt(Contant.VIDEO_POS,pos);
+                                            bundle.putInt(Contant.VIDEO_POS, pos);
 
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
@@ -143,6 +145,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                     String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    Log.d("AuthorFragment", urlShare);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
                                     bundle.putString(NetUrl.KEY_AUTHOR, headerBean.getTitle());
@@ -155,7 +158,6 @@ public class AuthorFragment extends AbaBaseFragment {
                             });
                             holder.setAdapter(R.id.item_author_fragment_rv_rv, videoAdapter);
                         }
-
                     }
                 };
 
