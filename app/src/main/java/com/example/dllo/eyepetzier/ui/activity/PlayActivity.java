@@ -313,16 +313,11 @@ public class PlayActivity extends AbsBaseActivity {
      * @param msec
      */
     private void play(String url, final int msec) {
-//        mediaPlayer.reset();
-        // 设置音频流的类型 The audio stream for music playback
         if (mediaPlayer != null) {
             try {
-//        mediaPlayer = new MediaPlayer();
-//            if (mediaPlayer != null) {
-//                mediaPlayer.reset();
-//            }
 
                 mediaPlayer.setDisplay(surfaceHolder);
+                // 设置音频流的类型 The audio stream for music playback
                 mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
                 Log.d("PlayActivity", "surfaceholder");
                 mediaPlayer.setDataSource(url);
@@ -334,13 +329,8 @@ public class PlayActivity extends AbsBaseActivity {
                         Log.d("PlayActivity", "prepared");
                         mediaPlayer.start();
 
-//                    if (msec > 0) {
-//                        mediaPlayer.seekTo(msec);
-//                    }
-//                    loadingIv.clearAnimation();
                         loadingRl.setVisibility(View.GONE);
                         playSeekBar.setMax(videoDataBean.getDuration() * 1000);
-//                    mediaPlayer.seekTo(pos);
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -354,7 +344,6 @@ public class PlayActivity extends AbsBaseActivity {
                                     if (mediaPlayer != null) {
                                         currentPos = mediaPlayer.getCurrentPosition();
                                     }
-//                                    L.d(currentPos + "----------");
                                     playSeekBar.setProgress(currentPos);
                                     Message message = new Message();
                                     message.what = Contant.VIDEO_DURATION_MESSAGE;
@@ -371,19 +360,18 @@ public class PlayActivity extends AbsBaseActivity {
                     @Override
                     public boolean onError(MediaPlayer mp, int what, int extra) {
                         // 发生错误重新播放
-//                    mediaPlayer.start();
                         isPlaying = false;
                         loadingOuterIv.setImageResource(R.mipmap.ic_eye_white_error);
                         return false;
                     }
                 });
-//            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-//                @Override
-//                public void onCompletion(MediaPlayer mp) {
-//                    playIv.setImageResource(R.mipmap.ic_player_play);
-//                    mediaPlayer.seekTo(0);
-//                }
-//            });
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        playIv.setImageResource(R.mipmap.ic_player_play);
+                        mediaPlayer.seekTo(0);
+                    }
+                });
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -499,22 +487,22 @@ public class PlayActivity extends AbsBaseActivity {
         public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
             mp.reset();
             String normalUrl = playInfoBeen.get(1).getUrl();
-            play(normalUrl,0);
+            play(normalUrl, 0);
         }
     };
 
     /**
      * 缓冲的进度
      */
-   private MediaPlayer.OnBufferingUpdateListener bufferingUpdateListener = new MediaPlayer.OnBufferingUpdateListener() {
-       @Override
-       public void onBufferingUpdate(MediaPlayer mp, int percent) {
+    private MediaPlayer.OnBufferingUpdateListener bufferingUpdateListener = new MediaPlayer.OnBufferingUpdateListener() {
+        @Override
+        public void onBufferingUpdate(MediaPlayer mp, int percent) {
 
-           percent += (mediaPlayer.getDuration() * percent / 100);
-           playSeekBar.setSecondaryProgress(percent);
-           L.d("present",percent + "");
-       }
-   };
+            percent += (mediaPlayer.getDuration() * percent / 100);
+            playSeekBar.setSecondaryProgress(percent);
+            L.d("present", percent + "");
+        }
+    };
 
     @Override
     protected void onDestroy() {
