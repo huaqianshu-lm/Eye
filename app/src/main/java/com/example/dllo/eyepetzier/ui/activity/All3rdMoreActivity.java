@@ -1,8 +1,12 @@
 package com.example.dllo.eyepetzier.ui.activity;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -32,6 +36,7 @@ import com.example.dllo.eyepetzier.utils.TextStyleSetter;
 import com.example.dllo.eyepetzier.view.TitleTextView;
 import com.example.dllo.eyepetzier.view.TypeTextView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -45,6 +50,7 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
     private TypeTextView tvTitle;
     private ScrollView sv;
     private LinearLayout ll;
+    private LinearLayout llouter;
     private Bundle bundle;
     private ImageView imgv;
 
@@ -66,7 +72,6 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
     private TextView tvTitleType2nd;
     private RecyclerView rv;
 
-
     @Override
     protected int setLayout() {
         return R.layout.activity_all3rd_more;
@@ -79,6 +84,7 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
         sv = bindView(R.id.acty_all3rd_more_sv_content);
         ll = bindView(R.id.acty_all3rd_more_ll_content);
         imgv = bindView(R.id.acty_all3rd_more_iv_detail);
+        llouter = bindView(R.id.acty_all3rd_more_ll);
 
     }
 
@@ -86,11 +92,46 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
     protected void initData() {
 
         bundle = getIntent().getExtras();
+
+        // set bg
+        setBackground();
         // 初始化标题栏
         initTitlebar();
         // 初始化Scrollview
         initScrollView();
 
+    }
+
+    /**
+     * 设置背景图片
+     */
+    private void setBackground() {
+
+        /**
+         * picasso设置背景图片
+         */
+        Picasso.with(All3rdMoreActivity.this).load(bundle.getString(Contant.KEY_3RD_BACKGROUND_URL)).error(R.mipmap.ic_launcher).into(new Target() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                int sdk = android.os.Build.VERSION.SDK_INT;
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    llouter.setBackgroundDrawable(new BitmapDrawable(bitmap));
+                } else {
+                    llouter.setBackground(new BitmapDrawable(getResources(),bitmap));
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                llouter.setTag(All3rdMoreActivity.this); //这里需要给view setTag, 要不设置不上,至少是第一次
+            }
+        });
     }
 
     /**
@@ -155,7 +196,7 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
                  */
                 View footview = getLayoutInflater().inflate(R.layout.title, null);
                 TitleTextView tvTitle = (TitleTextView) footview.findViewById(R.id.title_tv);
-                tvTitle.setText("- The End -");
+                tvTitle.setText(R.string.all_3rd_more_acty_footview_tv_end);
                 tvTitle.setTextColor(ContextCompat.getColor(All3rdMoreActivity.this, R.color.white));
                 RelativeLayout rl = (RelativeLayout) footview.findViewById(R.id.title_rl);
                 rl.setBackgroundColor(ContextCompat.getColor(All3rdMoreActivity.this, R.color.transparent));
@@ -220,7 +261,7 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
                 ImageView imageView = (ImageView) holder.getConvertView().findViewById(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed);
                 FrameLayout.LayoutParams layoutParamsImg = (FrameLayout.LayoutParams) imageView.getLayoutParams();
                 layoutParamsImg.width = ScreenSize.getScreenSize(context, EScreenSizeDensity.WIDTH) * 2 / 3;
-                layoutParamsImg.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) * 1 / 4;
+                layoutParamsImg.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) / 4;
                 imageView.setLayoutParams(layoutParamsImg);
 
                 /**
@@ -229,7 +270,7 @@ public class All3rdMoreActivity extends AbsBaseActivity implements View.OnClickL
                 FrameLayout frameLayout = (FrameLayout) holder.getConvertView().findViewById(R.id.item_lv_fgmt_feed_type_2nd_framelayout);
                 ViewGroup.LayoutParams layoutParams = frameLayout.getLayoutParams();
                 layoutParams.width = ScreenSize.getScreenSize(context, EScreenSizeDensity.WIDTH) * 2 / 3;
-                layoutParams.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) * 1 / 4;
+                layoutParams.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) / 4;
                 frameLayout.setLayoutParams(layoutParams);
                 frameLayout.setPadding(8, 16, 8, 16);
 

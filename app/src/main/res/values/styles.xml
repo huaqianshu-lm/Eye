@@ -77,9 +77,6 @@
         <item name="android:layout_marginBottom">@dimen/mine_fragment_margin</item>
     </style>
 
-
-
-
     <style name="ImagesDetailsActivityStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
 
         <item name="colorPrimaryDark">@color/white2</item>
@@ -93,10 +90,6 @@
     <item name="android:windowBackground">@color/green</item>
     </style>
 
-
-
-
-    
     <style name="pop_style">
         <item name="android:windowEnterAnimation">@anim/pou_in</item>
         <item name="android:windowExitAnimation">@anim/pop_out</item>
@@ -110,6 +103,20 @@
         <item name="android:layout_marginTop">@dimen/margin_default</item>
     </style>
 
+    <!-- 评论页 textview的 style -->
+    <style name="CommentActyTextViewStyle">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/textsize_comment_acty_rv_item</item>
+    </style>
+
+    <!-- 评论页 acty的透明style -->
+    <style name="transparentStyle" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!--标题栏消失, 下面两句都需要-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 
 </resources>

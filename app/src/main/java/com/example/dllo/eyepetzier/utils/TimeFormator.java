@@ -16,7 +16,8 @@ public class TimeFormator {
         formator = new SimpleDateFormat(rule);
     }
 
-    /** 简单时间格式化 
+    /**
+     *  简单时间格式化 
      *  @param data time data 
      */
     public String formatSimpleTime(String data){
@@ -25,4 +26,8 @@ public class TimeFormator {
     public String formatSimpleTime(Long data){
         return formator.format(new Date(data));
     }
+    public String formatSimpleTime(Date data){
+        return formator.format(data);
+    }
+
 }

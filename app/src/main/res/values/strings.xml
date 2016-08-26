@@ -33,4 +33,8 @@
     <string name="video_activity_cache">缓存</string>
     <string name="search_result">搜索结果共</string>
     <string name="search_result_num">个 -</string>
+
+    <string name="coment_acty_write_comment">写下你的评论</string>
+    <string name="item_rv_coment_acty_tv_hot">- hot -</string>
+    <string name="all_3rd_more_acty_footview_tv_end">- The End -</string>
 </resources>
