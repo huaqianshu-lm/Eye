@@ -237,13 +237,10 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         int blurIvHeight = height / 17 * 8;
         float rotateWidth = width / 2;
         float rotateHeight = blurIvHeight / 2;
-<<<<<<< HEAD
         blurIv.setScaleY(-1);
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).skipMemoryCache().resize(width, blurIvHeight).into(blurIv);
-=======
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
 
->>>>>>> 242555ecffedd5ab6293b7da4f3a9b84ea3aa3a3
         // 设置带图标的内容
         if (headerBean != null) {
             Picasso.with(VideoIntroduceActivity.this).load(headerBean.getIcon()).resize(150, 150).into(iconIv);
