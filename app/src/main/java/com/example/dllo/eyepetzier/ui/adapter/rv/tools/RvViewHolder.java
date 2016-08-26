@@ -135,13 +135,13 @@ public class RvViewHolder extends RecyclerView.ViewHolder {
 
     public RvViewHolder setImgUrl(int viewId, String url){
         ImageView imageView = getView(viewId);
-        Picasso.with(context).load(url).error(R.mipmap.default_icon).into(imageView);
+        Picasso.with(context).load(url).skipMemoryCache().error(R.mipmap.default_icon).into(imageView);
         return this;
     }
 
     public RvViewHolder setImgUrl(int viewId, String url,int width,int height){
         ImageView imageView = getView(viewId);
-        Picasso.with(context).load(url).error(R.mipmap.default_icon).resize(width,height).into(imageView);
+        Picasso.with(context).load(url).skipMemoryCache().error(R.mipmap.default_icon).resize(width,height).into(imageView);
         return this;
     }
 

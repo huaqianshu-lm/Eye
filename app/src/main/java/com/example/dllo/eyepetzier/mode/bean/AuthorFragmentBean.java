@@ -739,6 +739,8 @@ public class AuthorFragmentBean implements Parcelable {
                         this.tags = tags;
                     }
 
+
+
                     public static class ProviderBean implements Parcelable {
                         private String name;
                         private String alias;

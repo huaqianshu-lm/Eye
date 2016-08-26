@@ -36,8 +36,9 @@
     <dimen name="mine_fragment_drawable_padding">10dp</dimen>
     <dimen name="mine_fragment_version_text_size">10sp</dimen>
     <dimen name="mine_fragment_text_padding_collection">15dp</dimen>
-    <dimen name="search_margin">20dp</dimen>
-    <dimen name="search_context_size">10sp</dimen>
+    <dimen name="search_margin">15dp</dimen>
+    <dimen name="search_context_size">15sp</dimen>
+    <dimen name="search_result_size">18sp</dimen>
 
     <dimen name="video_introduce_content_text_size">11sp</dimen>
     <dimen name="video_introduce_title_text_size">17sp</dimen>

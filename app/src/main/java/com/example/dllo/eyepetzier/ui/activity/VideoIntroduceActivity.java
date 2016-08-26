@@ -143,7 +143,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 int bgHeight = height / 17 * 9;
                 AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean = videoItemListBeen.get(i);
                 AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.CoverBean coverBean = videoItemListBean.getData().getCover();
-                Picasso.with(this).load(coverBean.getDetail()).resize(width, bgHeight).into(bgIv);
+                Picasso.with(this).load(coverBean.getDetail()).skipMemoryCache().resize(width, bgHeight).into(bgIv);
                 Log.d("VideoIntroduceActivity", coverBean.getDetail());
                 views.add(view);
             }
@@ -209,11 +209,12 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         titleTv.start(toolbarTitle);
         categoryTv.start(videoDataBean.getCategory());
         categoryTv.start(videoDataBean.getCategory());
-
-        iconUrl = headerBean.getIcon();
-        itemTitle = headerBean.getTitle();
-        itemSubtitle = headerBean.getSubTitle();
-        itemDescription = headerBean.getDescription();
+        if (headerBean != null) {
+            iconUrl = headerBean.getIcon();
+            itemTitle = headerBean.getTitle();
+            itemSubtitle = headerBean.getSubTitle();
+            itemDescription = headerBean.getDescription();
+        }
         itemId = videoDataBean.getId();
         // 设置title,分类时间
         int min = videoDataBean.getDuration() / 60;
@@ -223,7 +224,8 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         int blurIvHeight = height / 17 * 8;
         float rotateWidth = width / 2;
         float rotateHeight = blurIvHeight / 2;
-        Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
+        blurIv.setScaleY(-1);
+        Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).skipMemoryCache().resize(width, blurIvHeight).into(blurIv);
         // 设置带图标的内容
         if (headerBean != null) {
             Picasso.with(VideoIntroduceActivity.this).load(headerBean.getIcon()).resize(150, 150).into(iconIv);
@@ -231,7 +233,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             secondSubTitleTv.setText(headerBean.getSubTitle());
             secondDescriptionTv.setText(headerBean.getDescription());
         }
-        Picasso.with(VideoIntroduceActivity.this).load(iconUrl).resize(150, 150).into(iconIv);
+        Picasso.with(VideoIntroduceActivity.this).load(iconUrl).skipMemoryCache().resize(150, 150).into(iconIv);
         secondTitleTv.setText(itemTitle);
         secondSubTitleTv.setText(itemSubtitle);
         secondDescriptionTv.setText(itemDescription);
