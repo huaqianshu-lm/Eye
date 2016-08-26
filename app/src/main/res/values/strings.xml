@@ -31,4 +31,8 @@
     <string name="search_content_text">输入标题或描述中的关键词找到更多的视频</string>
     <string name="search_hot_text">- 热门搜索词 -</string>
     <string name="video_activity_cache">缓存</string>
+
+    <string name="coment_acty_write_comment">写下你的评论</string>
+    <string name="item_rv_coment_acty_tv_hot">- hot -</string>
+    <string name="all_3rd_more_acty_footview_tv_end">- The End -</string>
 </resources>

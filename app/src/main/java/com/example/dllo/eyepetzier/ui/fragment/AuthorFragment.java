@@ -71,7 +71,8 @@ public class AuthorFragment extends AbaBaseFragment {
                     @Override
                     protected void convert(RvViewHolder holder, final AuthorFragmentBean.ItemListBean itemListBean, int pos) {
                         holder.setIsRecyclable(false);
-                        dataBean = itemListBean.getData();
+                        final AuthorFragmentBean.ItemListBean.DataBean dataBean = itemListBean.getData();
+//                        Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
                         final AuthorFragmentBean.ItemListBean.DataBean.HeaderBean headerBean = dataBean.getHeader();
                         if (itemListBean.getType().equals("leftAlignTextHeader")) {
                             holder.setText(R.id.item_author_fragment_description_tv, itemListBean.getData().getText());
@@ -88,6 +89,13 @@ public class AuthorFragment extends AbaBaseFragment {
                             holder.setText(R.id.item_author_fragment_subtitle_tv, dataBean.getSubTitle());
                             holder.setImgUrl(R.id.item_author_fragment_civ, dataBean.getIcon(), 150, 150);
                             holder.setVisible(R.id.item_author_fragment_rv_rv, false);
+//                            Log.e("AuthorFragment", "getId():" + itemListBean.getData().getHeader().getId());
+//                            holder.setOnClickListener(R.id.top, new View.OnClickListener() {
+//                                @Override
+//                                public void onClick(View v) {
+//                                    T.shortMsg("作者界面的item点击事件,跳转到排序界面");
+//                                }
+//                            });
                             final int id = dataBean.getId();
                             final String title = dataBean.getTitle();
                             final String des = dataBean.getDescription();
@@ -150,6 +158,12 @@ public class AuthorFragment extends AbaBaseFragment {
                                     holder.setOnClickListener(R.id.item_author_fragment_child_rv_iv, new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {
+                                            Bundle bundle = new Bundle();
+
+                                            bundle.putParcelableArrayList(Contant.TO_VIDEO, (ArrayList<? extends Parcelable>) videoItemListBeen);
+                                            bundle.putParcelable(Contant.TO_VIDEO, dataBean);
+                                            bundle.putInt(Contant.VIDEO_POS, pos);
+
                                             goTo(context, VideoIntroduceActivity.class, bundle);
                                             T.shortMsg("作者界面视频图片的点击事件,跳转到视频的详情界面");
 
@@ -169,6 +183,7 @@ public class AuthorFragment extends AbaBaseFragment {
                                     String urlShare = NetUrl.AUTHOR_2ND_DETAIL_URL_START
                                             + itemListBean.getData().getHeader().getId() + NetUrl.AUTHOR_2ND_DETAIL_URL_CENTER
                                             + NetUrl.AUTHOR_2ND_DETAIL_URL_SHARE + NetUrl.AUTHOR_2ND_DETAIL_URL_END;
+                                    Log.d("AuthorFragment", urlShare);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_DATE, urlDate);
                                     bundle.putString(NetUrl.KEY_URL_AUTHOR_2ND_DETAIL_SHARE, urlShare);
                                     bundle.putString(NetUrl.KEY_AUTHOR, headerBean.getTitle());
@@ -181,7 +196,6 @@ public class AuthorFragment extends AbaBaseFragment {
                             });
                             holder.setAdapter(R.id.item_author_fragment_rv_rv, videoAdapter);
                         }
-
                     }
                 };
 

@@ -66,7 +66,7 @@ public class AbsRvAdapter<T> extends RecyclerView.Adapter<RvViewHolder> {
      * @param datas
      */
     public void addItemAtEnd(List<T> datas){
-        int lastIndexPosition = this.datas.size() - 1;
+        int lastIndexPosition = this.datas.size();
         this.datas.addAll(datas);
         notifyItemRangeInserted(lastIndexPosition, datas.size());
     }

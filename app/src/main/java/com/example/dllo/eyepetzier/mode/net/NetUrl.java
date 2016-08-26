@@ -13,11 +13,6 @@ public final class NetUrl {
     // 精选页一级接口
     public static final String FEED_FRAGMENT_URL = "http://baobab.wandoujia.com/api/v3/tabs/selected?udid=86f35dc937824e09bf8d0c7dc0cfea543ed2a2a3&vc=126&vn=2.4.1&deviceModel=Google%20Nexus%205%20-%205.1.0%20-%20API%2022%20-%201080x1920&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=22";
 
-
-
-
-
-
     // 精选页二级接口 : 查看往期精选
     public static final String FEED_2ND_REVIEW_URL_TODAY = "http://baobab.wandoujia.com/api/v2/feed?num=2&udid=86f35dc937824e09bf8d0c7dc0cfea543ed2a2a3&vc=126&vn=2.4.1&deviceModel=Google%20Nexus%205%20-%205.1.0%20-%20API%2022%20-%201080x1920&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=22";
     // 精选页二级接口 : 最近更新作者
@@ -62,5 +57,11 @@ public final class NetUrl {
      */
     public static final String ALL_3RD_MORE_URL_START = "http://baobab.wandoujia.com/api/v3/video/";
     public static final String ALL_3RD_MORE_URL_END = "/detail/related?udid=86f35dc937824e09bf8d0c7dc0cfea543ed2a2a3&vc=126&vn=2.4.1&deviceModel=Google%20Nexus%205%20-%205.1.0%20-%20API%2022%20-%201080x1920&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=22";
+
+    /**
+     * 评论页 接口
+     */
+    public static final String COMMENT_ACTIVITY_URL_START = "http://baobab.wandoujia.com/api/v1/replies/video?id=";
+    public static final String COMMENT_ACTIVITY_URL_END = "&udid=86f35dc937824e09bf8d0c7dc0cfea543ed2a2a3&vc=126&vn=2.4.1&deviceModel=Google%20Nexus%205%20-%205.1.0%20-%20API%2022%20-%201080x1920&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=22";
 
 }

@@ -4,7 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="padding_view_head_foot">20dp</dimen>
     <dimen name="padding_default">10dp</dimen>
+    <dimen name="padding_extra">20dp</dimen>
     <dimen name="margin_default">10dp</dimen>
+    <dimen name="margin_extra">20dp</dimen>
 
     <dimen name="divide_line_height">8dp</dimen>
 
@@ -13,6 +15,8 @@
     <dimen name="textsize_app_small">10sp</dimen>
     <dimen name="textsize_app_small_extra">5sp</dimen>
     <dimen name="textsize_app_small_extra_extra">3sp</dimen>
+    <dimen name="textsize_comment_acty_rv_item">12sp</dimen>
+
 
     <dimen name="line_height">1dp</dimen>
     <dimen name="title_text_size">25dp</dimen>

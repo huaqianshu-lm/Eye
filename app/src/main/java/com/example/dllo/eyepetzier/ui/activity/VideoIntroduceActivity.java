@@ -80,6 +80,8 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private String itemSubtitle;
     private String itemDescription;
     private String dataUrl;
+    private String backgroundUrl;
+
     private int itemId;
     private TextView likeTv, shareTv, commmentTv;
     private Bundle toPlayBundle;
@@ -88,6 +90,11 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private int bgHeight;
     private RelativeLayout loadingRl;
     private ImageView loadingIv;
+
+    /**
+     * 评论页面用
+     */
+    private String commentUrl;
 
 
     @Override
@@ -119,8 +126,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         Display display = windowManager.getDefaultDisplay();
         width = display.getWidth();
         height = display.getHeight();
-        bgHeight = height / 17 * 9;
-//        Log.e("VideoIntroduceActivity", dataBean.getText());
+
         if (dataBean != null) {
             // 刚进入时的界面
             videoItemListBeen = dataBean.getItemList();
@@ -140,58 +146,65 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 animation.setDuration(4000);
                 bgIv.setAnimation(animation);
                 loadAnimation.startNow();
-                int bgHeight = height / 17 * 9;
+                bgHeight = height / 17 * 9;
                 AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean videoItemListBean = videoItemListBeen.get(i);
                 AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.CoverBean coverBean = videoItemListBean.getData().getCover();
                 Picasso.with(this).load(coverBean.getDetail()).resize(width, bgHeight).into(bgIv);
                 Log.d("VideoIntroduceActivity", coverBean.getDetail());
                 views.add(view);
             }
-            // 刚进入时的界面
-            videoItemListBeen = dataBean.getItemList();
             videoItemListBean = videoItemListBeen.get(pos);
-
-            // 设打字效果
-            contentTv.setListener(this);
-            videoVpAdapter.setViews(views);
-            viewPager.setAdapter(videoVpAdapter);
-            viewPager.setPageTransformer(true, new DepthPagerTransfromer());
-            tabLayout.setupWithViewPager(viewPager);
-            tabLayout.setSelectedTabIndicatorHeight(3);
-            viewPager.setCurrentItem(pos);
-            viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    // 当滑动时动画停止
-                    bgIv.clearAnimation();
-                    // 当滑动的时候组件的透明度的变化
-                    if (positionOffset > 0 && positionOffset < 0.5) {
-                        float alpha = 1.0f - positionOffset * 2;
-                        playIv.setAlpha(alpha);
-                        backIv.setAlpha(alpha);
-                    } else if (positionOffset > 0.5 && positionOffset < 1) {
-                        float alpha = positionOffset * 2 - 1.0f;
-                        playIv.setAlpha(alpha);
-                        backIv.setAlpha(alpha);
-                    }
-                    textInfoRl.setAlpha(Math.abs(positionOffset - 1.0f));
-                }
-
-                @Override
-                public void onPageSelected(int position) {
-                    // 停止滑动时动画开始
-                    animation.startNow();
-                    videoItemListBean = videoItemListBeen.get(position);
-                    setVp();
-                    nextPos = position;
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                }
-            });
+            Picasso.with(this).load(videoItemListBean.getData().getCover().getDetail()).resize(width, bgHeight).into(bgIv);
         }
+        // 刚进入时的界面
+        videoItemListBeen = dataBean.getItemList();
+        videoItemListBean = videoItemListBeen.get(pos);
+
+        // 设打字效果
+        contentTv.setListener(this);
+        videoVpAdapter.setViews(views);
+        viewPager.setAdapter(videoVpAdapter);
+        viewPager.setPageTransformer(true, new DepthPagerTransfromer());
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setSelectedTabIndicatorHeight(3);
+        viewPager.setCurrentItem(pos);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // 当滑动时动画停止
+                bgIv.clearAnimation();
+                // 当滑动的时候组件的透明度的变化
+                if (positionOffset > 0 && positionOffset < 0.5) {
+                    float alpha = 1.0f - positionOffset * 2;
+                    playIv.setAlpha(alpha);
+                    backIv.setAlpha(alpha);
+                } else if (positionOffset > 0.5 && positionOffset < 1) {
+                    float alpha = positionOffset * 2 - 1.0f;
+                    playIv.setAlpha(alpha);
+                    backIv.setAlpha(alpha);
+                }
+                textInfoRl.setAlpha(1.0f - positionOffset);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                // 停止滑动时动画开始
+                animation.startNow();
+                videoItemListBean = videoItemListBeen.get(position);
+                setVp();
+                nextPos = position;
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        // 获取评论页url
+        commentUrl = NetUrl.COMMENT_ACTIVITY_URL_START + videoItemListBean.getData().getId() + NetUrl.COMMENT_ACTIVITY_URL_END;
+//            Log.e("VideoIntroduceActivity", "commentUrl:" + commentUrl);
+
 
     }
 
@@ -224,6 +237,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         float rotateWidth = width / 2;
         float rotateHeight = blurIvHeight / 2;
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
+
         // 设置带图标的内容
         if (headerBean != null) {
             Picasso.with(VideoIntroduceActivity.this).load(headerBean.getIcon()).resize(150, 150).into(iconIv);
@@ -239,6 +253,11 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         likeTv.setText(String.valueOf(consumptionBean.getCollectionCount()));
         shareTv.setText(String.valueOf(consumptionBean.getShareCount()));
         commmentTv.setText(String.valueOf(consumptionBean.getReplyCount()));
+
+        /**
+         * 评论页 和 三级页面用
+         */
+        backgroundUrl = coverBean.getBlurred();
 
     }
 
@@ -271,11 +290,18 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         loadingIv = bindView(R.id.video_introduce_activity_loading_iv);
         loadingRl = bindView(R.id.video_introduce_activity_loading_rl);
         twolineRl = bindView(R.id.twoline_rl);
+
         backIv.setOnClickListener(this);
         toDetailIv.setOnClickListener(this);
         twolineRl.setOnClickListener(this);
         playIv.setOnClickListener(this);
-
+        /**
+         * 4个button的点击事件
+         */
+        likeLl.setOnClickListener(this);
+        shareLl.setOnClickListener(this);
+        commentLl.setOnClickListener(this);
+        downloadLl.setOnClickListener(this);
     }
 
     @Override
@@ -294,6 +320,12 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         toPlayBundle = new Bundle();
         toPlayBundle.putParcelable(Contant.VIDEO_TO_PLAY, dataBean);
         toPlayBundle.putInt(Contant.VIDEO_POS, nextPos);
+        /**
+         * 评论页传值
+         */
+        toPlayBundle.putString(Contant.KEY_ACTY_COMMENT_URL, commentUrl);
+        toPlayBundle.putString(Contant.KEY_3RD_BACKGROUND_URL, backgroundUrl);
+
         switch (v.getId()) {
             // 返回
             case R.id.item_video_introduce_vp_back_iv:
@@ -305,6 +337,16 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
 //                T.shortMsg("跳转到下一个界面");
                 break;
             case R.id.twoline_rl:
+                dataUrl = NetUrl.ALL_3RD_MORE_URL_START + itemId + NetUrl.ALL_3RD_MORE_URL_END;
+                Bundle bundle = new Bundle();
+                bundle.putString(Contant.KEY_3RD_TOOLBAR_TITLE, toolbarTitle);
+                bundle.putString(Contant.KEY_3RD_ICON_URL, iconUrl);
+                bundle.putString(Contant.KEY_3RD_TITLE, itemTitle);
+                bundle.putString(Contant.KEY_3RD_SUBTITLE, itemSubtitle);
+                bundle.putString(Contant.KEY_3RD_DESCRIPTION, itemDescription);
+                bundle.putString(Contant.KEY_3RD_DATA_URL, dataUrl);
+                bundle.putString(Contant.KEY_3RD_BACKGROUND_URL, backgroundUrl);
+                goTo(VideoIntroduceActivity.this, All3rdMoreActivity.class, bundle);
                 toThird();
 //                T.shortMsg("跳转到一个三级界面");
                 break;
@@ -317,6 +359,37 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 break;
             case R.id.item_video_introduce_vp_play_iv:
                 goTo(VideoIntroduceActivity.this, PlayActivity.class, toPlayBundle);
+                break;
+            /**
+             * 底部4个组件的点击事件 : 收藏, 分享, 评论, 下载
+             */
+            // 收藏
+            case R.id.item_video_introduce_like_ll:
+                break;
+            // 分享
+            case R.id.item_video_introduce_share_ll:
+                break;
+            // 评论
+            case R.id.item_video_introduce_comment_ll:
+                int requestCode = 999;
+                goTo(VideoIntroduceActivity.this, CommentActivity.class, toPlayBundle, requestCode);
+                backIv.setVisibility(View.GONE);
+                playIv.setVisibility(View.GONE);
+                break;
+            // 下载
+            case R.id.item_video_introduce_download_ll:
+                break;
+
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 999 && resultCode == 666) {
+            backIv.setVisibility(View.VISIBLE);
+            playIv.setVisibility(View.VISIBLE);
         }
     }
 
@@ -340,4 +413,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         super.onBackPressed();
         goTo(this, MainActivity.class);
     }
+
+
 }
