@@ -136,6 +136,33 @@ public class CommentActivity extends AbsBaseActivity {
      */
     private void initRv(List<CommentActyBean.ReplyListBean> replyListBeans) {
 
+        /**
+         * picasso设置背景图片
+         */
+        Log.e("CommentActivity", "backgroundUrl" + backgroundUrl);
+        Picasso.with(CommentActivity.this).load(backgroundUrl).error(R.mipmap.ic_launcher).into(new Target() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                int sdk = android.os.Build.VERSION.SDK_INT;
+                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                    rv.setBackgroundDrawable(new BitmapDrawable(bitmap));
+                } else {
+                    rv.setBackground(new BitmapDrawable(getResources(),bitmap));
+                }
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+                rv.setTag(CommentActivity.this); //这里需要给view setTag, 要不设置不上,至少是第一次
+            }
+        });
+
         adapter = new CommonRvAdapter<CommentActyBean.ReplyListBean>(CommentActivity.this, replyListBeans, R.layout.item_rv_coment_acty) {
             @Override
             protected void convert(RvViewHolder holder, CommentActyBean.ReplyListBean replyListBean, int pos) {
@@ -188,32 +215,7 @@ public class CommentActivity extends AbsBaseActivity {
         };
         rv.setAdapter(adapter);
         rv.setLayoutManager(new LinearLayoutManager(CommentActivity.this, LinearLayoutManager.VERTICAL, false));
-        /**
-         * picasso设置背景图片
-         */
-        Log.e("CommentActivity", "backgroundUrl" + backgroundUrl);
-        Picasso.with(CommentActivity.this).load(backgroundUrl).error(R.mipmap.ic_launcher).into(new Target() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                int sdk = android.os.Build.VERSION.SDK_INT;
-                if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                    rv.setBackgroundDrawable(new BitmapDrawable(bitmap));
-                } else {
-                    rv.setBackground(new BitmapDrawable(getResources(),bitmap));
-                }
-            }
 
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-                rv.setTag(CommentActivity.this); //这里需要给view setTag, 要不设置不上,至少是第一次
-            }
-        });
     }
     /**
      * 解析 nextUrl
