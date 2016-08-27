@@ -7,4 +7,5 @@ package com.example.dllo.eyepetzier.mode.net;
 public interface INetwork {
     void startRequest(String url, IOnHttpCallback<String> onHttpCallback); // 只请求,不解析
     <T> void startRequest(String url, Class<T> clazz, IOnHttpCallback<T> onHttpCallback); // 既请求,也解析
+
 }
