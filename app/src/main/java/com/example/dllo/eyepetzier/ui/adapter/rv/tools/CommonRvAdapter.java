@@ -38,6 +38,8 @@ public abstract class CommonRvAdapter<T> extends AbsRvAdapter<T> {
                 CommonRvAdapter.this.convert(holder,t,pos);
             }
         });
+
+
     }
 
     /**

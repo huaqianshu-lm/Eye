@@ -1,7 +1,16 @@
 package com.example.dllo.eyepetzier.ui.activity;
 
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -17,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dllo.eyepetzier.R;
 import com.example.dllo.eyepetzier.mode.bean.AuthorFragmentBean;
@@ -24,11 +34,14 @@ import com.example.dllo.eyepetzier.mode.net.NetUrl;
 import com.example.dllo.eyepetzier.ui.adapter.vp.VideoVpAdapter;
 import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.DepthPagerTransfromer;
+import com.example.dllo.eyepetzier.utils.DownloadManagerPro;
 import com.example.dllo.eyepetzier.utils.L;
+import com.example.dllo.eyepetzier.utils.PreferencesUtils;
 import com.example.dllo.eyepetzier.utils.T;
 import com.example.dllo.eyepetzier.view.TypeTextView;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +71,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
     private LinearLayout shareLl;
     private LinearLayout commentLl;
     private LinearLayout downloadLl;
+    private TextView downloadTv;
     private TypeTextView categoryTv;
     private TypeTextView durationTv;
     private View view;// viewpager里放在view
@@ -95,6 +109,19 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
      * 评论页面用
      */
     private String commentUrl;
+
+
+    private DownloadManager mDownloadManager;
+    public static final String URL = "http://baobab.wandoujia.com/api/v1/playUrl?vid=3514&editionType=high";
+    private long downloadId;
+    private DownloadManagerPro mDownloadManagerPro;
+    private MyHanlder mHanlder = new MyHanlder();
+    public static final String DOWNLOADID = "downloadId";
+    private DownlaodChangeObserver mDownloadChangeObserver;
+    private CompleteReceiver mCompleteReceiver;
+    private DownloadManager.Request mRequest;
+    private boolean isDownload = false;// 是否下载完成
+    private boolean isDownloadling = false;// 是否在下载
 
 
     @Override
@@ -155,6 +182,15 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
             }
             videoItemListBean = videoItemListBeen.get(pos);
             Picasso.with(this).load(videoItemListBean.getData().getCover().getDetail()).resize(width, bgHeight).into(bgIv);
+
+            // 初始化下载相关
+            downloadVideo();
+            isDownload = PreferencesUtils.getBoolean(this,String.valueOf(videoDataBean.getId()),false);
+            if (isDownload){
+                downloadTv.setText("已缓存");
+            }else {
+                downloadTv.setText("缓存");
+            }
         }
         // 刚进入时的界面
         videoItemListBeen = dataBean.getItemList();
@@ -184,6 +220,16 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                     backIv.setAlpha(alpha);
                 }
                 textInfoRl.setAlpha(1.0f - positionOffset);
+                isDownloadling = PreferencesUtils.getBoolean(VideoIntroduceActivity.this,String.valueOf(videoDataBean.getId()),false);
+                isDownload = PreferencesUtils.getBoolean(VideoIntroduceActivity.this,String.valueOf(videoDataBean.getId()),false);
+                if (!isDownloadling){
+                    if (isDownload) {
+                        downloadTv.setText("已缓存");
+                    } else {
+                        downloadTv.setText("缓存");
+                    }
+                }
+                updateView();
             }
 
             @Override
@@ -193,6 +239,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 videoItemListBean = videoItemListBeen.get(position);
                 setVp();
                 nextPos = position;
+
             }
 
             @Override
@@ -239,8 +286,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         float rotateHeight = blurIvHeight / 2;
         blurIv.setScaleY(-1);
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).skipMemoryCache().resize(width, blurIvHeight).into(blurIv);
-        Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).resize(width, blurIvHeight).rotate(180f, rotateWidth, rotateHeight).into(blurIv);
-
         // 设置带图标的内容
         if (headerBean != null) {
             Picasso.with(VideoIntroduceActivity.this).load(headerBean.getIcon()).resize(150, 150).into(iconIv);
@@ -293,6 +338,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         loadingIv = bindView(R.id.video_introduce_activity_loading_iv);
         loadingRl = bindView(R.id.video_introduce_activity_loading_rl);
         twolineRl = bindView(R.id.twoline_rl);
+        downloadTv = bindView(R.id.item_video_introduce_vp_dwowload_tv);
 
         backIv.setOnClickListener(this);
         toDetailIv.setOnClickListener(this);
@@ -381,6 +427,19 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 break;
             // 下载
             case R.id.item_video_introduce_download_ll:
+                isDownload = PreferencesUtils.getBoolean(VideoIntroduceActivity.this,String.valueOf(videoDataBean.getId()));
+                isDownloadling = PreferencesUtils.putBoolean(VideoIntroduceActivity.this,String.valueOf(videoDataBean.getId()),true);
+                if (isDownload) {
+                    downloadLl.setEnabled(false);
+                } else {
+                    File folder = Environment.getExternalStoragePublicDirectory("eye");
+                    if (!folder.exists() || !folder.isDirectory()) {
+                        folder.mkdirs();
+                    }
+                    downloadId = mDownloadManager.enqueue(mRequest);
+                    PreferencesUtils.putLong(VideoIntroduceActivity.this, DOWNLOADID, downloadId);
+                    updateView();
+                }
                 break;
 
         }
@@ -411,11 +470,151 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         goTo(VideoIntroduceActivity.this, All3rdMoreActivity.class, bundle);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        goTo(this, MainActivity.class);
+
+    public void downloadVideo() {
+        mDownloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        mDownloadManagerPro = new DownloadManagerPro(mDownloadManager);
+        Intent intent = getIntent();
+        if (intent != null) {
+            Uri data = intent.getData();
+            if (data != null) {
+                Toast.makeText(this, data.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        downloadId = PreferencesUtils.getLong(this, DOWNLOADID);
+        updateView();
+        mDownloadChangeObserver = new DownlaodChangeObserver(mHanlder);
+        String url = videoDataBean.getPlayUrl();
+        Uri uri = Uri.parse(url);
+        mRequest = new DownloadManager.Request(uri);
+        mRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video");
+        mRequest.setVisibleInDownloadsUi(false);
+        getContentResolver().registerContentObserver(uri, true, mDownloadChangeObserver);
+
+        mCompleteReceiver = new CompleteReceiver();
+        registerReceiver(mCompleteReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
+    /**
+     * 下载改变的监听
+     */
+    class DownlaodChangeObserver extends ContentObserver {
+
+        /**
+         * Creates a content observer.
+         *
+         * @param
+         */
+        public DownlaodChangeObserver(Handler handler) {
+            super(handler);
+            mHanlder = (MyHanlder) handler;
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            updateView();
+        }
+    }
+
+    /**
+     * 下载完成后的广播
+     */
+    class CompleteReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (completeDownloadId == downloadId) {
+                initData();
+                updateView();
+                isDownload = true;
+                PreferencesUtils.putBoolean(VideoIntroduceActivity.this,String.valueOf(videoDataBean.getId()),isDownload);
+                isDownloadling = false;
+            }
+        }
+    }
+
+    /**
+     * 刷新下载的进度
+     */
+    public void updateView() {
+        int[] bytesAndStatus = mDownloadManagerPro.getBytesAndStatus(downloadId);
+        mHanlder.sendMessageDelayed(mHanlder.obtainMessage(0, bytesAndStatus[0], bytesAndStatus[1], bytesAndStatus[2]), 100);
+
+    }
+
+
+    /**
+     * 下载进度
+     */
+    private class MyHanlder extends Handler {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    int status = (int) msg.obj;
+                    Log.d("MyHanlder", "status:" + status);
+                    Log.d("MyHanlder", "msg.arg2:" + msg.arg2);
+                    isDownloadling = PreferencesUtils.getBoolean(VideoIntroduceActivity.this,String.valueOf(videoDataBean.getId()),false);
+                    if (isDownloadling) {
+                        if (isDownloading(status)) {
+                            if (msg.arg2 < 0) {
+                                downloadTv.setText("0%");
+
+                            } else {
+
+                                int progress = (int) ((double) msg.arg1 / msg.arg2 * 100);
+                                downloadTv.setText(progress + "%");
+
+                            }
+                        } else {
+                            if (status == DownloadManager.STATUS_FAILED) {
+                                downloadTv.setText("出错");
+                            } else if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                                downloadTv.setText("已缓存");
+                            } else {
+
+                            }
+                        }
+                    }
+                    break;
+
+            }
+        }
+    }
+
+    /**
+     * 下载的状态
+     *
+     * @param downloadMangerStatus
+     * @return
+     */
+    public static boolean isDownloading(int downloadMangerStatus) {
+        return downloadMangerStatus == DownloadManager.STATUS_RUNNING ||
+                downloadMangerStatus == DownloadManager.STATUS_PAUSED ||
+                downloadMangerStatus == DownloadManager.STATUS_PENDING;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getContentResolver().registerContentObserver(DownloadManagerPro.CONTENT_URI, true, mDownloadChangeObserver);
+        updateView();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        getContentResolver().unregisterContentObserver(mDownloadChangeObserver);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mCompleteReceiver);
+    }
 
 }

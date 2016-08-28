@@ -32,7 +32,7 @@
         <com.example.dllo.eyepetzier.view.FlowLayout
             android:id="@+id/search_pop_flow"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_below="@id/search_hot_tv"
             android:layout_margin="@dimen/search_margin"
             android:layout_weight="1"
@@ -114,6 +114,7 @@
         android:id="@+id/search_loading_rl"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#ffffff"
         android:visibility="gone">
 
         <ImageView
