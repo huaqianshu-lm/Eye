@@ -43,4 +43,7 @@
     <string name="download_aty_auto_download">日报自动缓存</string>
     <string name="download_aty_byself_download">手动缓存</string>
     <string name="download_aty_item_downloaded">已缓存</string>
+
+    <string name="welcome_aty_title">开眼</string>
+    <string name="welcome_aty_msg">每日精选视频推介,让你大开眼界</string>
 </resources>

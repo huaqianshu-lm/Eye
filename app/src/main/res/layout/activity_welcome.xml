@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/welcome_activity_bg_iv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="fitXY"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_eye_white_outer"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_eye_white_inner"/>
+        </RelativeLayout>
+        <com.example.dllo.eyepetzier.view.TitleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="eyepetizer"
+            android:textColor="@color/welcome_aty_text_color"
+            android:textSize="@dimen/welcome_aty_title_text_size"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:textColor="@color/welcome_aty_text_color"
+            android:textSize="@dimen/welcome_aty_title_text_size"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_aty_title"
+            android:layout_marginTop="@dimen/welcome_aty_margin"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/welcome_msg_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/welcome_aty_text_color"
+        android:textSize="@dimen/welcome_aty_msg_text_size"
+        android:text="@string/welcome_aty_msg"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/welcome_aty_margin"
+        />
+    <com.example.dllo.eyepetzier.view.TitleTextView
+
+        android:layout_above="@id/welcome_msg_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daily appetizers for your eyes. Bon eyepetit"
+        android:textSize="@dimen/welcome_aty_msg_text_size"
+        android:textColor="@color/welcome_aty_text_color"
+        />
+</RelativeLayout>

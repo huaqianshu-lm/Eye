@@ -39,4 +39,6 @@
     <color name="play_aty_seekbar_secondary_progress">#aaaaaa</color>
     <color name="download_aty_text_color">#888888</color>
     <color name="download_item_text_color">#ffffff</color>
+
+    <color name="welcome_aty_text_color">#ffffff</color>
 </resources>
