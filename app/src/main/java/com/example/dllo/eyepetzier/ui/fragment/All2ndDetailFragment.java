@@ -12,14 +12,21 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.dllo.eyepetzier.R;
-import com.example.dllo.eyepetzier.mode.bean.DisconveryDetailBean;
+//import com.example.dllo.eyepetzier.mode.bean.DisconveryDetailBean;
+import com.example.dllo.eyepetzier.mode.bean.AuthorFragmentBean;
+import com.example.dllo.eyepetzier.mode.bean.SearchBean;
 import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
+import com.example.dllo.eyepetzier.ui.activity.VideoIntroduceActivity;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.CommonRvAdapter;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
+import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.EScreenSizeDensity;
 import com.example.dllo.eyepetzier.utils.ScreenSize;
 import com.example.dllo.eyepetzier.utils.TextStyleSetter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/8/18.
@@ -32,7 +39,14 @@ public class All2ndDetailFragment extends AbaBaseFragment {
      * 判断lv是否滑动到了底部
      */
     private boolean isFirstLoaded = false;
-    private CommonRvAdapter<DisconveryDetailBean.ItemListBean> adapter;
+    private CommonRvAdapter<SearchBean.ItemListBean> adapter;
+    private List<SearchBean.ItemListBean> itemListBeen;
+    private SearchBean.ItemListBean.DataBean dataBean;
+    private AuthorFragmentBean.ItemListBean.DataBean authorDataBean = new AuthorFragmentBean.ItemListBean.DataBean();
+    private List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean> mVideoItemListBeen = new ArrayList<>();
+    private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean mVideoDataBean;
+    private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean mVideoItemListBean;
+    private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.ConsumptionBean authorConsBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.ConsumptionBean();
 
     public static All2ndDetailFragment getDiscoveryDetailAllFragment(String str) {
         All2ndDetailFragment all2ndDetailFragment = new All2ndDetailFragment();
@@ -56,14 +70,51 @@ public class All2ndDetailFragment extends AbaBaseFragment {
     protected void initData() {
         Bundle bundle = getArguments();
         this.str = bundle.getString("url");
-        NetRequestSingleton.getInstance().startRequest(this.str, DisconveryDetailBean.class, new IOnHttpCallback<DisconveryDetailBean>() {
+        NetRequestSingleton.getInstance().startRequest(this.str, SearchBean.class, new IOnHttpCallback<SearchBean>() {
             @Override
-            public void onSuccess(DisconveryDetailBean response) {
+            public void onSuccess(SearchBean response) {
 
-                adapter = new CommonRvAdapter<DisconveryDetailBean.ItemListBean>(context, response.getItemList(), R.layout.item_lv_fgmt_feed_type_2nd) {
+                itemListBeen = response.getItemList();
+                int count = itemListBeen.size();
+                for (int i = 0; i < count; i++) {
+                    dataBean = itemListBeen.get(i).getData();
+                    mVideoItemListBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean();
+                    mVideoDataBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean();
+                    mVideoDataBean.setDescription(dataBean.getDescription());
+                    mVideoDataBean.setTitle(dataBean.getTitle());
+                    mVideoDataBean.setCategory(dataBean.getCategory());
+                    SearchBean.ItemListBean.DataBean.CoverBean coverBean = dataBean.getCover();
+                    AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.CoverBean authorCoverBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.CoverBean();
+                    authorCoverBean.setBlurred(coverBean.getBlurred());
+                    authorCoverBean.setDetail(coverBean.getDetail());
+                    mVideoDataBean.setCover(authorCoverBean);
+                    List<AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.PlayInfoBean> authorPlayInfoBeen = new ArrayList<>();
+                    int size = dataBean.getPlayInfo().size();
+                    for (int i1 = 0; i1 < size; i1++) {
+                        SearchBean.ItemListBean.DataBean.PlayInfoBean playInfoBean = dataBean.getPlayInfo().get(i1);
+                        AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.PlayInfoBean authorPlayInfoBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.PlayInfoBean();
+                        authorPlayInfoBean.setUrl(playInfoBean.getUrl());
+                        authorPlayInfoBeen.add(authorPlayInfoBean);
+                    }
+                    SearchBean.ItemListBean.DataBean.ConsumptionBean consumptionBean = dataBean.getConsumption();
+                    authorConsBean.setCollectionCount(consumptionBean.getCollectionCount());
+                    authorConsBean.setReplyCount(consumptionBean.getReplyCount());
+                    authorConsBean.setShareCount(consumptionBean.getShareCount());
+                    mVideoDataBean.setConsumption(authorConsBean);
+                    mVideoDataBean.setPlayUrl(dataBean.getPlayUrl());
+                    mVideoItemListBean.setData(mVideoDataBean);
+                    mVideoItemListBeen.add(mVideoItemListBean);
+                }
+                authorDataBean.setItemList(mVideoItemListBeen);
+                final Bundle bundle = new Bundle();
+                bundle.putParcelable(Contant.TO_VIDEO, authorDataBean);
+
+
+                adapter = new CommonRvAdapter<SearchBean.ItemListBean>(context, response.getItemList(), R.layout.item_lv_fgmt_feed_type_2nd) {
                     @Override
-                    protected void convert(RvViewHolder holder, DisconveryDetailBean.ItemListBean itemListBean, int pos) {
+                    protected void convert(RvViewHolder holder, SearchBean.ItemListBean itemListBean, final int pos) {
 
+                        holder.setIsRecyclable(false);
                         String textTitle = itemListBean.getData().getTitle();
                         holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_title, textTitle);
                         // tvTitle 字体加粗
@@ -74,7 +125,7 @@ public class All2ndDetailFragment extends AbaBaseFragment {
                         holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_category, "#" + itemListBean.getData().getCategory() + " / " + time);
                         if (itemListBean.getData().getAuthor() != null) {
                             holder.setVisible(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name, true);
-                            holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name, itemListBean.getData().getAuthor().getName());
+//                            holder.setText(R.id.item_lv_fgmt_feed_type_2nd_tv_author_name, itemListBean.getData().getAuthor().getName());
                         }
                         holder.setImgUrl(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed, itemListBean.getData().getCover().getFeed());
 //                        holder.setImgUrl(R.id.item_discovery_detail_iv, itemListBean.getData().getCover().getFeed(), 200, 100);
@@ -85,12 +136,23 @@ public class All2ndDetailFragment extends AbaBaseFragment {
                         params.height = ScreenSize.getScreenSize(context, EScreenSizeDensity.HEIGHT) * 2 / 5;
                         params.width = ScreenSize.getScreenSize(context, EScreenSizeDensity.WIDTH);
                         itemView.setLayoutParams(params);
+
+
+                        holder.setOnClickListener(R.id.item_lv_fgmt_feed_type_2nd_imgv_feed, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                bundle.putInt(Contant.VIDEO_POS, pos);
+                                goTo(context, VideoIntroduceActivity.class, bundle);
+                            }
+                        });
+
+
                     }
                 };
                 recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 recyclerView.setAdapter(adapter);
 
-                str = response.getNextPageUrl();
+                str = (String) response.getNextPageUrl();
 
             }
 
@@ -105,7 +167,7 @@ public class All2ndDetailFragment extends AbaBaseFragment {
              * @return time字符串
              */
             @NonNull
-            private String formatTime(DisconveryDetailBean.ItemListBean itemListBean) {
+            private String formatTime(SearchBean.ItemListBean itemListBean) {
                 int times = itemListBean.getData().getDuration();
                 String minute = "";
                 String second = "";
@@ -138,12 +200,12 @@ public class All2ndDetailFragment extends AbaBaseFragment {
 
                     isFirstLoaded = true;
                     // 解析下一天的数据
-                    NetRequestSingleton.getInstance().startRequest(str, DisconveryDetailBean.class, new IOnHttpCallback<DisconveryDetailBean>() {
+                    NetRequestSingleton.getInstance().startRequest(str, SearchBean.class, new IOnHttpCallback<SearchBean>() {
                         @Override
-                        public void onSuccess(DisconveryDetailBean response) {
+                        public void onSuccess(SearchBean response) {
 
                             adapter.addItemAtEnd(response.getItemList());
-                            str = response.getNextPageUrl();
+                            str = (String) response.getNextPageUrl();
                             isFirstLoaded = false;
                         }
 

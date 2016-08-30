@@ -220,6 +220,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                     authorConsBean.setReplyCount(consumptionBean.getReplyCount());
                     authorConsBean.setShareCount(consumptionBean.getShareCount());
                     mVideoDataBean.setConsumption(authorConsBean);
+                    mVideoDataBean.setDuration(dataBean.getDuration());
                     mVideoDataBean.setPlayUrl(dataBean.getPlayUrl());
                     mVideoItemListBean.setData(mVideoDataBean);
                     mVideoItemListBeen.add(mVideoItemListBean);
