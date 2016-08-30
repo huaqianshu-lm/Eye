@@ -42,6 +42,7 @@
         <activity android:name=".ui.activity.DownloadActivity">
 
         </activity>
+        <activity android:name=".ui.activity.BannerActivity"/>
     </application>
 
 </manifest>

@@ -1,5 +1,6 @@
 package com.example.dllo.eyepetzier.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.text.BidiFormatter;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,6 +13,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.dllo.eyepetzier.R;
 
@@ -20,6 +22,7 @@ import com.example.dllo.eyepetzier.mode.net.IOnHttpCallback;
 import com.example.dllo.eyepetzier.mode.net.NetRequestSingleton;
 import com.example.dllo.eyepetzier.mode.net.NetUrl;
 
+import com.example.dllo.eyepetzier.ui.activity.BannerActivity;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.CommonRvAdapter;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RecyclerItemDecoration;
 import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
@@ -27,6 +30,7 @@ import com.example.dllo.eyepetzier.ui.adapter.rv.tools.RvViewHolder;
 import com.example.dllo.eyepetzier.ui.activity.DiscoveryDetailedActivity;
 
 
+import com.example.dllo.eyepetzier.utils.T;
 import com.squareup.picasso.Picasso;
 import com.youth.banner.Banner;
 
@@ -77,7 +81,16 @@ public class DiscoveryFragment extends AbaBaseFragment {
         banner.setOnBannerClickListener(new Banner.OnBannerClickListener() {
             @Override
             public void OnBannerClick(View view, int position) {
+                switch (position) {
+                    case 1:
 
+                    case 2:
+
+                    case 3:
+                        Intent intent = new Intent(context, BannerActivity.class);
+                        startActivity(intent);
+                        break;
+                }
             }
         });
         // 解析下方16个图片
