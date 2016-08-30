@@ -112,7 +112,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
 
 
     private DownloadManager mDownloadManager;
-    public static final String URL = "http://baobab.wandoujia.com/api/v1/playUrl?vid=3514&editionType=high";
     private long downloadId;
     private DownloadManagerPro mDownloadManagerPro;
     private MyHanlder mHanlder = new MyHanlder();
@@ -490,7 +489,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         mRequest = new DownloadManager.Request(uri);
         mRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video");
-        mRequest.setVisibleInDownloadsUi(false);
+        mRequest.setVisibleInDownloadsUi(false).setMimeType(Contant.DOWNLOAD_MIMETYPE);
         getContentResolver().registerContentObserver(uri, true, mDownloadChangeObserver);
 
         mCompleteReceiver = new CompleteReceiver();

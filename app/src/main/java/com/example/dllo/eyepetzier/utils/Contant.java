@@ -25,5 +25,7 @@ public final class Contant {
 
     public static final String KEY_ACTY_COMMENT_URL = "key_acty_comment_url";
 
+//    application/cn.trinea.download.file
+    public static final String DOWNLOAD_MIMETYPE = "application/cn.eye.download.file";
 
 }
