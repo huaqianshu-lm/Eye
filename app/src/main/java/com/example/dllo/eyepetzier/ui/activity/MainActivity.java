@@ -1,8 +1,10 @@
 package com.example.dllo.eyepetzier.ui.activity;
 
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.design.widget.TabLayout;
@@ -10,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,8 +23,10 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
+import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -85,6 +90,8 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean mVideoDataBean;
     private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean mVideoItemListBean;
     private AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.ConsumptionBean authorConsBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean.ConsumptionBean();
+    private boolean isSuccess = true;
+
 
     @Override
     protected int setLayout() {
@@ -122,7 +129,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         setTitle();
         // 等待动画
         loadingAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_loading);
-        loadingAnimation.setInterpolator(new LinearInterpolator());
+//        loadingAnimation.setInterpolator(new LinearInterpolator());
     }
 
 
@@ -187,13 +194,16 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         final String searchItem = (String) list.get(position);
         String searchUrl = NetUrl.SEARCH__ITEM.replace("参数", searchItem);
         NetRequestSingleton.getInstance().startRequest(searchUrl, SearchBean.class, new IOnHttpCallback<SearchBean>() {
+            @TargetApi(Build.VERSION_CODES.M)
             @Override
             public void onSuccess(final SearchBean response) {
+                searchBean = response;
                 itemListBeen = response.getItemList();
                 Log.d("search", itemListBeen.size() + "=====");
                 // 搜索结果的标题
                 searchResultTv.setText(searchItem);
                 searchResultNumTv.setText(itemListBeen.size() + "");
+
                 int count = itemListBeen.size();
                 for (int i = 0; i < count; i++) {
                     dataBean = itemListBeen.get(i).getData();
@@ -256,17 +266,63 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                     }
 
                 };
+                searchRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                        super.onScrollStateChanged(recyclerView, newState);
+                    }
 
-                loadingRl.setVisibility(View.GONE);
+                    @Override
+                    public void onScrolled(final RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        if (isSuccess) {
+//                            loadingIv.startAnimation(loadingAnimation);
+                            loadingRl.setVisibility(View.VISIBLE);
+                            if (searchBean.getNextPageUrl() != null) {
+                                isSuccess = false;
+                                NetRequestSingleton.getInstance().startRequest((String) searchBean.getNextPageUrl(), SearchBean.class, new IOnHttpCallback<SearchBean>() {
+                                    @Override
+                                    public void onSuccess(SearchBean response) {
+                                        for (int i = 0; i < response.getItemList().size(); i++) {
+                                            searchBean = response;
+                                            itemListBeen.add(response.getItemList().get(i));
+                                        }
+                                        isSuccess = true;
+                                        searchAdapter.setDatas(itemListBeen);
+
+                                    }
+
+                                    @Override
+                                    public void onError(Throwable ex) {
+
+                                    }
+                                });
+                            }else {
+
+                                loadingRl.setVisibility(View.GONE);
+                                searchResultNumTv.setText(String.valueOf(itemListBeen.size()));
+                            }
+
+
+                        }
+
+
+
+                    }
+
+                });
                 searchResultRl.setVisibility(View.VISIBLE);
                 searchRecyclerView.setAdapter(searchAdapter);
             }
+
 
             @Override
             public void onError(Throwable ex) {
 
             }
         });
+
+
     }
 
     /**
@@ -334,6 +390,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
 
         switch (v.getId()) {
             case R.id.search_iv:
+
                 searchPop.showAsDropDown(titleRl);
                 searchLl.setAnimation(in);
                 titleRl.setAnimation(out);
@@ -342,8 +399,10 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 break;
             case R.id.search_title_tv:
                 searchPop.dismiss();
+                setSearchFlow();
                 searchLl.setAnimation(out);
                 titleRl.setAnimation(in);
+//                searchResultRl.setVisibility(View.GONE);
                 searchLl.setVisibility(View.GONE);
                 titleRl.setVisibility(View.VISIBLE);
                 break;
@@ -362,7 +421,11 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     @Override
     public void onBackPressed() {
         searchPop.dismiss();
+        super.onBackPressed();
         searchLl.setVisibility(View.GONE);
+//        searchResultRl.setVisibility(View.GONE);
         titleRl.setVisibility(View.VISIBLE);
     }
+
+
 }

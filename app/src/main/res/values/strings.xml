@@ -37,4 +37,10 @@
     <string name="coment_acty_write_comment">写下你的评论</string>
     <string name="item_rv_coment_acty_tv_hot">- hot -</string>
     <string name="all_3rd_more_acty_footview_tv_end">- The End -</string>
+    <string name="download_pre">缓存</string>
+    <string name="download_aty_title">我的缓存</string>
+    <string name="download_aty_edit">编辑</string>
+    <string name="download_aty_auto_download">日报自动缓存</string>
+    <string name="download_aty_byself_download">手动缓存</string>
+    <string name="download_aty_item_downloaded">已缓存</string>
 </resources>

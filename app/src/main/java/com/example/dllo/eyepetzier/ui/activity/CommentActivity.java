@@ -139,7 +139,6 @@ public class CommentActivity extends AbsBaseActivity {
         /**
          * picasso设置背景图片
          */
-        Log.e("CommentActivity", "backgroundUrl" + backgroundUrl);
         Picasso.with(CommentActivity.this).load(backgroundUrl).error(R.mipmap.ic_launcher).into(new Target() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
             @Override

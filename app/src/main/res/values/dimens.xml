@@ -56,4 +56,10 @@
     <dimen name="play_aty_time_text_size">10sp</dimen>
     <dimen name="play_aty_time_margin">15dp</dimen>
     <dimen name="play_aty_seekbar_height">1dp</dimen>
+
+    <dimen name="download_ayt_title_size">18sp</dimen>
+    <dimen name="download_ayt_othre_size">15sp</dimen>
+    <dimen name="download_aty_margin">15dp</dimen>
+    <dimen name="download_aty_item_title_text_size">18sp</dimen>
+    <dimen name="download_aty_item_download_text_size">12sp</dimen>
 </resources>
