@@ -488,7 +488,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         Uri uri = Uri.parse(url);
         mRequest = new DownloadManager.Request(uri);
         mRequest.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "video");
+                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "eye.mp4");
         mRequest.setVisibleInDownloadsUi(false).setMimeType(Contant.DOWNLOAD_MIMETYPE);
         getContentResolver().registerContentObserver(uri, true, mDownloadChangeObserver);
 
