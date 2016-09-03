@@ -281,8 +281,6 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
         String duration = String.valueOf(min) + "'" + String.valueOf(sec) + "\"";
         durationTv.start(duration);
         int blurIvHeight = height / 17 * 8;
-        float rotateWidth = width / 2;
-        float rotateHeight = blurIvHeight / 2;
         blurIv.setScaleY(-1);
         Picasso.with(VideoIntroduceActivity.this).load(coverBean.getBlurred()).skipMemoryCache().resize(width, blurIvHeight).into(blurIv);
         // 设置带图标的内容
@@ -431,7 +429,7 @@ public class VideoIntroduceActivity extends AbsBaseActivity implements TypeTextV
                 if (isDownload) {
                     downloadLl.setEnabled(false);
                 } else {
-                    File folder = Environment.getExternalStoragePublicDirectory("eye");
+                    File folder = Environment.getExternalStoragePublicDirectory(videoDataBean.getTitle() + ".mp4");
                     if (!folder.exists() || !folder.isDirectory()) {
                         folder.mkdirs();
                     }

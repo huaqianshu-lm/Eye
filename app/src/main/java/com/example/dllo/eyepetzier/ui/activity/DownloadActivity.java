@@ -53,36 +53,17 @@ public class DownloadActivity extends AbsBaseActivity implements View.OnClickLis
     @Override
     protected void initData() {
         ContentResolver resolver = getContentResolver();
-//        Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
-//        while (cursor.moveToNext()) {
-//            int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
-//            String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
-//            String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.MIME_TYPE));
-//            String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
-//            long duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
-//            long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
-//            AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean videoDataBean = new AuthorFragmentBean.ItemListBean.DataBean.VideoItemListBean.VideoDataBean();
-//            L.d("download",title);
-//            L.d("download",mimeType);
-//            L.d("download",duration + "");
-//            L.d("download",size  + "");
-//            L.d("download",path);
-//        }
-//        cursor.close();
-        Log.d("DownloadActivity", "1111");
         Cursor cursor = resolver.query(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,null,null,null,null);
         while (cursor.moveToNext()){
-            Log.d("DownloadActivity", "sssss");
             int id = cursor.getInt(cursor.getColumnIndexOrThrow(MediaStore.Video.Media._ID));
             String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.TITLE));
             String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DATA));
             long  duration = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DURATION));
             long size = cursor.getLong(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.SIZE));
-            Log.d("DownloadActivity", title);
-            Log.d("DownloadActivity", path);
+            String displayName = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Video.Media.DISPLAY_NAME));
+            L.d(id + title + path + duration + size + displayName);
         }
         cursor.close();
-        Log.d("DownloadActivity", "aaaaaa");
 
     }
 
