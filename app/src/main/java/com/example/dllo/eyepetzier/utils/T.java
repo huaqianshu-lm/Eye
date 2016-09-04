@@ -9,7 +9,7 @@ import com.example.dllo.eyepetzier.ui.application.EyeApp;
  * Toast的工具类,用final修饰不能被继承
  */
 public final class T {
-    private static boolean isDebug = true;// 是否为调式模式
+    private static boolean isDebug = false;// 是否为调式模式
 
     /**
      *私有的构造方法

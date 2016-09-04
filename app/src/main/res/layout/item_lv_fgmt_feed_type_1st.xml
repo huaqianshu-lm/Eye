@@ -2,15 +2,15 @@
 <!-- 精选页面 section 1 : listview 行布局的type 1st-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_view_head_foot" >
+    android:orientation="vertical"
+    android:padding="@dimen/padding_view_head_foot">
 
     <com.example.dllo.eyepetzier.view.TitleTextView
         android:id="@+id/item_lv_fgmt_feed_type_1st_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:gravity="center"/>
 
 </LinearLayout>

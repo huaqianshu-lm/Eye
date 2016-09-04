@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/item_author_fragment_child_rv_rl"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+                android:id="@+id/item_author_fragment_child_rv_rl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/height"
+                android:orientation="vertical">
 
     <ImageView
         android:id="@+id/item_author_fragment_child_rv_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="3dp" />
+        android:layout_margin="3dp"/>
 
     <RelativeLayout
         android:id="@+id/content"
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
 
         <LinearLayout
@@ -39,7 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#"
-                android:textSize="@dimen/author_fragment_item_category_text_size" />
+                android:textSize="@dimen/author_fragment_item_category_text_size"/>
 
             <TextView
                 android:id="@+id/item_author_fragment_child_rv_category_tv"
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_author_fragment_child_rv_title_tv"
-                android:textSize="@dimen/author_fragment_item_category_text_size" />
+                android:textSize="@dimen/author_fragment_item_category_text_size"/>
 
             <TextView
                 android:id="@+id/sign_tv"
@@ -55,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  /  "
-                android:textSize="@dimen/author_fragment_item_category_text_size" />
+                android:textSize="@dimen/author_fragment_item_category_text_size"/>
 
             <TextView
                 android:id="@+id/item_author_fragment_child_rv_latestreleasttime_tv"
@@ -63,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/item_author_fragment_child_rv_title_tv"
-                android:textSize="@dimen/author_fragment_item_category_text_size" />
+                android:textSize="@dimen/author_fragment_item_category_text_size"/>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

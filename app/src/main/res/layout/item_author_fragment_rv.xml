@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
 
     <RelativeLayout
         android:id="@+id/top"
@@ -12,7 +13,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_author_fragment_civ"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
         <RelativeLayout
             android:id="@+id/content"
@@ -27,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/author_fragment_item_title_text_color"
-                android:textStyle="bold" />
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/item_author_fragment_subtitle_tv"
@@ -37,7 +38,7 @@
                 android:layout_marginLeft="@dimen/author_fragment_item_margin"
                 android:layout_toRightOf="@id/item_author_fragment_title_tv"
                 android:textColor="@color/author_fragment_item_subtitle_text_color"
-                android:textSize="@dimen/author_fragment_item_subtitle_text_size" />
+                android:textSize="@dimen/author_fragment_item_subtitle_text_size"/>
 
             <TextView
                 android:id="@+id/item_author_fragment_description_tv"
@@ -49,7 +50,7 @@
                 android:maxLines="1"
                 android:paddingTop="@dimen/author_fragment_item_textview_padding_top"
                 android:textColor="@color/author_fragment_item_description_text_color"
-                android:textSize="@dimen/author_fragment_item_description_text_size" />
+                android:textSize="@dimen/author_fragment_item_description_text_size"/>
         </RelativeLayout>
 
         <ImageView
@@ -58,14 +59,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/ic_action_more_arrow_dark" />
+            android:src="@mipmap/ic_action_more_arrow_dark"/>
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/item_author_fragment_rv_rv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top" />
+        android:layout_below="@id/top"/>
 
     <View
         android:id="@+id/item_author_fragment_line"
@@ -75,5 +76,5 @@
         android:layout_marginLeft="@dimen/author_fragment_item_margin"
         android:layout_marginRight="@dimen/author_fragment_item_margin"
         android:layout_marginTop="@dimen/author_fragment_item_margin"
-        android:background="@color/author_fragment_itme_line_bg" />
+        android:background="@color/author_fragment_itme_line_bg"/>
 </RelativeLayout>

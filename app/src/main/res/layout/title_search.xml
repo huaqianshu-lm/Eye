@@ -10,6 +10,7 @@
         android:layout_weight="1"
         android:layout_height="0dp">
     <com.example.dllo.eyepetzier.view.SearchEditText
+        android:id="@+id/search_et"
         android:layout_width="0dp"
         android:layout_weight="1"
         android:background="@null"

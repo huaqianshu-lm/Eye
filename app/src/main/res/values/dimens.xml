@@ -7,6 +7,7 @@
     <dimen name="padding_extra">20dp</dimen>
     <dimen name="margin_default">10dp</dimen>
     <dimen name="margin_extra">20dp</dimen>
+    <dimen name="height">250dp</dimen>
 
     <dimen name="divide_line_height">8dp</dimen>
 

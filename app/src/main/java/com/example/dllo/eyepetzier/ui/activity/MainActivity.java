@@ -12,7 +12,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,7 +51,9 @@ import com.example.dllo.eyepetzier.ui.fragment.FeedFragment;
 import com.example.dllo.eyepetzier.ui.fragment.MineFragment;
 import com.example.dllo.eyepetzier.utils.Contant;
 import com.example.dllo.eyepetzier.utils.T;
+import com.example.dllo.eyepetzier.utils.ViewObserable;
 import com.example.dllo.eyepetzier.view.FlowLayout;
+import com.example.dllo.eyepetzier.view.SearchEditText;
 import com.example.dllo.eyepetzier.view.TitleTextView;
 
 import org.w3c.dom.Text;
@@ -57,6 +61,8 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Manifest;
+
+import rx.functions.Action1;
 
 
 public class MainActivity extends AbsBaseActivity implements View.OnClickListener, FeedFragment.ITurn {
@@ -71,8 +77,8 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
     private TextView canclRreachTv;
     private JSONArray list;
     private FlowLayout searchFl;
+    private SearchEditText searchEt;
     private ImageView setIv;
-    private TitleTextView titleTv;
     private RelativeLayout searchDefaultRl;
     private RelativeLayout searchResultRl;
     private RecyclerView searchRecyclerView;
@@ -107,8 +113,8 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         titleRl = bindView(R.id.main_title);
         searchLl = bindView(R.id.main_search_title);
         canclRreachTv = bindView(R.id.search_title_tv);
-        titleTv = bindView(R.id.title_tv);
         setIv = bindView(R.id.set_iv);
+        searchEt = bindView(R.id.search_et);
         setIv.setOnClickListener(this);
         searchIv.setOnClickListener(this);
         canclRreachTv.setOnClickListener(this);
@@ -129,7 +135,31 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
         setTitle();
         // 等待动画
         loadingAnimation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.rotate_loading);
-//        loadingAnimation.setInterpolator(new LinearInterpolator());
+        loadingAnimation.setInterpolator(new LinearInterpolator());
+        // 搜索框
+
+        searchEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (TextUtils.isEmpty(s)){
+                    searchDefaultRl.setVisibility(View.VISIBLE);
+                    searchResultRl.setVisibility(View.GONE);
+                }
+                String str = searchEt.getText().toString();
+                setSearchResult(-1, str);
+                searchDefaultRl.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -168,7 +198,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                     ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) searchTv.getLayoutParams();
                     marginLayoutParams.leftMargin = 10;
                     searchTv.setLayoutParams(marginLayoutParams);
-                    searchTv.setTextColor(Color.argb(255, 200, 200, 0));
+                    searchTv.setTextColor(Color.GRAY);
                 }
             }
 
@@ -183,16 +213,29 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 loadingRl.setVisibility(View.VISIBLE);
                 loadingIv.startAnimation(loadingAnimation);
                 searchDefaultRl.setVisibility(View.GONE);
-                setSearchResult(position);
+                setSearchResult(position, null);
 
                 T.shortMsg("item");
             }
         });
     }
 
-    private void setSearchResult(final int position) {
-        final String searchItem = (String) list.get(position);
-        String searchUrl = NetUrl.SEARCH__ITEM.replace("参数", searchItem);
+    /**
+     * 搜索结果的设置
+     *
+     * @param position
+     */
+    private void setSearchResult(final int position, String str) {
+        String content = null;
+        if (position > -1) {
+            content = (String) list.get(position);
+        } else {
+            if (str != null) {
+                content = str;
+            }
+        }
+        String searchUrl = NetUrl.SEARCH__ITEM.replace("参数", content);
+        final String finalContent = content;
         NetRequestSingleton.getInstance().startRequest(searchUrl, SearchBean.class, new IOnHttpCallback<SearchBean>() {
             @TargetApi(Build.VERSION_CODES.M)
             @Override
@@ -201,7 +244,7 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                 itemListBeen = response.getItemList();
                 Log.d("search", itemListBeen.size() + "=====");
                 // 搜索结果的标题
-                searchResultTv.setText(searchItem);
+                searchResultTv.setText(finalContent);
                 searchResultNumTv.setText(itemListBeen.size() + "");
 
                 int count = itemListBeen.size();
@@ -289,27 +332,19 @@ public class MainActivity extends AbsBaseActivity implements View.OnClickListene
                                         }
                                         isSuccess = true;
                                         searchAdapter.setDatas(itemListBeen);
-
                                     }
 
                                     @Override
                                     public void onError(Throwable ex) {
-
                                     }
                                 });
-                            }else {
+                            } else {
 
                                 loadingRl.setVisibility(View.GONE);
                                 searchResultNumTv.setText(String.valueOf(itemListBeen.size()));
                             }
-
-
                         }
-
-
-
                     }
-
                 });
                 searchResultRl.setVisibility(View.VISIBLE);
                 searchRecyclerView.setAdapter(searchAdapter);
